@@ -1,32 +1,45 @@
 package com.maureen.wandevelop.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import com.maureen.wandevelop.HomeViewModel
-import com.maureen.wandevelop.R
+import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.maureen.wandevelop.adapter.HomePageArticleAdapter
+import com.maureen.wandevelop.databinding.FragmentHomeBinding
+import com.maureen.wandevelop.network.ArticleBean
+import com.maureen.wandevelop.viewmodels.HomeViewModel
 
 class HomeFragment : Fragment() {
+    companion object {
+        private const val TAG = "HomeFragment"
+    }
 
-    private lateinit var homeViewModel: HomeViewModel
+    private val mViewModel: HomeViewModel by viewModels()
+    private lateinit var mViewBinding: FragmentHomeBinding
 
-    override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
-    ): View? {
-        homeViewModel =
-                ViewModelProvider(this).get(HomeViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_home, container, false)
-        val textView: TextView = root.findViewById(R.id.text_home)
-        homeViewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
-        })
-        return root
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        mViewBinding = FragmentHomeBinding.inflate(inflater, container, false)
+        return mViewBinding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        with(mViewBinding) {
+            val data = mutableListOf<ArticleBean>()
+            val adapter = HomePageArticleAdapter(data)
+            homeArticleList.layoutManager = LinearLayoutManager(activity)
+            homeArticleList.adapter = adapter
+            mViewModel.mLiveArticleData.observe(viewLifecycleOwner, {
+                data.clear()
+                data.addAll(it)
+                Log.d(TAG, "onViewCreated: ${data.size}")
+                adapter.notifyDataSetChanged()
+            })
+            mViewModel.topArticleList()
+        }
     }
 }

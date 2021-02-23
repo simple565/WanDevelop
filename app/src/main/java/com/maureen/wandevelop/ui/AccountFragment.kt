@@ -8,8 +8,8 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.maureen.wandevelop.DiscoveryViewModel
 import com.maureen.wandevelop.R
+import com.maureen.wandevelop.viewmodels.DiscoveryViewModel
 
 class AccountFragment : Fragment() {
 
