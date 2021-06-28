@@ -3,7 +3,7 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="title_home">首页</string>
-    <string name="title_knowledge">学习</string>
+    <string name="title_knowledge">体系</string>
     <string name="title_discovery">发现</string>
     <string name="title_account">我的</string>
 
@@ -14,4 +14,9 @@
     <string name="nav_night_mode">夜间模式</string>
     <string name="nav_todo">TODO</string>
     <string name="nav_my_score">我的积分</string>
+
+    <string name="prompt_username">用户名</string>
+    <string name="prompt_password">密码</string>
+    <string name="action_sign_in">注册/登录</string>
+    <string name="action_sign_in_short">Sign in</string>
 </resources>

@@ -5,9 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.maureen.wandevelop.network.ArticleBean
 import com.maureen.wandevelop.network.WanAndroidService
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class HomeViewModel : ViewModel() {
     companion object {
@@ -16,12 +14,8 @@ class HomeViewModel : ViewModel() {
 
     val mLiveArticleData = MutableLiveData<MutableList<ArticleBean>>()
 
-    fun topArticleList() {
-        viewModelScope.launch {
-            val data = withContext(Dispatchers.IO) {
-                WanAndroidService.create().topArticleList()
-            }
-            mLiveArticleData.value = data.data
-        }
+    fun topArticleList() = viewModelScope.launch {
+        val data = WanAndroidService.create().stickyArticleList()
+        mLiveArticleData.value = data.data
     }
 }

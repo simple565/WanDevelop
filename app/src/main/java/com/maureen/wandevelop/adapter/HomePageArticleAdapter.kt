@@ -23,6 +23,8 @@ class HomePageArticleAdapter(private var list: MutableList<ArticleBean>?) : Recy
         holder.titleTv.text = list?.get(position)?.title
         holder.authorTv.text = list?.get(position)?.author
         holder.dateTv.text = list?.get(position)?.niceShareDate
+        holder.superCategoryTv.text = list?.get(position)?.superChapterName
+        holder.categoryTv.text = list?.get(position)?.chapterName
     }
 
     override fun getItemCount(): Int {
@@ -34,11 +36,11 @@ class HomePageArticleAdapter(private var list: MutableList<ArticleBean>?) : Recy
         val titleTv = viewBinding.itemArticleTvTitle
         val authorTv = viewBinding.itemArticleTvAuthor
         val dateTv = viewBinding.itemArticleTvDate
+        val superCategoryTv = viewBinding.itemArticleTvSuperCategory
+        val categoryTv = viewBinding.itemArticleTvCategory
     }
 
     companion object {
         private const val TAG = "HomePageArticleAdapter"
-
-
     }
 }

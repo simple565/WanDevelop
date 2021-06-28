@@ -1,12 +1,6 @@
 package com.maureen.wandevelop.network
 
-import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
-import okhttp3.logging.HttpLoggingInterceptor.Level
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.http.GET
-import retrofit2.http.Path
+import retrofit2.http.*
 
 /**
  * Function:
@@ -16,28 +10,47 @@ import retrofit2.http.Path
 interface WanAndroidService {
 
     companion object {
-        private const val BASE_URL = "https://www.wanandroid.com/"
+        const val BASE_URL = "https://www.wanandroid.com/"
 
         fun create(): WanAndroidService {
-            val logger = HttpLoggingInterceptor().apply { level = Level.BASIC }
-
-            val client = OkHttpClient.Builder()
-                    .addInterceptor(logger)
-                    .build()
-
-            return Retrofit.Builder()
-                    .baseUrl(BASE_URL)
-                    .client(client)
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .build()
-                    .create(WanAndroidService::class.java)
+            return RetrofitManager.instance.create(WanAndroidService::class.java)
         }
     }
 
+    @FormUrlEncoded
+    @POST("user/login")
+    suspend fun login(
+        @Field("username") username: String,
+        @Field("password") password: String
+    ): BaseResponse<UserInfo>
+
+    @FormUrlEncoded
+    @POST("user/register")
+    suspend fun register(
+        @Field("username") username: String,
+        @Field("password") password: String,
+        @Field("repassword") repassword: String
+    ): BaseResponse<UserInfo>
+
+    @GET("user/logout/json")
+    suspend fun logout()
+
+    @GET("banner/json")
+    suspend fun banner(): BaseResponse<MutableList<Banner>>
+
     @GET("article/top/json")
-    suspend fun topArticleList(): BaseResponse<MutableList<ArticleBean>>
+    suspend fun stickyArticleList(): BaseResponse<MutableList<ArticleBean>>
 
     @GET("article/list/{page}/json")
     suspend fun articleList(@Path("page") page: Int): BaseResponse<ArticleListBean>
 
+    @GET("hotkey/json")
+    suspend fun hotKey(): BaseResponse<HotKey>
+
+    @FormUrlEncoded
+    @POST("article/query/{page}/json")
+    suspend fun search(
+        @Path("page") page: Int,
+        @Field("k") key: String
+    ): BaseResponse<ArticleListBean>
 }
