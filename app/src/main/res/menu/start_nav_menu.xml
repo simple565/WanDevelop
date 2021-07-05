@@ -3,7 +3,7 @@
 
     <item
         android:id="@+id/nav_score"
-        android:icon="@drawable/ic_score_24dp"
+        android:icon="@drawable/ic_score_24"
         android:title="@string/nav_my_score" />
 
     <item
@@ -13,7 +13,7 @@
 
     <item
         android:id="@+id/nav_todo"
-        android:icon="@drawable/ic_todo_24dp"
+        android:icon="@drawable/ic_todo_24"
         android:title="@string/nav_todo" />
 
     <item
@@ -23,11 +23,11 @@
 
     <item
         android:id="@+id/nav_setting"
-        android:icon="@drawable/ic_setting_24dp"
+        android:icon="@drawable/ic_setting_24"
         android:title="@string/nav_setting" />
 
     <item
         android:id="@+id/nav_logout"
-        android:icon="@drawable/ic_logout_white_24dp"
+        android:icon="@drawable/ic_logout_white_24"
         android:title="@string/nav_logout" />
 </menu>
