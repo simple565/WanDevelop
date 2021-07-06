@@ -16,35 +16,33 @@ class MainActivity : BaseActivity() {
         private const val TAG = "MainActivity"
     }
 
-    private lateinit var mViewBinding: ActivityMainBinding
+    private val viewBinding by lazy {
+        ActivityMainBinding.inflate(layoutInflater)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mViewBinding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(mViewBinding.root)
+        setContentView(viewBinding.root)
         initView()
     }
 
     override fun initView() {
-        with(mViewBinding) {
+        with(viewBinding) {
             with(mainToolbar) {
                 setSupportActionBar(this)
                 title = getString(R.string.title_home)
             }
             with(mainDrawableLayout) {
-                val toggle = ActionBarDrawerToggle(this@MainActivity, mainDrawableLayout, mainToolbar,
-                        R.string.navigation_drawer_open, R.string.navigation_drawer_close)
+                val toggle = ActionBarDrawerToggle(
+                    this@MainActivity, mainDrawableLayout, mainToolbar,
+                    R.string.navigation_drawer_open, R.string.navigation_drawer_close
+                )
                 addDrawerListener(toggle)
                 toggle.syncState()
                 setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
             }
             navHostViewPager.adapter = NavPageAdapter(this@MainActivity)
             navHostViewPager.registerOnPageChangeCallback(object : OnPageChangeCallback() {
-                override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
-                    super.onPageScrolled(position, positionOffset, positionOffsetPixels)
-                    Log.d(TAG, "onPageScrolled: $position, $positionOffset, $positionOffsetPixels")
-                }
-
                 override fun onPageSelected(position: Int) {
                     super.onPageSelected(position)
                     Log.d(TAG, "onPageSelected: $position")
@@ -55,11 +53,6 @@ class MainActivity : BaseActivity() {
                         KNOWLEDGE_PAGE_INDEX -> mainBottomNavView.selectedItemId = R.id.navigation_knowledge
                         else -> mainBottomNavView.selectedItemId = R.id.navigation_home
                     }
-                }
-
-                override fun onPageScrollStateChanged(state: Int) {
-                    super.onPageScrollStateChanged(state)
-                    Log.d(TAG, "onPageScrollStateChanged: $state")
                 }
             })
             mainBottomNavView.setOnNavigationItemSelectedListener {

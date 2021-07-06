@@ -17,6 +17,7 @@
 
     <string name="prompt_username">用户名</string>
     <string name="prompt_password">密码</string>
+    <string name="prompt_confirm_password">再次输入密码</string>
     <string name="action_sign_in">登录</string>
     <string name="action_register">去注册</string>
     <string name="register">注册</string>

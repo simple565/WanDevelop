@@ -14,7 +14,7 @@ open class BaseResponse<T> {
 data class UserInfo(
     val admin: Boolean,
     val chapterTops: MutableList<Any>,
-    val coinCount:Int,
+    val coinCount: Int,
     val collectIds: MutableList<Long>,
     val email: String,
     val icon: String,
@@ -63,6 +63,7 @@ data class ArticleBean(
     val userId: Int,
     val visible: Int,
     val zan: Int,
+    var top: Boolean = false
 )
 
 data class ArticleListBean(

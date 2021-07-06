@@ -17,7 +17,7 @@
             android:id="@+id/item_article_tv_author"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/indigo_700"
+            android:textColor="?android:attr/colorPrimary"
             android:textSize="12sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
