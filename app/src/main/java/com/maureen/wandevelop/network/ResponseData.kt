@@ -1,16 +1,28 @@
 package com.maureen.wandevelop.network
 
+import androidx.annotation.Keep
+
 /**
  * Function:
  * @author lianml
  * Create 2021-02-15
  */
-open class BaseResponse<T> {
-    val data: T? = null
-    val errorMsg: String? = null
-    val errorCode: Int = 0
+@Keep
+data class BaseResponse<T> (
+    val data: T?,
+    val errorMsg: String,
+    val errorCode: Int
+){
+    fun apiData(): T {
+        if (errorCode == 0 && data != null) {
+            return data
+        } else {
+            throw ApiException(errorCode, errorMsg)
+        }
+    }
 }
 
+@Keep
 data class UserInfo(
     val admin: Boolean,
     val chapterTops: MutableList<Any>,
@@ -27,8 +39,10 @@ data class UserInfo(
     val username: String,
 )
 
+@Keep
 data class Tag(val name: String, val url: String)
 
+@Keep
 data class ArticleBean(
     val apkLink: String,
     val audit: Int,
@@ -66,6 +80,7 @@ data class ArticleBean(
     var top: Boolean = false
 )
 
+@Keep
 data class ArticleListBean(
     val curPage: Int = 0,
     val datas: MutableList<ArticleBean>,
@@ -76,6 +91,7 @@ data class ArticleListBean(
     val total: Int = 0
 )
 
+@Keep
 data class Banner(
     val desc: String,
     val id: Int,
@@ -87,6 +103,7 @@ data class Banner(
     val url: String
 )
 
+@Keep
 data class HotKey(
     val id: Int,
     val link: String,
