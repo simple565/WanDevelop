@@ -2,8 +2,6 @@ package com.maureen.wandevelop.ui
 
 import android.os.Bundle
 import android.util.Log
-import androidx.appcompat.app.ActionBarDrawerToggle
-import androidx.drawerlayout.widget.DrawerLayout
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.maureen.wandevelop.R
 import com.maureen.wandevelop.adapter.*
@@ -28,19 +26,6 @@ class MainActivity : BaseActivity() {
 
     override fun initView() {
         with(viewBinding) {
-            with(mainToolbar) {
-                setSupportActionBar(this)
-                title = getString(R.string.title_home)
-            }
-            with(mainDrawableLayout) {
-                val toggle = ActionBarDrawerToggle(
-                    this@MainActivity, mainDrawableLayout, mainToolbar,
-                    R.string.navigation_drawer_open, R.string.navigation_drawer_close
-                )
-                addDrawerListener(toggle)
-                toggle.syncState()
-                setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
-            }
             navHostViewPager.adapter = NavPageAdapter(this@MainActivity)
             navHostViewPager.registerOnPageChangeCallback(object : OnPageChangeCallback() {
                 override fun onPageSelected(position: Int) {

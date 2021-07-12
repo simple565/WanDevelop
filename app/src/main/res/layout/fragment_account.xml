@@ -1,22 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.KnowledgeFragment">
+    tools:context=".ui.account.AccountFragment">
 
-    <TextView
-        android:id="@+id/text_notifications"
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_height="150dp"
+        android:layout_gravity="top">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout style="@style/setItemStyle">
+
+                <TextView
+                    style="@style/setItemTitleStyle"
+                    android:text="@string/nav_my_score"
+                    app:drawableStartCompat="@drawable/ic_score_24" />
+            </RelativeLayout>
+
+            <RelativeLayout style="@style/setItemStyle">
+
+                <TextView
+                    style="@style/setItemTitleStyle"
+                    android:text="@string/nav_my_collect"
+                    app:drawableStartCompat="@drawable/ic_like_not" />
+            </RelativeLayout>
+
+            <RelativeLayout style="@style/setItemStyle">
+
+                <TextView
+                    style="@style/setItemTitleStyle"
+                    android:text="@string/nav_todo"
+                    app:drawableStartCompat="@drawable/ic_todo_24" />
+            </RelativeLayout>
+
+            <RelativeLayout style="@style/setItemStyle">
+
+                <TextView
+                    style="@style/setItemTitleStyle"
+                    android:text="@string/nav_clear_cache"
+                    app:drawableStartCompat="@drawable/ic_night_24dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="8dp"
+                    tools:ignore="RelativeOverlap"
+                    tools:text="3.12MB" />
+            </RelativeLayout>
+
+            <RelativeLayout style="@style/setItemStyle">
+
+                <TextView
+                    style="@style/setItemTitleStyle"
+                    android:text="@string/nav_night_mode"
+                    app:drawableStartCompat="@drawable/ic_night_24dp" />
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="8dp" />
+            </RelativeLayout>
+
+
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="36dp"
+                android:text="@string/nav_logout"
+                app:icon="@drawable/ic_logout_white" />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
