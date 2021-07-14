@@ -1,21 +1,20 @@
 package com.maureen.wandevelop.viewmodels
 
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import com.maureen.wandevelop.base.BaseViewModel
+import com.maureen.wandevelop.data.HomePageRepository
 import com.maureen.wandevelop.network.ArticleBean
-import com.maureen.wandevelop.network.WanAndroidService
-import kotlinx.coroutines.launch
 
-class HomeViewModel : ViewModel() {
+class HomeViewModel : BaseViewModel() {
     companion object {
         private const val TAG = "HomeViewModel"
     }
 
     val mLiveArticleData = MutableLiveData<MutableList<ArticleBean>>()
 
-    fun topArticleList() = viewModelScope.launch {
-        val data = WanAndroidService.create().stickyArticleList()
-        mLiveArticleData.value = data.data
-    }
+    fun topArticleList() = launch(
+        block = {
+            mLiveArticleData.value = HomePageRepository.loadHomeArticleList(0).datas
+        }
+    )
 }

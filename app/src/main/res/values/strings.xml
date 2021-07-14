@@ -27,4 +27,9 @@
     <string name="network_request_failed">网络请求失败</string>
     <string name="network_request_timeout">网络请求超时</string>
     <string name="api_data_parse_error">数据解析错误</string>
+
+    <string name="top">置顶</string>
+    <string name="fresh">新</string>
+    <string name="which_author">作者：%1$s</string>
+    <string name="which_share_user">分享人：%1$s</string>
 </resources>

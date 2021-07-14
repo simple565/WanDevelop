@@ -1,9 +1,11 @@
 package com.maureen.wandevelop.adapter
 
-import android.util.Log
+import android.text.TextUtils
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.maureen.wandevelop.R
 import com.maureen.wandevelop.databinding.ItemArticleBinding
 import com.maureen.wandevelop.network.ArticleBean
 
@@ -13,29 +15,56 @@ import com.maureen.wandevelop.network.ArticleBean
  * @author lianml
  * Create 2021-02-18
  */
-class HomePageArticleAdapter(private var list: MutableList<ArticleBean>?) : RecyclerView.Adapter<HomePageArticleAdapter.ViewHolder>() {
+class HomePageArticleAdapter(private var list: MutableList<ArticleBean>?) :
+    RecyclerView.Adapter<HomePageArticleAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(ItemArticleBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+        return ViewHolder(
+            ItemArticleBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+        )
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        Log.d(TAG, "onBindViewHolder: $itemCount")
-        holder.titleTv.text = list?.get(position)?.title
-        holder.authorTv.text = list?.get(position)?.author
-        holder.dateTv.text = list?.get(position)?.niceShareDate
-        holder.superCategoryTv.text = list?.get(position)?.superChapterName
-        holder.categoryTv.text = list?.get(position)?.chapterName
+        val data = list?.get(position)
+        holder.topMark.visibility = if (data?.top == true) View.VISIBLE else View.GONE
+        holder.freshTv.visibility = if (data?.fresh == true) View.VISIBLE else View.GONE
+        holder.titleTv.text = data?.title
+        var author = ""
+        if (!TextUtils.isEmpty(data?.author)) {
+            author = String.format(
+                holder.authorTv.context.getString(R.string.which_author),
+                data?.author
+            )
+        } else if (!TextUtils.isEmpty(data?.shareUser)) {
+            author = String.format(
+                holder.authorTv.context.getString(R.string.which_share_user),
+                data?.shareUser
+            )
+        }
+        if (!TextUtils.isEmpty(data?.desc)) {
+            holder.desTv.text = data?.desc
+        }
+        holder.authorTv.text = author
+        holder.dateTv.text = data?.niceShareDate
+        holder.superCategoryTv.text = data?.superChapterName
+        holder.categoryTv.text = data?.chapterName
     }
 
     override fun getItemCount(): Int {
-        Log.d(TAG, "getItemCount: ${list?.size}")
         return list?.size ?: 0
     }
 
     class ViewHolder(viewBinding: ItemArticleBinding) : RecyclerView.ViewHolder(viewBinding.root) {
+        val topMark = viewBinding.itemArticleTvTop
+        val freshTv = viewBinding.itemArticleTvFresh
+        val tagTv = viewBinding.itemArticleTvTag
         val titleTv = viewBinding.itemArticleTvTitle
         val authorTv = viewBinding.itemArticleTvAuthor
         val dateTv = viewBinding.itemArticleTvDate
+        val desTv = viewBinding.itemArticleTvDescription
         val superCategoryTv = viewBinding.itemArticleTvSuperCategory
         val categoryTv = viewBinding.itemArticleTvCategory
     }

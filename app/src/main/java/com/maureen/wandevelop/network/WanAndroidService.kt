@@ -12,8 +12,8 @@ interface WanAndroidService {
     companion object {
         const val BASE_URL = "https://www.wanandroid.com/"
 
-        fun create(): WanAndroidService {
-            return RetrofitManager.instance.create(WanAndroidService::class.java)
+        val instance: WanAndroidService by lazy {
+            RetrofitManager.instance.create(WanAndroidService::class.java)
         }
     }
 
