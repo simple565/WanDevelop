@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.maureen.wandevelop.R
 import com.maureen.wandevelop.databinding.ItemArticleBinding
-import com.maureen.wandevelop.ext.convertQuo
+import com.maureen.wandevelop.ext.fromHtml
 import com.maureen.wandevelop.network.ArticleBean
 
 /**
@@ -32,7 +32,7 @@ class HomePageArticleAdapter(private var list: MutableList<ArticleBean>?) :
         val data = list?.get(position)
         holder.topMark.visibility = if (data?.top == true) View.VISIBLE else View.GONE
         holder.freshTv.visibility = if (data?.fresh == true) View.VISIBLE else View.GONE
-        holder.titleTv.text = data?.title?.convertQuo()
+        holder.titleTv.text = data?.title?.fromHtml()
         var author = ""
         if (!TextUtils.isEmpty(data?.author)) {
             author = String.format(
@@ -46,7 +46,7 @@ class HomePageArticleAdapter(private var list: MutableList<ArticleBean>?) :
             )
         }
         if (!TextUtils.isEmpty(data?.desc)) {
-            holder.desTv.text = data?.desc?.convertQuo()
+            holder.desTv.text = data?.desc?.fromHtml()
         }
         holder.authorTv.text = author
         holder.dateTv.text = data?.niceShareDate

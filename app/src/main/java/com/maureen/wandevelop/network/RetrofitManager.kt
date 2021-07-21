@@ -1,9 +1,5 @@
 package com.maureen.wandevelop.network
 
-import android.util.Log
-import okhttp3.Cookie
-import okhttp3.CookieJar
-import okhttp3.HttpUrl
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -28,7 +24,7 @@ object RetrofitManager {
     }
 
     private val okHttpClient by lazy {
-        val logger = HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BASIC }
+        val logger = HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY }
         OkHttpClient.Builder()
             .connectTimeout(DEFAULT_TIME_OUT, TimeUnit.SECONDS)
             .readTimeout(DEFAULT_TIME_OUT, TimeUnit.SECONDS)

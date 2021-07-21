@@ -22,4 +22,10 @@ class RegisterFragment : BaseFragment() {
         viewBinding = FragmentRegisterBinding.inflate(inflater, container, false)
         return viewBinding.root
     }
+
+    override fun initView() {
+    }
+
+    override fun initData() {
+    }
 }

@@ -7,19 +7,44 @@
     tools:context=".ui.account.AccountFragment">
 
     <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/account_appbar"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:layout_gravity="top">
+        android:layout_height="240dp"
+        android:layout_gravity="top"
+        android:background="?colorPrimaryDark"
+        android:fitsSystemWindows="true">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/account_toolbar_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+            android:layout_height="match_parent"
+            app:expandedTitleTextAppearance="@style/TextAppearance.Settings.Toolbar.Text"
+            app:layout_scrollFlags="scroll|snap|exitUntilCollapsed"
+            app:titleEnabled="false">
+
+            <TextView
+                android:id="@+id/account_tv_nickname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|bottom"
+                android:layout_marginBottom="16dp"
+                android:text="@string/nav_login_or_register"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/account_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?actionBarSize"
+                android:background="?colorPrimaryDark"
+                app:layout_collapseMode="pin"
+                app:menu="@menu/set_tool_bar_menu" />
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/account_scroll"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
@@ -27,40 +52,73 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/shape_ractangle_with_corner"
             android:orientation="vertical">
 
-            <RelativeLayout style="@style/setItemStyle">
+            <RelativeLayout
+                android:id="@+id/account_rl_score"
+                style="@style/setItemLayoutStyle"
+                android:background="?colorPrimaryDark"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp">
 
                 <TextView
                     style="@style/setItemTitleStyle"
                     android:text="@string/nav_my_score"
-                    app:drawableStartCompat="@drawable/ic_score_24" />
+                    app:drawableStartCompat="@drawable/ic_score" />
+
+                <TextView
+                    android:id="@+id/account_tv_my_score"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    tools:ignore="RelativeOverlap"
+                    tools:text="123" />
+
             </RelativeLayout>
 
-            <RelativeLayout style="@style/setItemStyle">
+            <RelativeLayout
+                android:id="@+id/account_rl_start"
+                style="@style/setItemLayoutStyle"
+                android:background="?colorPrimaryDark"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp">
 
                 <TextView
                     style="@style/setItemTitleStyle"
                     android:text="@string/nav_my_collect"
-                    app:drawableStartCompat="@drawable/ic_like_not" />
+                    app:drawableStartCompat="@drawable/ic_star_border" />
             </RelativeLayout>
 
-            <RelativeLayout style="@style/setItemStyle">
+            <RelativeLayout
+                android:id="@+id/account_rl_todo"
+                style="@style/setItemLayoutStyle"
+                android:background="?colorPrimaryDark"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp">
 
                 <TextView
                     style="@style/setItemTitleStyle"
                     android:text="@string/nav_todo"
-                    app:drawableStartCompat="@drawable/ic_todo_24" />
+                    app:drawableStartCompat="@drawable/ic_todo" />
             </RelativeLayout>
 
-            <RelativeLayout style="@style/setItemStyle">
+            <RelativeLayout
+                android:id="@+id/account_rl_clear"
+                style="@style/setItemLayoutStyle"
+                android:background="?colorPrimaryDark"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp">
 
                 <TextView
                     style="@style/setItemTitleStyle"
                     android:text="@string/nav_clear_cache"
-                    app:drawableStartCompat="@drawable/ic_night_24dp" />
+                    app:drawableStartCompat="@drawable/ic_clean" />
 
                 <TextView
+                    android:id="@+id/account_tv_cache_size"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
@@ -70,28 +128,60 @@
                     tools:text="3.12MB" />
             </RelativeLayout>
 
-            <RelativeLayout style="@style/setItemStyle">
+            <RelativeLayout
+                android:id="@+id/account_rl_dark_mode"
+                style="@style/setItemLayoutStyle"
+                android:background="?colorPrimaryDark"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp">
 
                 <TextView
                     style="@style/setItemTitleStyle"
-                    android:text="@string/nav_night_mode"
-                    app:drawableStartCompat="@drawable/ic_night_24dp" />
+                    android:text="@string/nav_dark_mode"
+                    app:drawableStartCompat="@drawable/ic_night" />
 
                 <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/account_swc_dark_mode"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_marginEnd="8dp" />
             </RelativeLayout>
 
+            <RelativeLayout
+                android:id="@+id/account_rl_check_update"
+                style="@style/setItemLayoutStyle"
+                android:background="?colorPrimaryDark"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp">
+
+                <TextView
+                    style="@style/setItemTitleStyle"
+                    android:text="@string/nav_check_update"
+                    app:drawableStartCompat="@drawable/ic_upgrade" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/account_rl_about_us"
+                style="@style/setItemLayoutStyle"
+                android:background="?colorPrimaryDark"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp">
+
+                <TextView
+                    style="@style/setItemTitleStyle"
+                    android:text="@string/nav_about_us"
+                    app:drawableStartCompat="@drawable/ic_share" />
+            </RelativeLayout>
 
             <com.google.android.material.button.MaterialButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:id="@+id/account_btn_logout"
+                style="@style/smallButtonStyle"
                 android:layout_gravity="center_horizontal"
-                android:layout_margin="36dp"
+                android:layout_marginTop="8dp"
                 android:text="@string/nav_logout"
-                app:icon="@drawable/ic_logout_white" />
+                android:textColor="@color/red_200"
+                app:backgroundTint="@color/red_700" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

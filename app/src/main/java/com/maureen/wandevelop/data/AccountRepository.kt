@@ -9,7 +9,11 @@ import com.maureen.wandevelop.network.WanAndroidService
  */
 object AccountRepository {
 
-    suspend fun login(username: String, password: String) =
-        WanAndroidService.instance.login(username, password).apiData()
+    suspend fun register(username: String, password: String, passwordAgain: String) =
+        WanAndroidService.instance.register(username, password, passwordAgain)
 
+    suspend fun login(username: String, password: String) =
+        WanAndroidService.instance.login(username, password)
+
+    suspend fun logout() = WanAndroidService.instance.logout()
 }
