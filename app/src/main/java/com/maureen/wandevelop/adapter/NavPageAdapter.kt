@@ -3,10 +3,10 @@ package com.maureen.wandevelop.adapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.maureen.wandevelop.ui.AccountFragment
 import com.maureen.wandevelop.ui.DiscoveryFragment
 import com.maureen.wandevelop.ui.HomeFragment
 import com.maureen.wandevelop.ui.KnowledgeFragment
+import com.maureen.wandevelop.ui.account.AccountFragment
 
 /**
  * Function:

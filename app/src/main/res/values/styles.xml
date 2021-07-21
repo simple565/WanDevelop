@@ -3,24 +3,27 @@
 
     <style name="circleImageStyle">
         <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">10dp</item>
+        <item name="cornerSize">50%</item>
     </style>
 
-    <style name="setItemTitleStyle">
-        <item name="android:textStyle">bold</item>
-        <item name="android:drawablePadding">8dp</item>
-        <item name="android:gravity">center_vertical</item>
+    <style name="SetItemTitleStyle">
         <item name="android:layout_height">match_parent</item>
         <item name="android:layout_width">wrap_content</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:gravity">center_vertical</item>
         <item name="android:textSize">14sp</item>
-        <item name="android:layout_marginStart">10dp</item>
         <item name="android:includeFontPadding">false</item>
     </style>
 
-    <style name="setItemStyle">
-        <item name="android:layout_marginTop">8dp</item>
-        <item name="android:layout_gravity">center_vertical</item>
-        <item name="android:layout_height">36dp</item>
+    <style name="setItemLayoutStyle">
         <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">48dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:layout_marginBottom">4dp</item>
+        <item name="elevation">4dp</item>
+    </style>
+
+    <style name="TextAppearance.Settings.Toolbar.Text" parent="TextAppearance.MaterialComponents.Headline5">
+        <item name="android:textSize">18sp</item>
     </style>
 </resources>

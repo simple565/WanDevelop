@@ -1,13 +1,12 @@
 <resources>
 
     <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <item name="colorPrimary">@color/light_blue_500</item>
-        <item name="colorPrimaryDark">@color/dark</item>
-        <item name="colorSecondary">@color/teal_500</item>
-        <item name="colorOnPrimary">@color/white</item>
-        <item name="colorOnSurface">@color/black</item>
-        <item name="colorAccent">@color/light_blue_500</item>
+        <item name="colorPrimary">@color/blue_grey_500</item>
+        <item name="colorPrimaryDark">@color/black</item>
+        <item name="colorAccent">@color/blue_grey_700</item>
+        <item name="colorControlNormal">@color/gray_200</item>
         <item name="android:textColorPrimary">@color/white</item>
-        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:navigationBarColor">@color/black</item>
     </style>
 </resources>

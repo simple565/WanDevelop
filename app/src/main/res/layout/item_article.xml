@@ -4,8 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="4dp"
-    android:background="?colorPrimaryDark"
+    android:layout_marginStart="8dp"
+    android:layout_marginTop="4dp"
+    android:layout_marginEnd="8dp"
+    android:layout_marginBottom="8dp"
     android:elevation="4dp"
     app:cardCornerRadius="5dp">
 
@@ -43,31 +45,15 @@
             tools:visibility="visible" />
 
         <TextView
-            android:id="@+id/item_article_tv_tag"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:background="@drawable/bg_category"
-            android:textColor="@color/white"
-            android:textSize="12sp"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="@id/item_article_tv_date"
-            app:layout_constraintStart_toEndOf="@id/item_article_tv_fresh"
-            app:layout_constraintTop_toTopOf="@id/item_article_tv_date"
-            app:layout_goneMarginStart="0dp"
-            tools:text="本站发布" />
-
-        <TextView
             android:id="@+id/item_article_tv_super_category"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:background="@drawable/bg_category"
-            android:textColor="@color/white"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="@id/item_article_tv_date"
-            app:layout_constraintStart_toEndOf="@id/item_article_tv_tag"
+            app:layout_constraintStart_toEndOf="@id/item_article_tv_fresh"
             app:layout_constraintTop_toTopOf="@id/item_article_tv_date"
+            app:layout_goneMarginStart="0dp"
             tools:text="广场自助" />
 
         <TextView
@@ -75,8 +61,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:background="@drawable/bg_category"
-            android:textColor="@color/white"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="@id/item_article_tv_date"
             app:layout_constraintStart_toEndOf="@id/item_article_tv_super_category"
