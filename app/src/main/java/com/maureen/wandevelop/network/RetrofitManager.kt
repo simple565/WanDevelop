@@ -1,5 +1,9 @@
 package com.maureen.wandevelop.network
 
+import android.util.Log
+import okhttp3.Cookie
+import okhttp3.CookieJar
+import okhttp3.HttpUrl
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -13,7 +17,7 @@ import java.util.concurrent.TimeUnit
  */
 object RetrofitManager {
 
-    private const val DEFAULT_TIME_OUT: Long = 60
+    private const val DEFAULT_TIME_OUT: Long = 60L
 
     val instance: Retrofit by lazy {
         Retrofit.Builder()
@@ -30,9 +34,9 @@ object RetrofitManager {
             .readTimeout(DEFAULT_TIME_OUT, TimeUnit.SECONDS)
             .writeTimeout(DEFAULT_TIME_OUT, TimeUnit.SECONDS)
             .addInterceptor(logger)
-            /*.cookieJar(object : CookieJar {
+            .cookieJar(object : CookieJar {
                 override fun loadForRequest(url: HttpUrl): List<Cookie> {
-                    TODO("Not yet implemented")
+                   return emptyList()
                 }
 
                 override fun saveFromResponse(url: HttpUrl, cookies: List<Cookie>) {
@@ -40,7 +44,7 @@ object RetrofitManager {
                         Log.i("TAG", "saveFromResponse: ${it.name} ${it.value}")
                     }
                 }
-            })*/
+            })
             .build()
     }
 }

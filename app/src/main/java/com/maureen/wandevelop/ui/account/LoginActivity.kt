@@ -1,6 +1,7 @@
 package com.maureen.wandevelop.ui.account
 
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -8,9 +9,10 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.maureen.wandevelop.R
 import com.maureen.wandevelop.databinding.ActivityLoginBinding
+import com.maureen.wandevelop.viewmodels.AccountViewModel
 
 class LoginActivity : AppCompatActivity() {
-
+    private val viewModel: AccountViewModel by viewModels()
     private val viewBinding by lazy {
         ActivityLoginBinding.inflate(layoutInflater)
     }

@@ -14,6 +14,13 @@ class AccountViewModel : BaseViewModel() {
 
     val userInfoLiveData = MutableLiveData<UserInfo>()
 
+    fun register(username: String, password: String) = launch(
+        block = {
+            userInfoLiveData.value =
+                AccountRepository.register(username, password, password).apiData()
+        }
+    )
+
     fun login(username: String, password: String) = launch(
         block = {
             userInfoLiveData.value = AccountRepository.login(username, password).apiData()

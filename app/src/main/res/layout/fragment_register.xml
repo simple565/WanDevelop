@@ -81,10 +81,8 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/register"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="start"
+        android:id="@+id/register_btn_register"
+        style="@style/smallButtonStyle"
         android:layout_marginTop="16dp"
         android:text="@string/register"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -4,8 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import com.maureen.wandevelop.base.BaseFragment
 import com.maureen.wandevelop.databinding.FragmentRegisterBinding
+import com.maureen.wandevelop.viewmodels.AccountViewModel
 
 /**
  * Function:
@@ -14,6 +16,7 @@ import com.maureen.wandevelop.databinding.FragmentRegisterBinding
  * Create 2021-07-05
  */
 class RegisterFragment : BaseFragment() {
+    private val viewModel: AccountViewModel by activityViewModels()
     private lateinit var viewBinding: FragmentRegisterBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -24,6 +27,14 @@ class RegisterFragment : BaseFragment() {
     }
 
     override fun initView() {
+        with(viewBinding) {
+            registerBtnRegister.setOnClickListener {
+                viewModel.register(
+                    registerEdtUsername.text.toString(),
+                    registerEdtPassword.text.toString()
+                )
+            }
+        }
     }
 
     override fun initData() {
