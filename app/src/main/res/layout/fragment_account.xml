@@ -47,24 +47,24 @@
         android:id="@+id/account_scroll"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="6dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="4dp"
-            android:background="@drawable/shape_ractangle_with_corner"
             android:orientation="vertical">
 
             <RelativeLayout
                 android:id="@+id/account_rl_score"
                 style="@style/setItemLayoutStyle"
-                android:background="?colorPrimaryDark"
+                android:background="@drawable/bg_item_press_status"
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp">
 
                 <TextView
                     style="@style/setItemTitleStyle"
+                    android:focusable="false"
                     android:text="@string/nav_my_score"
                     app:drawableStartCompat="@drawable/ic_score" />
 
@@ -74,6 +74,9 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
+                    android:focusable="false"
+                    android:gravity="center_vertical"
+                    app:drawableEndCompat="@drawable/ic_arrow_right"
                     tools:ignore="RelativeOverlap"
                     tools:text="123" />
 
@@ -82,7 +85,7 @@
             <RelativeLayout
                 android:id="@+id/account_rl_start"
                 style="@style/setItemLayoutStyle"
-                android:background="?colorPrimaryDark"
+                android:background="@drawable/bg_item_press_status"
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp">
 
@@ -90,12 +93,20 @@
                     style="@style/setItemTitleStyle"
                     android:text="@string/nav_my_collect"
                     app:drawableStartCompat="@drawable/ic_star_border" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/ic_arrow_right"
+                    tools:ignore="ContentDescription" />
             </RelativeLayout>
 
             <RelativeLayout
                 android:id="@+id/account_rl_todo"
                 style="@style/setItemLayoutStyle"
-                android:background="?colorPrimaryDark"
+                android:background="@drawable/bg_item_press_status"
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp">
 
@@ -103,12 +114,20 @@
                     style="@style/setItemTitleStyle"
                     android:text="@string/nav_todo"
                     app:drawableStartCompat="@drawable/ic_todo" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/ic_arrow_right"
+                    tools:ignore="ContentDescription" />
             </RelativeLayout>
 
             <RelativeLayout
                 android:id="@+id/account_rl_clear"
                 style="@style/setItemLayoutStyle"
-                android:background="?colorPrimaryDark"
+                android:background="@drawable/bg_item_press_status"
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp">
 
@@ -131,7 +150,7 @@
             <RelativeLayout
                 android:id="@+id/account_rl_dark_mode"
                 style="@style/setItemLayoutStyle"
-                android:background="?colorPrimaryDark"
+                android:background="@drawable/bg_item_press_status"
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp">
 
@@ -151,7 +170,7 @@
             <RelativeLayout
                 android:id="@+id/account_rl_check_update"
                 style="@style/setItemLayoutStyle"
-                android:background="?colorPrimaryDark"
+                android:background="@drawable/bg_item_press_status"
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp">
 
@@ -164,7 +183,7 @@
             <RelativeLayout
                 android:id="@+id/account_rl_about_us"
                 style="@style/setItemLayoutStyle"
-                android:background="?colorPrimaryDark"
+                android:background="@drawable/bg_item_press_status"
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp">
 
@@ -172,16 +191,27 @@
                     style="@style/setItemTitleStyle"
                     android:text="@string/nav_about_us"
                     app:drawableStartCompat="@drawable/ic_share" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/ic_arrow_right"
+                    tools:ignore="ContentDescription" />
             </RelativeLayout>
 
-            <com.google.android.material.button.MaterialButton
+            <TextView
                 android:id="@+id/account_btn_logout"
-                style="@style/smallButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="8dp"
+                android:background="@drawable/bg_item_press_status"
+                android:gravity="center"
                 android:text="@string/nav_logout"
-                android:textColor="@color/red_200"
-                app:backgroundTint="@color/red_700" />
+                android:textColor="@color/red_500"
+                android:textStyle="bold" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

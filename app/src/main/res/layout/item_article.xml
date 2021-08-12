@@ -8,7 +8,10 @@
     android:layout_marginTop="4dp"
     android:layout_marginEnd="8dp"
     android:layout_marginBottom="8dp"
+    android:background="@drawable/bg_item_press_status"
+    android:clickable="true"
     android:elevation="4dp"
+    android:focusable="true"
     app:cardCornerRadius="5dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -112,12 +115,12 @@
             app:layout_constraintTop_toTopOf="@id/item_article_iv_like"
             tools:text="作者：扔物线" />
 
-        <ImageView
+        <CheckBox
             android:id="@+id/item_article_iv_like"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
             android:layout_marginTop="2dp"
-            android:background="@drawable/ic_star_border"
+            android:button="@drawable/ic_collect"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/item_article_tv_description"
             app:layout_goneMarginTop="0dp"

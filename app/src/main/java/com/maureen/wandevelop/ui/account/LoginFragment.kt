@@ -1,5 +1,6 @@
 package com.maureen.wandevelop.ui.account
 
+import android.app.Activity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -47,6 +48,7 @@ class LoginFragment : BaseFragment() {
     }
 
     private val userInfoHandler: (UserInfo) -> Unit = {
+        requireActivity().setResult(Activity.RESULT_OK)
         requireActivity().finish()
     }
 }

@@ -5,6 +5,7 @@
     <color name="transparent">#00000000</color>
     <color name="gray_100">#F5F5F5</color>
     <color name="gray_200">#EEEEEE</color>
+    <color name="gray_500">#9E9E9E</color>
     <color name="gray_700">#616161</color>
     <color name="gray_900">#212121</color>
     <color name="teal_500">#009688</color>

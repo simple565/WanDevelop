@@ -1,5 +1,6 @@
 package com.maureen.wandevelop.ui.account
 
+import android.app.Activity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import com.maureen.wandevelop.base.BaseFragment
 import com.maureen.wandevelop.databinding.FragmentRegisterBinding
+import com.maureen.wandevelop.network.UserInfo
 import com.maureen.wandevelop.viewmodels.AccountViewModel
 
 /**
@@ -38,5 +40,11 @@ class RegisterFragment : BaseFragment() {
     }
 
     override fun initData() {
+        viewModel.userInfoLiveData.observe(this, userInfoHandler)
+    }
+
+    private val userInfoHandler: (UserInfo) -> Unit = {
+        requireActivity().setResult(Activity.RESULT_OK)
+        requireActivity().finish()
     }
 }
