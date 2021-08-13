@@ -1,14 +1,14 @@
 package com.maureen.wandevelop.network
 
 import android.util.Log
-import okhttp3.Cookie
-import okhttp3.CookieJar
-import okhttp3.HttpUrl
-import okhttp3.OkHttpClient
+import com.maureen.wandevelop.MyApplication
+import okhttp3.*
+import okhttp3.CacheControl
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
+
 
 /**
  * Function:
@@ -18,6 +18,7 @@ import java.util.concurrent.TimeUnit
 object RetrofitManager {
 
     private const val DEFAULT_TIME_OUT: Long = 60L
+    private const val MAX_CACHE_SIZE: Long = 10 * 1024 * 1024
 
     val instance: Retrofit by lazy {
         Retrofit.Builder()
@@ -34,13 +35,36 @@ object RetrofitManager {
             .readTimeout(DEFAULT_TIME_OUT, TimeUnit.SECONDS)
             .writeTimeout(DEFAULT_TIME_OUT, TimeUnit.SECONDS)
             .addInterceptor(logger)
+            .addInterceptor(object : Interceptor {
+                override fun intercept(chain: Interceptor.Chain): Response {
+                    val request = chain.request()
+                        .newBuilder()
+                        .cacheControl(CacheControl.FORCE_CACHE)
+                        .build()
+                    return chain.proceed(request)
+                }
+            })
+            .addNetworkInterceptor(object : Interceptor {
+                override fun intercept(chain: Interceptor.Chain): Response {
+                    val response = chain.proceed(chain.request())
+                    // 缓存 10 秒
+                    val cacheControl = CacheControl.Builder()
+                        .maxAge(120, TimeUnit.SECONDS)
+                        .build()
+                    return response.newBuilder()
+                        .removeHeader("Pragma")
+                        .header("Cache-Control", cacheControl.toString())
+                        .build()
+                }
+            })
+            .cache(Cache(MyApplication.instance.cacheDir, MAX_CACHE_SIZE))
             .cookieJar(object : CookieJar {
                 override fun loadForRequest(url: HttpUrl): List<Cookie> {
-                   return emptyList()
+                    return emptyList()
                 }
 
                 override fun saveFromResponse(url: HttpUrl, cookies: List<Cookie>) {
-                    cookies.forEach{
+                    cookies.forEach {
                         Log.i("TAG", "saveFromResponse: ${it.name} ${it.value}")
                     }
                 }
