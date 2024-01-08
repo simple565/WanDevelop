@@ -11,11 +11,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.account.LoginActivity" />
-        <activity android:name=".ui.MainActivity"
+        <activity
+            android:name=".ui.ArticleDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.profile.SettingsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.profile.SignInOrUpActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ui.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

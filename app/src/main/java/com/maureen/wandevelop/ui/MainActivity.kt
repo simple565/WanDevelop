@@ -1,15 +1,17 @@
 package com.maureen.wandevelop.ui
 
 import android.os.Bundle
-import android.util.Log
-import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
+import androidx.appcompat.app.AppCompatActivity
 import com.maureen.wandevelop.R
 import com.maureen.wandevelop.adapter.*
-import com.maureen.wandevelop.base.BaseActivity
 import com.maureen.wandevelop.databinding.ActivityMainBinding
+import com.maureen.wandevelop.ui.bookmark.BookmarkFragment
+import com.maureen.wandevelop.ui.discovery.DiscoveryFragment
+import com.maureen.wandevelop.ui.home.HomeFragment
+import com.maureen.wandevelop.ui.profile.ProfileFragment
 
 
-class MainActivity : BaseActivity() {
+class MainActivity : AppCompatActivity() {
     companion object {
         private const val TAG = "MainActivity"
     }
@@ -24,31 +26,19 @@ class MainActivity : BaseActivity() {
         initView()
     }
 
-    override fun initView() {
+    private fun initView() {
+        val createFunMap = mapOf(
+            R.id.navigation_home to { HomeFragment() },
+            R.id.navigation_explore to { DiscoveryFragment() },
+            R.id.navigation_bookmark to { BookmarkFragment() },
+            R.id.navigation_profile to { ProfileFragment() }
+        )
         with(viewBinding) {
-            navHostViewPager.adapter = NavPageAdapter(this@MainActivity)
-            navHostViewPager.registerOnPageChangeCallback(object : OnPageChangeCallback() {
-                override fun onPageSelected(position: Int) {
-                    super.onPageSelected(position)
-                    Log.d(TAG, "onPageSelected: $position")
-                    when (position) {
-                        HOME_PAGE_INDEX -> mainBottomNavView.selectedItemId = R.id.navigation_home
-                        DISCOVERY_PAGE_INDEX -> mainBottomNavView.selectedItemId = R.id.navigation_discovery
-                        ACCOUNT_PAGE_INDEX -> mainBottomNavView.selectedItemId = R.id.navigation_account
-                        KNOWLEDGE_PAGE_INDEX -> mainBottomNavView.selectedItemId = R.id.navigation_knowledge
-                        else -> mainBottomNavView.selectedItemId = R.id.navigation_home
-                    }
-                }
-            })
-            mainBottomNavView.setOnNavigationItemSelectedListener {
-                when (it.itemId) {
-                    R.id.navigation_home -> navHostViewPager.currentItem = HOME_PAGE_INDEX
-                    R.id.navigation_discovery -> navHostViewPager.currentItem = DISCOVERY_PAGE_INDEX
-                    R.id.navigation_account -> navHostViewPager.currentItem = ACCOUNT_PAGE_INDEX
-                    R.id.navigation_knowledge -> navHostViewPager.currentItem = KNOWLEDGE_PAGE_INDEX
-                    else -> navHostViewPager.currentItem = HOME_PAGE_INDEX
-                }
-                true
+            navHostViewPager.isUserInputEnabled = false
+            navHostViewPager.adapter = NavPageAdapter(supportFragmentManager, lifecycle, createFunMap)
+            bottomNavView.setOnItemSelectedListener {
+                navHostViewPager.currentItem = createFunMap.keys.indexOf(it.itemId)
+                return@setOnItemSelectedListener true
             }
         }
     }

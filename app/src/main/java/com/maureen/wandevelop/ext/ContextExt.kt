@@ -1,18 +1,19 @@
 package com.maureen.wandevelop.ext
 
+import android.content.ComponentName
 import android.content.Context
-import android.widget.Toast
-import androidx.annotation.StringRes
+import android.content.Intent
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.preferencesDataStore
 
 /**
  * Function:
  * Date:   2021/7/9
  * @author lianml
  */
-fun Context.showToast(message: CharSequence) {
-    Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+fun Context.startActivity(target: Class<*>) {
+    this.startActivity(Intent(this, target))
 }
 
-fun Context.showToast(@StringRes message: Int) {
-    Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
-}
+val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")

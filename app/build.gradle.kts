@@ -43,13 +43,16 @@ dependencies {
     implementation(libs.material)
     implementation(libs.constraintlayout)
     implementation(libs.swiperefreshlayout)
+    implementation(libs.datastore)
     implementation(libs.lifecycle.runtime.ktx)
     implementation(libs.navigation.ui.ktx)
     implementation(libs.navigation.fragment.ktx)
-    implementation(libs.gson)
+
+    implementation(libs.moshi)
     implementation(libs.retrofit)
-    implementation(libs.retrofit.converter.gson)
+    implementation(libs.retrofit.converter.moshi)
     implementation(libs.okhttp.logging)
+    implementation(libs.preference)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)

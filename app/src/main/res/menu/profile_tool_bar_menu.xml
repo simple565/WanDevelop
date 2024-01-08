@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/menu_notification"
+        android:icon="@drawable/ic_notifications"
+        android:title="@string/nav_notification"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/menu_dark_mode"
+        android:icon="@drawable/ic_dark_mode"
+        android:title="@string/nav_dark_mode"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/menu_settings"
+        android:icon="@drawable/ic_settings"
+        android:title="@string/nav_settings"
+        app:showAsAction="always" />
+</menu>

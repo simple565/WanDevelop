@@ -4,14 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.account.LoginActivity">
-
-    <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/login_tool_bar"
-        android:layout_width="match_parent"
-        android:layout_height="?actionBarSize"
-        android:background="?colorPrimaryDark"
-        app:layout_constraintTop_toTopOf="parent" />
+    tools:context=".ui.profile.SignInOrUpActivity">
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/login_fragment_container"
