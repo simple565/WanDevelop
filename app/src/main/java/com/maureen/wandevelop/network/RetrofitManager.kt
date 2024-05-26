@@ -1,6 +1,8 @@
 package com.maureen.wandevelop.network
 
 import com.maureen.wandevelop.MyApplication
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import okhttp3.Cache
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -35,18 +37,11 @@ object RetrofitManager {
     }
 
     fun <S> createService(serviceClass: Class<S>, baseUrl: String): S {
+        val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
         return Retrofit.Builder()
             .client(okHttpClient)
-            .addConverterFactory(MoshiConverterFactory.create())
             .baseUrl(baseUrl)
+            .addConverterFactory(MoshiConverterFactory.create(moshi))
             .build().create(serviceClass)
-    }
-
-    fun hasCookie(): Boolean {
-        return cookieJar.hasCookie()
-    }
-
-    fun clearCookie() {
-        cookieJar.clearCookie()
     }
 }

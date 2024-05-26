@@ -4,31 +4,39 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/cardBackgroundColor"
+    android:minHeight="@dimen/margin_large"
     android:paddingHorizontal="10dp">
 
     <ImageView
         android:id="@+id/iv_icon"
         android:layout_width="24dp"
         android:layout_height="24dp"
-        android:src="@drawable/ic_dark_mode"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/tv_name"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="ContentDescription" />
+        tools:ignore="ContentDescription"
+        tools:src="@drawable/ic_dark_mode_on" />
 
     <TextView
         android:id="@+id/tv_name"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:gravity="center_vertical"
         app:layout_constraintBottom_toBottomOf="@id/iv_icon"
+        app:layout_constraintEnd_toStartOf="@id/swt"
         app:layout_constraintStart_toEndOf="@id/iv_icon"
         app:layout_constraintTop_toTopOf="@id/iv_icon"
+        app:layout_goneMarginStart="0dp"
         tools:text="深色模式" />
 
     <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/swt"
+        style="@style/switchStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"

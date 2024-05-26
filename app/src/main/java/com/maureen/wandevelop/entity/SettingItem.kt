@@ -10,30 +10,33 @@ import androidx.annotation.IntDef
  */
 data class SettingItem(
     @SettingType val type: Int = SettingType.ACTION,
-    val iconResId: Int,
     val name: String,
-    val value: String? = null,
-    val clickAction: ((View) -> Unit)? = null
-)
+    val icon: Int? = null,
+    var value: String? = null,
+    val warn: Boolean = false,
+    val action: (() -> Unit)? = null
+) {
+    companion object {
+        val EMPTY = SettingItem(SettingType.EMPTY, "")
+    }
+}
 
 @Target(AnnotationTarget.VALUE_PARAMETER, AnnotationTarget.FIELD, AnnotationTarget.FUNCTION)
 @MustBeDocumented
 @IntDef(
-    SettingType.TITLE,
+    SettingType.EMPTY,
     SettingType.ACTION,
     SettingType.ROUTE,
-    SettingType.ACTION_WITH_TEXT,
     SettingType.SWITCH
 )
-@kotlin.annotation.Retention(AnnotationRetention.SOURCE)
+@Retention(AnnotationRetention.SOURCE)
 annotation
 class SettingType {
     companion object {
-        const val TITLE = 0x2
-        const val ACTION = 0x3
-        const val SWITCH = 0x4
-        const val ROUTE = 0x5
-        const val ACTION_WITH_TEXT = 0x6
+        const val EMPTY = 0x1
+        const val ACTION = 0x2
+        const val SWITCH = 0x3
+        const val ROUTE = 0x4
     }
 }
 

@@ -2,44 +2,75 @@
 minVersion = "24"
 compileVersion = "34"
 targetVersion = "34"
-agp = "8.2.1"
-org-jetbrains-kotlin-android = "1.9.0"
+agp = "8.4.0"
+org-jetbrains-kotlin-android = "1.9.23"
+ksp = "1.9.23-1.0.20"
 junit = "4.13.2"
 androidx-test-ext-junit = "1.1.5"
 espresso-core = "3.5.1"
 appcompat = "1.6.1"
 core-ktx = "1.12.0"
-material = "1.9.0"
+material = "1.11.0"
 constraintlayout = "2.1.4"
 swiperefreshlayout = "1.1.0"
-activity = "1.7.0"
+banner = "2.2.3"
 coil = "2.5.0"
-coroutines = "1.7.3"
+coroutines = "1.8.1"
 dataStore = "1.0.0"
-fragment = "1.5.6"
+activity = "1.8.2"
+fragment = "1.6.2"
 gson = "2.10.1"
-kotlin = "1.9.21"
-lifecycle = "2.6.2"
-navigation = "2.6.0"
+lifecycle = "2.7.0"
+navigation = "2.7.7"
 okhttp-logging = "4.12.0"
 paging = "3.1.1"
-room = "2.5.1"
-retrofit = '2.9.0'
-moshi = "1.15.0"
-media3 = "1.1.1"
+room = "2.6.1"
+retrofit = "2.11.0"
+moshi = "1.15.1"
+media3 = "1.3.1"
 ijkplayer = "0.8.8"
-preference = "1.2.0"
-
+preference = "1.2.1"
+multitype = "4.3.0"
+protobuf = "4.27.0"
+protobufPlugin = "0.9.4"
+serialization = "1.7.10"
 
 [libraries]
-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-test-ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidx-test-ext-junit" }
 espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espresso-core" }
+activity = { group = "androidx.activity", name = "activity-ktx", version.ref = "activity"}
 appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
-material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
 constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
+datastore-preferences = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "dataStore" }
+datastore = { group = "androidx.datastore", name = "datastore", version.ref = "dataStore" }
+fragment = { group = "androidx.fragment", name = "fragment-ktx", version.ref = "fragment" }
+lifecycle-livedata-ktx = { group = "androidx.lifecycle", name = "lifecycle-livedata-ktx", version.ref = "lifecycle" }
+lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycle" }
+lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycle" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+navigation-fragment-ktx = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "navigation" }
+navigation-ui-ktx = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "navigation" }
+paging-runtime = { group = "androidx.paging", name = "paging-runtime", version.ref = "paging"}
+preference = { group = "androidx.preference", name = "preference", version.ref = "preference" }
+room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
+room-complier = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
 swiperefreshlayout = { group = "androidx.swiperefreshlayout", name = "swiperefreshlayout", version.ref = "swiperefreshlayout" }
+
+coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "coroutines" }
+coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "coroutines" }
+gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson" }
+protobuf-kotlin-lite = { group = "com.google.protobuf", name = "protobuf-kotlin-lite", version.ref = "protobuf" }
+protobuf-protoc = { group = "com.google.protobuf", name = "protoc", version.ref = "protobuf" }
+retrofit-converter-gson = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofit" }
+moshi = { group = "com.squareup.moshi", name = "moshi-kotlin", version.ref = "moshi" }
+retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
+retrofit-converter-moshi = { group = "com.squareup.retrofit2", name = "converter-moshi", version.ref = "retrofit" }
+okhttp-logging = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okhttp-logging" }
+coil = { group = "io.coil-kt", name = "coil", version.ref = "coil" }
+banner = { group = "io.github.youth5201314", name = "banner", version.ref = "banner" }
+multitype = { group = "com.drakeet.multitype", name = "multitype", version.ref = "multitype" }
 
 media3-exoplayer = { group = "androidx.media3", name = "media3-exoplayer", version.ref = "media3" }
 media3-ui = { group = "androidx.media3", name = "media3-ui", version.ref = "media3" }
@@ -47,27 +78,13 @@ media3-session = { group = "androidx.media3", name = "media3-session", version.r
 ijkplayer-java = { group = "tv.danmaku.ijk.media", name = "ijkplayer-java", version.ref = "ijkplayer" }
 ijkplayer-armv7a = { group = "tv.danmaku.ijk.media", name = "ijkplayer-armv7a", version.ref = "ijkplayer" }
 
-
-datastore = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "dataStore" }
-lifecycle-livedata-ktx = { group = "androidx.lifecycle", name = "lifecycle-livedata-ktx", version.ref = "lifecycle" }
-lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycle" }
-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycle" }
-
-navigation-fragment-ktx = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "navigation" }
-navigation-ui-ktx = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "navigation" }
-
-gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson" }
-moshi = { group = "com.squareup.moshi", name = "moshi-kotlin", version.ref = "moshi" }
-retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
-retrofit-converter-gson = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofit" }
-retrofit-converter-moshi = { group = "com.squareup.retrofit2", name = "converter-moshi", version.ref = "retrofit" }
-okhttp-logging = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okhttp-logging" }
-coil = { group = "io.coil-kt", name = "coil", version.ref = "coil" }
-preference = { group = "androidx.preference", name = "preference", version.ref = "preference" }
-
 [plugins]
 com-android-application = { id = "com.android.application", version.ref = "agp" }
 org-jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "org-jetbrains-kotlin-android" }
+com-google-devtools-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+protobuf = { id = "com.google.protobuf", version.ref = "protobufPlugin" }
+safeargs = { id = "androidx.navigation.safeargs", version.ref = "navigation" }
+serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "serialization" }
 
 [bundles]
 

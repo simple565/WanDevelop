@@ -1,8 +1,11 @@
 package com.maureen.wandevelop.entity
 
+import androidx.annotation.Keep
+
 /**
  * 问答信息实体类
  */
+@Keep
 data class QaInfo(
     val adminAdd: Boolean,
     val apkLink: String,

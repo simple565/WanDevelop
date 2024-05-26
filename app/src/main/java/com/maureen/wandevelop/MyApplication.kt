@@ -1,6 +1,7 @@
 package com.maureen.wandevelop
 
 import android.app.Application
+import com.maureen.wandevelop.util.DarkModeUtil
 
 /**
  * Function:

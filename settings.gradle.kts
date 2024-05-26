@@ -14,6 +14,7 @@ dependencyResolutionManagement {
         maven(url = "https://maven.aliyun.com/repository/google")
         maven(url = "https://repo.huaweicloud.com/repository/maven")
         maven(url = "https://jitpack.io")
+        maven(url = "https://s01.oss.sonatype.org/content/groups/public")
     }
 }
 

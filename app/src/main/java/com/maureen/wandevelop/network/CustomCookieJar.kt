@@ -1,14 +1,13 @@
 package com.maureen.wandevelop.network
 
 import android.content.Context
-import android.text.TextUtils.split
 import android.util.Log
-import com.maureen.wandevelop.MyApplication
+import android.webkit.CookieManager
+import com.maureen.wandevelop.util.UserPrefUtil
 import okhttp3.Cookie
 import okhttp3.CookieJar
 import okhttp3.HttpUrl
 import okhttp3.HttpUrl.Companion.toHttpUrl
-import java.util.concurrent.CopyOnWriteArrayList
 
 /**
  * Function: 请求Cookie相关操作
@@ -18,54 +17,34 @@ import java.util.concurrent.CopyOnWriteArrayList
 class CustomCookieJar(private val context: Context) : CookieJar {
     companion object {
         private const val TAG = "CustomCookieJar"
-        private const val SP_COOKIE_FILE_NAME = "cookie"
+        private const val SAVE_USER_LOGIN_KEY = "${WanAndroidService.BASE_URL}user/login"
+        private const val SAVE_USER_LOGOUT_KEY = "${WanAndroidService.BASE_URL}user/logout/json"
     }
-    private val cookieCache = mutableMapOf<String, List<Cookie>>()
+    private val cookieCache = mutableListOf<Cookie>()
 
     init {
-        // 初始化从sp中加载cookie到内存
-        val cookieSp = context.getSharedPreferences(SP_COOKIE_FILE_NAME, Context.MODE_PRIVATE)
-        cookieSp.all.entries
-            .filter { it.value !is String }
-            .map {
-                Log.d(TAG, "${it.key}: ${it.value}")
-                val cookies = (it.value as String).split(";")
-                    .mapNotNull { cookieStr -> Cookie.parse(it.key.toHttpUrl(), cookieStr) }
-                    .filter { cookie ->  !cookie.persistent || cookie.expiresAt < System.currentTimeMillis() }
-                Pair(it.key, cookies)
-            }.forEach {
-                cookieCache[it.first] = it.second
-            }
+        // 初始化从dataStore中加载cookie到内存
+        val cookieStr = UserPrefUtil.getPreferenceSync(context)?.cookie ?: ""
+        Log.d(TAG, "init: $cookieStr")
+        cookieStr.split(";")
+            .mapNotNull { str -> Cookie.parse(SAVE_USER_LOGIN_KEY.toHttpUrl(), str) }
+            .filter { cookie ->  cookie.persistent || cookie.expiresAt > System.currentTimeMillis() }
+            .toCollection(cookieCache)
+        Log.d(TAG, "init: ${cookieCache.size}")
     }
 
     override fun loadForRequest(url: HttpUrl): List<Cookie> {
-        return cookieCache[url.toString()] ?: emptyList()
+        return cookieCache
     }
     override fun saveFromResponse(url: HttpUrl, cookies: List<Cookie>) {
-        val hasCookie = url.toString().startsWith("https://www.wanandroid.com/user/login")
-        if (hasCookie) {
-            cookieCache[url.toString()] = cookies
-            val cookieStr = cookies.joinToString(";")
-            Log.d(TAG, "saveFromResponse: $cookieStr")
-            saveCookie(url, cookieStr)
+        if (url.toString().contains(SAVE_USER_LOGIN_KEY)) {
+            // 登录时保存cookie缓存
+            cookieCache.clear()
+            cookieCache.addAll(cookies)
+            UserPrefUtil.setPreferenceSync(context) { builder -> builder.setCookie(cookies.joinToString(";")) }
+        } else if (url.toString().contains(SAVE_USER_LOGOUT_KEY)) {
+            // 退出后清除cookie缓存
+            cookieCache.clear()
         }
-    }
-
-    private fun saveCookie(url: HttpUrl, cookieStr: String) {
-        context.getSharedPreferences(SP_COOKIE_FILE_NAME, Context.MODE_PRIVATE)
-            .edit()
-            .putString(url.toString(), cookieStr)
-            .apply()
-    }
-
-    fun hasCookie(): Boolean {
-        return cookieCache.isNotEmpty()
-    }
-
-    fun clearCookie() {
-        context.getSharedPreferences(SP_COOKIE_FILE_NAME, Context.MODE_PRIVATE)
-            .edit()
-            .clear()
-            .apply()
     }
 }

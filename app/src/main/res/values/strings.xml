@@ -1,9 +1,8 @@
 <resources>
     <string name="app_name" translatable="false">WanDevelop</string>
-    <string name="hello">你好</string>
-    <string name="again">归来!</string>
-    <string name="back_description">Welcome back you’ve been missed</string>
-    <string name="signup_description">Signup to get Started</string>
+
+    <string name="prompt_hello">你好!</string>
+    <string name="prompt_welcome_back">欢迎归来!</string>
     <string name="prompt_username">用户名<font color='red'>*</font></string>
     <string name="prompt_password">密码<font color='red'>*</font></string>
     <string name="prompt_confirm_password">再次输入密码</string>
@@ -16,41 +15,48 @@
 
     <string name="nav_home">首页</string>
     <string name="nav_explore">发现</string>
-    <string name="nav_bookmark">发现</string>
+    <string name="nav_bookmark">书签</string>
     <string name="nav_profile">我的</string>
     <string name="nav_share">分享</string>
     <string name="nav_more">更多操作</string>
 
-    <string name="nav_login_or_register">注册/登录</string>
+    <string name="nav_sign_in_or_up">注册/登录</string>
     <string name="nav_notification">通知</string>
     <string name="nav_settings">设置</string>
-    <string name="nav_customize_interests">自定义标签</string>
+    <string name="prompt_level">等级</string>
+    <string name="prompt_coin">积分</string>
+    <string name="prompt_rank">排名</string>
+    <string name="prompt_default_value">--</string>
+    <string name="nav_read_record">浏览记录</string>
     <string name="nav_language">语言</string>
-    <string name="nav_dark_mode">夜间模式</string>
-    <string name="nav_todo">TODO</string>
+    <string name="nav_dark_mode_set">深色模式</string>
+    <string name="promote_dark_mode_follow_system">跟随系统</string>
+    <string name="promote_off">关闭</string>
+    <string name="promote_on">开启</string>
     <string name="nav_clear_cache">清除缓存</string>
-    <string name="nav_check_update">检测升级</string>
-    <string name="nav_about_us">关于我们</string>
+    <string name="nav_check_update">检查更新</string>
+    <string name="nav_about_us">关于</string>
     <string name="nav_logout">退出登录</string>
+    <string name="nav_notification_settings">消息设置</string>
 
-
-    <string name="network_connection_failed" translatable="false">网络连接失败</string>
-    <string name="network_request_failed" translatable="false">网络请求失败</string>
-    <string name="network_request_timeout" translatable="false">网络请求超时</string>
-    <string name="api_data_parse_error" translatable="false">数据解析错误</string>
+    <string name="collect">收藏</string>
+    <string name="confirm">确定</string>
+    <string name="delete">删除</string>
+    <string name="search">搜索</string>
+    <string name="network_connection_failed">网络连接失败</string>
+    <string name="network_request_failed">网络请求失败</string>
+    <string name="network_request_timeout">网络请求超时</string>
+    <string name="api_data_parse_error">数据解析错误</string>
 
     <string name="top">置顶</string>
     <string name="newest">新</string>
     <string name="which_author">作者：%1$s</string>
     <string name="which_share_user">分享人：%1$s</string>
 
-
-    <string name="confirm">确定</string>
-
-    <string name="prompt_level">等级</string>
-    <string name="prompt_coin">积分</string>
-    <string name="prompt_rank">排名</string>
-    <string name="prompt_default_value">--</string>
-    <string name="nav_history">浏览历史</string>
-    <string name="nav_post">我的发布</string>
+    <string name="nav_recommend">推荐</string>
+    <string name="nav_system">体系</string>
+    <string name="nav_my_bookmark">我的收藏</string>
+    <string name="nav_read_later">稍后再看</string>
+    <string name="nav_my_share">我的分享</string>
+    <string name="retry">重新加载</string>
 </resources>

@@ -6,11 +6,11 @@ import okhttp3.Response
 import java.util.concurrent.TimeUnit
 
 /**
- * Function:
+ * 缓存拦截器
  * Date:   2021/8/17
  * @author lianml
  */
-class CacheInterceptor(var interval: Int = 30) : Interceptor {
+class CacheInterceptor(private val interval: Int = 30) : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val response = chain.proceed(chain.request())
         val cacheControl = CacheControl.Builder()

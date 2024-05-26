@@ -17,7 +17,7 @@ data class UserDetailInfo(
 @Keep
 data class UserInfo(
     val admin: Boolean,
-    val chapterTops: List<Any>,
+    val chapterTops: List<Int>,
     val coinCount: Int,
     val collectIds: List<Int>,
     val email: String,
@@ -29,7 +29,16 @@ data class UserInfo(
     val token: String,
     val type: Int,
     val username: String
-)
+) {
+    val userName: String
+        get() {
+            val builder = StringBuilder(this.username)
+            if (this.publicName.isNotEmpty()) {
+                builder.append("(").append(this.publicName).append(")")
+            }
+            return builder.toString()
+        }
+}
 
 /**
  * 用户登记、积分及排名
@@ -47,4 +56,12 @@ data class CoinInfo(
 @Keep
 data class CollectArticleInfo(
     val count: Int
+)
+
+/**
+ * 分享者积分信息及分享文章列表
+ */
+data class SharerInfo(
+    val coinInfo: CoinInfo,
+    val shareList: BasePage<Article>
 )

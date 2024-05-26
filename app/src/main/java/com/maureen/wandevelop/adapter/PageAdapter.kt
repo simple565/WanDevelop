@@ -6,14 +6,14 @@ import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
 
 /**
- * Function: ViewPager2适配器
+ * ViewPager2适配器
  * @author lianml
- * Create 2021-02-17
+ * @date 2021-02-17
  */
 class NavPageAdapter(
     manager: FragmentManager,
     lifecycle: Lifecycle,
-    private val fragmentCreateFunc: Map<Int, () -> Fragment>
+    private val fragmentCreateFunc: List<() -> Fragment>
 ) : FragmentStateAdapter(manager, lifecycle) {
 
 
@@ -22,6 +22,6 @@ class NavPageAdapter(
     }
 
     override fun createFragment(position: Int): Fragment {
-        return fragmentCreateFunc.toList().getOrNull(position)?.second?.invoke() ?: throw IndexOutOfBoundsException()
+        return fragmentCreateFunc.getOrNull(position)?.invoke() ?: throw IndexOutOfBoundsException()
     }
 }

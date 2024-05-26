@@ -3,5 +3,15 @@
     <dimen name="text_large">20sp</dimen>
     <dimen name="text_medium">16sp</dimen>
     <dimen name="text_small">14sp</dimen>
-    <dimen name="text_x_small">13sp</dimen>
+    <dimen name="text_mini">12sp</dimen>
+    <dimen name="text_tiny">10sp</dimen>
+
+    <dimen name="margin_x_mini">4dp</dimen>
+    <dimen name="margin_mini">6dp</dimen>
+    <dimen name="margin_small">10dp</dimen>
+    <dimen name="margin_medium">12dp</dimen>
+    <dimen name="margin_large">16dp</dimen>
+    <dimen name="margin_largest">20dp</dimen>
+
+    <dimen name="text_input_height">52dp</dimen>
 </resources>

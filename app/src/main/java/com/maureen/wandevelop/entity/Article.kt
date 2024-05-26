@@ -1,10 +1,10 @@
 package com.maureen.wandevelop.entity
 
 import androidx.annotation.Keep
-import com.squareup.moshi.Json
 
 @Keep
-data class ArticleInfo(
+data class Article(
+    val adminAdd: Boolean,
     val apkLink: String,
     val audit: Int,
     val author: String,
@@ -19,6 +19,7 @@ data class ArticleInfo(
     val fresh: Boolean,
     val host: String,
     val id: Int,
+    val isAdminAdd: Boolean,
     val link: String,
     val niceDate: String,
     val niceShareDate: String,
@@ -26,13 +27,13 @@ data class ArticleInfo(
     val prefix: String,
     val projectLink: String,
     val publishTime: Long,
-    val realSuperChapter: Int,
+    val realSuperChapterId: Int,
     val selfVisible: Int,
-    val shareDate: String,
+    val shareDate: Long,
     val shareUser: String,
     val superChapterId: Int,
     val superChapterName: String,
-    val tags: MutableList<Tag>,
+    val tags: List<Tag>,
     val title: String,
     val type: Int,
     val userId: Int,

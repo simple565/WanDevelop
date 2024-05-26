@@ -4,28 +4,32 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/cardBackgroundColor"
+    android:minHeight="@dimen/margin_large"
     android:padding="10dp">
 
     <ImageView
         android:id="@+id/iv_icon"
         android:layout_width="24dp"
         android:layout_height="24dp"
-        android:src="@drawable/ic_dark_mode"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="ContentDescription" />
+        tools:ignore="ContentDescription"
+        tools:src="@drawable/ic_dark_mode_on" />
 
     <TextView
         android:id="@+id/tv_name"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:gravity="center_vertical"
+        android:gravity="start"
         app:layout_constraintBottom_toBottomOf="@id/iv_icon"
+        app:layout_constraintEnd_toStartOf="@id/tv_value"
         app:layout_constraintStart_toEndOf="@id/iv_icon"
         app:layout_constraintTop_toTopOf="@id/iv_icon"
-        tools:text="深色模式" />
+        app:layout_goneMarginStart="0dp"
+        tools:text="关于" />
 
     <ImageView
         android:id="@+id/iv_route"
@@ -40,13 +44,14 @@
         tools:ignore="ContentDescription" />
 
     <TextView
-        android:visibility="gone"
         android:id="@+id/tv_value"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="6dp"
+        android:textColor="?android:textColorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/iv_route"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="88MB"/>
+        tools:text="88MB" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

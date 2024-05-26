@@ -2,7 +2,6 @@
 <resources>
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
-    <color name="transparent">#00000000</color>
     <color name="gray_100">#F5F5F5</color>
     <color name="gray_200">#EEEEEE</color>
     <color name="gray_500">#9E9E9E</color>
@@ -18,8 +17,12 @@
     <color name="blue_grey_200">#B0BEC5</color>
     <color name="blue_grey_500">#607D8B</color>
     <color name="blue_grey_700">#455A64</color>
+
+    <color name="windowBackground">#F2F3F5</color>
+    <color name="cardBackgroundColor">#FFFFFF</color>
     <color name="colorPrimary">#1877F2</color>
     <color name="colorSuccess">#00BA88</color>
     <color name="colorError">#ED2E7E</color>
     <color name="colorWarning">#F4B740</color>
+    <color name="textBody">#4E4B66</color>
 </resources>

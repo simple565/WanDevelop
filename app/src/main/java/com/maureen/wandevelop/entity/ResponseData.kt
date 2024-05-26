@@ -1,7 +1,6 @@
 package com.maureen.wandevelop.entity
 
 import androidx.annotation.Keep
-import com.maureen.wandevelop.network.ApiException
 import com.squareup.moshi.Json
 
 /**
@@ -12,7 +11,12 @@ data class BaseResponse<T>(
     val data: T?,
     val errorMsg: String,
     val errorCode: Int
-)
+) {
+    val isSuccess: Boolean
+        get() {
+            return errorCode == 0
+        }
+}
 
 @Keep
 data class BasePage<T>(
