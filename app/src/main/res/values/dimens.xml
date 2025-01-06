@@ -13,5 +13,13 @@
     <dimen name="margin_large">16dp</dimen>
     <dimen name="margin_largest">20dp</dimen>
 
+    <dimen name="padding_x_mini">4dp</dimen>
+    <dimen name="padding_mini">6dp</dimen>
+    <dimen name="padding_small">10dp</dimen>
+    <dimen name="padding_medium">12dp</dimen>
+    <dimen name="padding_large">16dp</dimen>
+    <dimen name="padding_largest">20dp</dimen>
+
     <dimen name="text_input_height">52dp</dimen>
+    <dimen name="height_settings_item">58dp</dimen>
 </resources>

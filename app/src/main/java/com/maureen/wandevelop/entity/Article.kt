@@ -1,8 +1,10 @@
 package com.maureen.wandevelop.entity
 
-import androidx.annotation.Keep
+import android.content.Context
+import com.maureen.wandevelop.R
+import kotlinx.serialization.Serializable
 
-@Keep
+@Serializable
 data class Article(
     val adminAdd: Boolean,
     val apkLink: String,
@@ -18,7 +20,7 @@ data class Article(
     val envelopePic: String,
     val fresh: Boolean,
     val host: String,
-    val id: Int,
+    val id: Long,
     val isAdminAdd: Boolean,
     val link: String,
     val niceDate: String,
@@ -40,4 +42,22 @@ data class Article(
     val visible: Int,
     val zan: Int,
     val top: Boolean = false
-)
+): java.io.Serializable {
+    fun refreshTags(context: Context): Article {
+        val newTags = mutableListOf<Tag>()
+        if (this.fresh) {
+            newTags.add(Tag(context.getString(R.string.newest), ""))
+        }
+        if (this.top) {
+            newTags.add(Tag(context.getString(R.string.newest), ""))
+        }
+        newTags.addAll(this.tags)
+        if (this.superChapterName.isNotBlank() && newTags.none { it.name == this.superChapterName }) {
+            newTags.add(Tag(this.superChapterName, ""))
+        }
+        if (this.chapterName.isNotBlank() && newTags.none { it.name == this.chapterName }) {
+            newTags.add(Tag(this.chapterName, ""))
+        }
+        return this.copy(tags = newTags)
+    }
+}

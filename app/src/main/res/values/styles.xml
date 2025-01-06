@@ -47,4 +47,8 @@
         <item name="android:thumb">@drawable/bg_swt_thumb</item>
         <item name="track">@drawable/bg_swt_track</item>
     </style>
+
+    <style name="AppTheme.Dialog" parent="Theme.Material3.DayNight.Dialog">
+        <item name="android:background">@drawable/bg_radius_10</item>
+    </style>
 </resources>

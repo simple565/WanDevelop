@@ -1,10 +1,11 @@
 package com.maureen.wandevelop.db
 
+import androidx.paging.PagingSource
 import androidx.room.Dao
-import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import kotlinx.coroutines.flow.Flow
 
 /**
  * @author lianml
@@ -12,14 +13,15 @@ import androidx.room.Query
  */
 @Dao
 interface ReadRecordDao {
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun addOrIgnoreReadRecord(record: ReadRecord)
-    @Query("SELECT * FROM read_record")
-    fun queryRecordList(): List<ReadRecord>
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun addOrUpdateRecord(record: ReadRecord)
+
+    @Query("SELECT * FROM read_record WHERE read = 1")
+    fun queryRecordList(): Flow<ReadRecord>
+
     @Query("SELECT * FROM read_record WHERE read = 0")
-    fun queryReadLaterList(): List<ReadRecord>
-    @Delete
-    fun deleteRecord(record: ReadRecord)
+    fun queryReadLaterList(): Flow<ReadRecord>
+
     @Query("DELETE FROM read_record")
-    fun clearReadLater()
+    fun clearAll()
 }

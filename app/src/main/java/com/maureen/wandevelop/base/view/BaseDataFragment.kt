@@ -1,4 +1,4 @@
-package com.maureen.wandevelop.base
+package com.maureen.wandevelop.base.view
 
 import androidx.fragment.app.Fragment
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener

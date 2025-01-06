@@ -5,55 +5,23 @@
     android:id="@+id/layout_article"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="@dimen/margin_x_mini"
+    android:layout_marginVertical="@dimen/margin_x_mini"
     android:background="?cardBackgroundColor"
-    android:padding="@dimen/margin_x_mini">
+    android:paddingHorizontal="@dimen/padding_medium"
+    android:paddingTop="@dimen/padding_small"
+    android:paddingBottom="@dimen/padding_mini">
 
-    <TextView
-        android:id="@+id/tv_top"
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/cg_tag"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingEnd="@dimen/margin_x_mini"
-        android:text="@string/top"
-        android:textColor="@color/red_700"
-        android:textSize="@dimen/text_mini"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@id/tv_date"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/tv_date"
-        tools:ignore="RtlSymmetry"
-        tools:visibility="visible" />
-
-    <TextView
-        android:id="@+id/tv_newest"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:paddingEnd="@dimen/margin_x_mini"
-        android:text="@string/newest"
-        android:textColor="@color/red_700"
-        android:textSize="@dimen/text_mini"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@id/tv_date"
-        app:layout_constraintStart_toEndOf="@id/tv_top"
-        app:layout_constraintTop_toTopOf="@id/tv_date"
-        tools:ignore="RtlSymmetry"
-        tools:visibility="visible" />
-
-    <TextView
-        android:id="@+id/tv_tags"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingEnd="@dimen/margin_x_mini"
-        android:textColor="@color/teal_500"
-        android:textSize="@dimen/text_mini"
+        app:chipSpacing="@dimen/margin_x_mini"
         app:layout_constraintBottom_toBottomOf="@id/tv_date"
         app:layout_constraintEnd_toStartOf="@id/tv_date"
         app:layout_constraintHorizontal_bias="0"
-        app:layout_constraintStart_toEndOf="@id/tv_newest"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/tv_date"
-        tools:ignore="RtlSymmetry"
-        tools:text="公众号" />
+        app:singleLine="true" />
 
     <TextView
         android:id="@+id/tv_date"
@@ -70,19 +38,19 @@
         android:id="@+id/tv_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="@dimen/margin_x_mini"
+        android:layout_marginVertical="@dimen/margin_mini"
         android:ellipsize="end"
         android:minLines="1"
         android:textSize="@dimen/text_medium"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@id/iv_bookmark"
+        app:layout_constraintBottom_toTopOf="@id/iv_more_action"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_date"
         tools:text="包体积优化｜裁剪resources.arsc和资源压缩自动化" />
 
     <ImageView
-        android:id="@+id/iv_bookmark"
+        android:id="@+id/iv_more_action"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="4dp"
@@ -102,36 +70,9 @@
         android:paddingEnd="@dimen/margin_x_mini"
         android:textColor="?android:textColorPrimary"
         android:textSize="@dimen/text_small"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@id/iv_bookmark"
+        app:layout_constraintBottom_toBottomOf="@id/iv_more_action"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/iv_bookmark"
+        app:layout_constraintTop_toTopOf="@id/iv_more_action"
         tools:ignore="RtlSymmetry"
-        tools:text="作者"
-        tools:visibility="visible" />
-
-    <TextView
-        android:id="@+id/tv_super_category"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingEnd="@dimen/margin_x_mini"
-        android:textColor="?android:textColorPrimary"
-        android:textSize="@dimen/text_mini"
-        app:layout_constraintBottom_toBottomOf="@id/iv_bookmark"
-        app:layout_constraintStart_toEndOf="@id/tv_author"
-        app:layout_constraintTop_toTopOf="@id/iv_bookmark"
-        tools:ignore="RtlSymmetry"
-        tools:text="广场自助" />
-
-    <TextView
-        android:id="@+id/tv_category"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="?android:textColorPrimary"
-        android:textSize="@dimen/text_mini"
-        app:layout_constraintBottom_toBottomOf="@id/iv_bookmark"
-        app:layout_constraintStart_toEndOf="@id/tv_super_category"
-        app:layout_constraintTop_toTopOf="@id/iv_bookmark"
-        app:layout_goneMarginStart="0dp"
-        tools:text="广场自助" />
+        tools:text="作者/分享人" />
 </androidx.constraintlayout.widget.ConstraintLayout>

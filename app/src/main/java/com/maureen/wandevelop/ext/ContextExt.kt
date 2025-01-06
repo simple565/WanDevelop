@@ -6,9 +6,8 @@ import android.content.pm.PackageManager.NameNotFoundException
 import android.text.format.Formatter
 import android.util.Log
 import androidx.datastore.core.DataStore
-import androidx.datastore.dataStore
-import com.maureen.wanandroid.UserPreferences
-import com.maureen.wandevelop.util.UserPreferenceSerializer
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.preferencesDataStore
 
 /**
  * Function:
@@ -19,10 +18,7 @@ fun Context.startActivity(target: Class<*>) {
     this.startActivity(Intent(this, target))
 }
 
-val Context.preferenceStore: DataStore<UserPreferences> by dataStore(
-    fileName = "userPreference.pb",
-    serializer = UserPreferenceSerializer
-)
+val Context.preferenceStore: DataStore<Preferences> by preferencesDataStore(name = "userPreference")
 
 val Context.curVersionName: String
     get() {

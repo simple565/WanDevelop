@@ -7,7 +7,7 @@
     tools:context=".feature.bookmark.ui.BookmarkFragment">
 
     <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tbl"
+        android:id="@+id/banner"
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
         android:background="?colorPrimaryDark"
@@ -21,5 +21,5 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tbl" />
+        app:layout_constraintTop_toBottomOf="@id/banner" />
 </androidx.constraintlayout.widget.ConstraintLayout>

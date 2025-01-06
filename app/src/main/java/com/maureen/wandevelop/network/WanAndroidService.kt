@@ -4,10 +4,11 @@ import com.maureen.wandevelop.entity.Article
 import com.maureen.wandevelop.entity.Banner
 import com.maureen.wandevelop.entity.BasePage
 import com.maureen.wandevelop.entity.BaseResponse
-import com.maureen.wandevelop.entity.Bookmark
+import com.maureen.wandevelop.entity.Collection
 import com.maureen.wandevelop.entity.HotKey
 import com.maureen.wandevelop.entity.MessageInfo
 import com.maureen.wandevelop.entity.SharerInfo
+import com.maureen.wandevelop.entity.TreeInfo
 import com.maureen.wandevelop.entity.UserDetailInfo
 import com.maureen.wandevelop.entity.UserInfo
 import retrofit2.http.Field
@@ -26,6 +27,9 @@ interface WanAndroidService {
 
     companion object {
         const val BASE_URL = "https://www.wanandroid.com/"
+        const val DEFAULT_PAGE_SIZE = 20
+        const val DEFAULT_START_PAGE_INDEX = 0
+        const val DEFAULT_START_PAGE_INDEX_ALIAS = 1
 
         val instance: WanAndroidService by lazy {
             RetrofitManager.createService(WanAndroidService::class.java, BASE_URL)
@@ -61,12 +65,14 @@ interface WanAndroidService {
 
     /**
      * 未读消息列表
+     * @param page 从1开始
      */
     @GET("message/lg/unread_list/{page}/json")
     suspend fun unreadMessageList(@Path("page") page: Int): BaseResponse<BasePage<MessageInfo>>
 
     /**
      * 已读消息列表
+     * @param page 从1开始
      */
     @GET("message/lg/readed_list/{page}/json")
     suspend fun readMessageList(@Path("page") page: Int): BaseResponse<BasePage<MessageInfo>>
@@ -81,27 +87,38 @@ interface WanAndroidService {
     suspend fun stickyArticleList(): BaseResponse<List<Article>>
 
     /**
-     * 首页文章列表，page从0开始
+     * 首页文章列表
+     * @param page 从0开始
      */
     @GET("article/list/{page}/json")
-    suspend fun articleList(@Path("page") page: Int): BaseResponse<BasePage<Article>>
+    suspend fun homeArticleList(@Path("page") page: Int): BaseResponse<BasePage<Article>>
 
     /**
-     * 收藏
+     * 体系数据列表
+     */
+    @GET("tree/json")
+    suspend fun treeList(): BaseResponse<List<TreeInfo>>
+
+    /**
+     * 收藏文章列表
+     * @param page 从0开始
      */
     @GET("lg/collect/list/{page}/json")
-    suspend fun bookmarkList(@Path("page") page: Int): BaseResponse<BasePage<Bookmark>>
+    suspend fun collectionList(@Path("page") page: Int): BaseResponse<BasePage<Collection>>
 
     /**
      * 取消收藏
      */
     @FormUrlEncoded
     @POST("lg/uncollect/{id}/json")
-    suspend fun cancelMyBookmark(@Path("id") id: Long): BaseResponse<String?>
+    suspend fun cancelCollect(
+        @Path("id") id: Long,
+        @Field("originId") key: Long
+    ): BaseResponse<String?>
 
     /**
      * 自己分享的文章
-     * @param page 页数，从1开始
+     * @param page 从1开始
      */
     @GET("user/lg/private_articles/{page}/json")
     suspend fun myShareList(@Path("page") page: Int): BaseResponse<BasePage<Article>>
@@ -113,7 +130,8 @@ interface WanAndroidService {
     suspend fun hotKey(): BaseResponse<HotKey>
 
     /**
-     * 搜索文章，page从0开始
+     * 搜索文章
+     * @param page 从0开始
      */
     @FormUrlEncoded
     @POST("article/query/{page}/json")
@@ -123,7 +141,8 @@ interface WanAndroidService {
     ): BaseResponse<BasePage<Article>>
 
     /**
-     * 根据作者昵称搜索文章列表，page从0开始
+     * 根据作者昵称搜索文章列表
+     * @param page 从0开始
      */
     @GET("article/list/{page}/json")
     suspend fun searchByAuthorNickname(
@@ -132,7 +151,8 @@ interface WanAndroidService {
     ): BaseResponse<BasePage<Article>>
 
     /**
-     *分享人信息及分享文章列表，page从1开始
+     * 分享人信息及分享文章列表
+     * @param page 从1开始
      */
     @GET("user/{id}/share_articles/{page}/json")
     suspend fun sharerInfo(

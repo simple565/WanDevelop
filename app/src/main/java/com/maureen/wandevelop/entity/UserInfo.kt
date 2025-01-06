@@ -1,20 +1,21 @@
 package com.maureen.wandevelop.entity
 
 import androidx.annotation.Keep
+import kotlinx.serialization.Serializable
 
 /**
  * 用户信息
  * @author lianml
  * @date 2023/12/19
  */
-@Keep
+@Serializable
 data class UserDetailInfo(
     val coinInfo: CoinInfo,
     val collectArticleInfo: CollectArticleInfo,
     val userInfo: UserInfo
 )
 
-@Keep
+@Serializable
 data class UserInfo(
     val admin: Boolean,
     val chapterTops: List<Int>,
@@ -43,7 +44,7 @@ data class UserInfo(
 /**
  * 用户登记、积分及排名
  */
-@Keep
+@Serializable
 data class CoinInfo(
     val coinCount: Int,
     val level: Int,
@@ -53,7 +54,7 @@ data class CoinInfo(
     val username: String
 )
 
-@Keep
+@Serializable
 data class CollectArticleInfo(
     val count: Int
 )
@@ -61,6 +62,7 @@ data class CollectArticleInfo(
 /**
  * 分享者积分信息及分享文章列表
  */
+@Serializable
 data class SharerInfo(
     val coinInfo: CoinInfo,
     val shareList: BasePage<Article>

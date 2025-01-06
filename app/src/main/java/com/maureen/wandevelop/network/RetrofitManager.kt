@@ -19,7 +19,6 @@ import java.util.concurrent.TimeUnit
 object RetrofitManager {
     private const val DEFAULT_TIME_OUT: Long = 60L
     private const val MAX_CACHE_SIZE: Long = 10 * 1024 * 1024
-    private val cookieJar by lazy { CustomCookieJar(MyApplication.instance.applicationContext) }
 
     private val okHttpClient by lazy {
         val logger = HttpLoggingInterceptor().apply {
@@ -32,7 +31,7 @@ object RetrofitManager {
             .addInterceptor(logger)
             .addNetworkInterceptor(CacheInterceptor())
             .cache(Cache(MyApplication.instance.cacheDir, MAX_CACHE_SIZE))
-            .cookieJar(cookieJar)
+            .cookieJar(CustomCookieJar())
             .build()
     }
 

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/cardBackgroundColor"
-    android:minHeight="@dimen/margin_large"
+    android:minHeight="@dimen/height_settings_item"
     android:paddingHorizontal="10dp">
 
     <ImageView

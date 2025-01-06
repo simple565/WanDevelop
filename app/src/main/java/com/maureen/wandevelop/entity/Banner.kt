@@ -1,12 +1,13 @@
 package com.maureen.wandevelop.entity
 
 import androidx.annotation.Keep
+import kotlinx.serialization.Serializable
 
 /**
  * @author lianml
  * @date 2023/12/20
  */
-@Keep
+@Serializable
 data class Banner(
     val desc: String,
     val id: Int,

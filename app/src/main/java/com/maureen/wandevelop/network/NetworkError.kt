@@ -59,11 +59,6 @@ enum class NetworkError(val code: Int, val msg: String) {
     GATEWAY_TIMEOUT(504, "服务器未能应答"),
 
     /**
-     * 未登录
-     */
-    NOT_LOGIN(-1001, "未登录"),
-
-    /**
      * 未知错误
      */
     UNKNOWN(1000, "未知错误"),

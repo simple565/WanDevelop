@@ -3,9 +3,8 @@ plugins {
     alias(libs.plugins.com.android.application)
     alias(libs.plugins.org.jetbrains.kotlin.android)
     alias(libs.plugins.com.google.devtools.ksp)
-    alias(libs.plugins.protobuf)
     alias(libs.plugins.safeargs)
-    alias(libs.plugins.serialization)
+    alias(libs.plugins.org.jetbrains.kotlin.serialization)
 }
 
 android {
@@ -45,7 +44,7 @@ android {
         viewBinding = true
     }
 }
-protobuf {
+/*protobuf {
     protoc {
         artifact = libs.protobuf.protoc.get().toString()
     }
@@ -61,7 +60,7 @@ protobuf {
             }
         }
     }
-}
+}*/
 dependencies {
 
     implementation(libs.activity)
@@ -71,7 +70,8 @@ dependencies {
     implementation(libs.swiperefreshlayout)
     implementation(libs.coroutines.core)
     implementation(libs.coroutines.android)
-    implementation(libs.datastore)
+    implementation(libs.serialization)
+
     implementation(libs.datastore.preferences)
     implementation(libs.fragment)
     implementation(libs.lifecycle.runtime.ktx)
@@ -80,8 +80,8 @@ dependencies {
     implementation(libs.paging.runtime)
     implementation(libs.preference)
     implementation(libs.room.runtime)
+    implementation(libs.room.ktx)
     ksp(libs.room.complier)
-    implementation(libs.protobuf.kotlin.lite)
 
     implementation(libs.material)
     implementation(libs.banner)
@@ -90,6 +90,7 @@ dependencies {
     implementation(libs.retrofit.converter.moshi)
     implementation(libs.okhttp.logging)
     implementation(libs.multitype)
+    implementation(libs.glide)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)

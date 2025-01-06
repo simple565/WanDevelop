@@ -1,9 +1,0 @@
-syntax = "proto3";
-
-option java_package = "com.maureen.wanandroid";
-option java_multiple_files = true;
-
-message UserPreferences {
-  string cookie = 1;
-  int32 dark_mode = 2;
-}

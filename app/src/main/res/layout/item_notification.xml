@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingVertical="@dimen/margin_small">
+    android:paddingVertical="@dimen/margin_medium">
 
     <TextView
         android:id="@+id/tv_user_name"
@@ -40,6 +40,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_x_mini"
+        android:ellipsize="end"
+        android:maxLines="1"
         android:textColor="@color/textBody"
         android:textSize="@dimen/text_small"
         app:layout_constraintEnd_toEndOf="parent"

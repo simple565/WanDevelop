@@ -21,22 +21,7 @@ class MainViewModel(private val application: Application): AndroidViewModel(appl
     }
     private val _uiState = MutableSharedFlow<MainUiState>()
     val uiState = _uiState.asSharedFlow()
-
-    init {
-        viewModelScope.launch {
-            DarkModeUtil.initFromPreference(application)
-        }
-    }
-
-    fun loadUnreadMsgCount() = viewModelScope.launch(Dispatchers.IO) {
-        val response = WanAndroidService.instance.unreadMessageCount()
-        if (response.isSuccess) {
-            Log.d(TAG, "loadUnreadMsgCount: ${response.data}")
-            _uiState.emit(MainUiState.NotificationCount(response.data ?: 0))
-        }
-    }
 }
 
 sealed class MainUiState {
-    data class NotificationCount(val count: Int): MainUiState()
 }

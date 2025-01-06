@@ -1,17 +1,25 @@
 package com.maureen.wandevelop.feature.profile.ui
 
+import android.app.Activity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.maureen.wandevelop.R
+import com.maureen.wandevelop.base.view.ProgressDialog
 import com.maureen.wandevelop.databinding.FragmentSignInBinding
-import com.maureen.wandevelop.base.ProgressDialog
+import com.maureen.wandevelop.feature.profile.SignUiState
 import com.maureen.wandevelop.feature.profile.SignViewModel
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 
 /**
@@ -23,6 +31,7 @@ import com.maureen.wandevelop.feature.profile.SignViewModel
 class SignInFragment : Fragment() {
     private lateinit var viewBinding: FragmentSignInBinding
     private val viewModel: SignViewModel by activityViewModels()
+    private val progressDialog by lazy { ProgressDialog.newInstance("登录中……") }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,6 +44,7 @@ class SignInFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         initView()
+        observeData()
     }
 
     private fun initView() {
@@ -44,7 +54,7 @@ class SignInFragment : Fragment() {
                 .show()
         }
         viewBinding.btnLogin.setOnClickListener {
-            ProgressDialog.newInstance("登录中……").show(childFragmentManager, ProgressDialog.TAG)
+            progressDialog.show(childFragmentManager, ProgressDialog.TAG)
             viewModel.signIn(viewBinding.edtUsername.text.toString(), viewBinding.edtPassword.text.toString())
         }
         viewBinding.tvSignUp.setOnClickListener {
@@ -52,7 +62,21 @@ class SignInFragment : Fragment() {
         }
     }
 
-    private fun verifyInput() {
-
+    private fun observeData() = lifecycleScope.launch {
+        repeatOnLifecycle(Lifecycle.State.RESUMED) {
+            viewModel.uiState.collectLatest {
+                when(it) {
+                    is SignUiState.SignResult -> {
+                        progressDialog.dismissAllowingStateLoss()
+                        Toast.makeText(requireContext(), it.resultMsg, Toast.LENGTH_SHORT).show()
+                        if (it.result) {
+                            activity?.setResult(Activity.RESULT_OK)
+                            activity?.finish()
+                        }
+                    }
+                    else -> {}
+                }
+            }
+        }
     }
 }

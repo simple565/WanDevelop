@@ -19,24 +19,22 @@
             android:background="?colorPrimaryDark"
             app:layout_scrollFlags="scroll|enterAlways"
             app:menu="@menu/menu_search"
-            app:titleTextColor="@color/white">
+            app:titleTextColor="@color/white" />
 
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/tbl"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:background="?colorPrimaryDark"
-                app:tabGravity="center"
-                app:tabIndicatorFullWidth="false"
-                app:tabTextAppearance="@style/TabTextAppearance" />
-        </androidx.appcompat.widget.Toolbar>
+        <com.youth.banner.Banner
+            android:id="@+id/banner"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            app:layout_constraintTop_toBottomOf="@id/toolbar"
+            app:layout_scrollFlags="scroll|enterAlways" />
     </com.google.android.material.appbar.AppBarLayout>
 
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/vp_home"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_article"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:listitem="@layout/item_article" />
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

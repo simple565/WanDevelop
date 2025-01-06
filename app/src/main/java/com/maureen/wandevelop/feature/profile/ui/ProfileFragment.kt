@@ -15,34 +15,31 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.badge.BadgeDrawable
 import com.google.android.material.badge.BadgeUtils
-import com.maureen.wanandroid.UserPreferences
 import com.maureen.wandevelop.R
-import com.maureen.wandevelop.feature.setting.SettingAdapter
+import com.maureen.wandevelop.base.view.ProgressDialog
 import com.maureen.wandevelop.databinding.FragmentProfileBinding
+import com.maureen.wandevelop.entity.ProfileInfo
 import com.maureen.wandevelop.entity.SettingItem
 import com.maureen.wandevelop.entity.SettingType
 import com.maureen.wandevelop.entity.UserDetailInfo
 import com.maureen.wandevelop.ext.cacheSize
-import com.maureen.wandevelop.ext.curVersionName
 import com.maureen.wandevelop.ext.showAndRequest
 import com.maureen.wandevelop.ext.startActivity
-import com.maureen.wandevelop.base.ProgressDialog
-import com.maureen.wandevelop.feature.profile.ProfileUiState
 import com.maureen.wandevelop.feature.profile.ProfileViewModel
 import com.maureen.wandevelop.feature.setting.DarkModeSetDialog
 import com.maureen.wandevelop.feature.setting.NotificationActivity
 import com.maureen.wandevelop.feature.setting.ReadRecordActivity
+import com.maureen.wandevelop.feature.setting.SettingAdapter
 import com.maureen.wandevelop.util.DarkModeUtil
-import com.maureen.wandevelop.util.UserPrefUtil
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.firstOrNull
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onCompletion
-import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -66,9 +63,6 @@ class ProfileFragment : Fragment() {
 
     private val signInOrUpLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
         Log.d(TAG, "launcher: ${result.resultCode}")
-        if (result.resultCode == Activity.RESULT_OK) {
-            viewModel.loadUserDetail()
-        }
     }
 
     override fun onCreateView(
@@ -85,13 +79,13 @@ class ProfileFragment : Fragment() {
         Log.d(TAG, "onViewCreated: ")
         initView()
         observeData()
+        initSettings()
     }
 
     override fun onResume() {
         super.onResume()
         Log.d(TAG, "onResume: ")
-        viewModel.loadPreference()
-        viewModel.loadUserDetail()
+        viewModel.loadProfile()
     }
 
     private fun initView() {
@@ -111,86 +105,76 @@ class ProfileFragment : Fragment() {
         viewBinding.rvSettings.adapter = settingAdapter
         viewBinding.rvSettings.itemAnimator = null
     }
+
     private fun observeData() = lifecycleScope.launch {
-        viewModel.uiState.collectLatest {
-            when (it) {
-                is ProfileUiState.LoadUserPreference -> {
-                    initSettings(it.preferences)
-                    updateUnreadBadge(it.unreadCount > 0)
-                }
-                is ProfileUiState.LoadUserInfoSuccess -> {
-                    updateUserInfo(it.userInfo)
-                    Log.d(TAG, "observeData: ${it.unreadCount}")
-                    updateUnreadBadge(it.unreadCount > 0)
-                }
-                is ProfileUiState.LoadUserInfoFail -> {
-                    Toast.makeText(requireContext(), it.msg, Toast.LENGTH_SHORT).show()
-                }
-                else -> {}
+        repeatOnLifecycle(Lifecycle.State.RESUMED) {
+            viewModel.profileInfoFlow.collectLatest {
+                updateUserInfo(it.userDetailInfo)
+                updateUnreadBadge(it.unreadCount)
+                updateSettings(it)
             }
         }
     }
-    private fun initSettings(preferences: UserPreferences?) {
-        Log.d(TAG, "initSettings: preference is null ${preferences == null}")
+
+    private fun initSettings() {
         val list = mutableListOf<SettingItem>()
-        list.add(
-            SettingItem(
-                type = SettingType.ROUTE,
-                name = getString(R.string.nav_dark_mode_set),
-                value = DarkModeUtil.convertDarkModeName(requireContext(), preferences?.darkMode?: AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM),
-                action = this::showDarkModeSetDialog
-            )
-        )
+        list.add(SettingItem(type = SettingType.ROUTE, name = getString(R.string.nav_my_bookmark), action = { requireContext().startActivity(
+            ReadRecordActivity::class.java) }))
+        list.add(SettingItem(type = SettingType.ROUTE, name = getString(R.string.nav_read_later), action = { requireContext().startActivity(
+            ReadRecordActivity::class.java) }))
         list.add(SettingItem(type = SettingType.ROUTE, name = getString(R.string.nav_my_share), action = { requireContext().startActivity(
             ReadRecordActivity::class.java) }))
         list.add(SettingItem(type = SettingType.ROUTE, name = getString(R.string.nav_read_record), action = { requireContext().startActivity(
             ReadRecordActivity::class.java) }))
+        list.add(SettingItem(type = SettingType.ROUTE, name = getString(R.string.nav_todo), action = { requireContext().startActivity(
+            ReadRecordActivity::class.java) }))
+        list.add(SettingItem.EMPTY)
+        list.add(
+            SettingItem(
+                type = SettingType.ROUTE,
+                name = getString(R.string.nav_dark_mode_set),
+                value = DarkModeUtil.convertDarkModeName(requireContext(), AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM),
+                action = this::showDarkModeSetDialog
+            )
+        )
         list.add(SettingItem(type= SettingType.ACTION, name = getString(R.string.nav_clear_cache), value = requireContext().cacheSize, action = this::clearCache))
-        list.add(SettingItem(type= SettingType.ACTION, name = getString(R.string.nav_check_update), value = requireContext().curVersionName, action = this::checkUpdate))
         list.add(SettingItem(type= SettingType.ROUTE, name = getString(R.string.nav_about_us)))
         list.add(SettingItem.EMPTY)
         list.add(SettingItem(type= SettingType.ACTION, name = getString(R.string.nav_logout), warn = true, action = this::logout))
         settingAdapter.items = list
         settingAdapter.notifyItemRangeChanged(0, list.size)
     }
+
     private fun clearCache() = lifecycleScope.launch {
-        val findResult = settingAdapter.findItemByName(getString(R.string.nav_clear_cache))
-        val item = findResult.second ?: return@launch
+        val findResult = settingAdapter.findItemByName(getString(R.string.nav_clear_cache)) ?: return@launch
         withContext(Dispatchers.IO) {
             Log.d(TAG, "clearCache: delete internal result ${requireContext().cacheDir?.deleteRecursively()}")
             Log.d(TAG, "clearCache: delete external result ${requireContext().externalCacheDir?.deleteRecursively()}")
         }
-        item.value = requireContext().cacheSize
+        findResult.second.value = requireContext().cacheSize
         settingAdapter.notifyItemChanged(findResult.first)
     }
-    private fun checkUpdate() = lifecycleScope.launch {
 
-    }
     private fun showDarkModeSetDialog() = lifecycleScope.launch {
-        val findResult = settingAdapter.findItemByName(getString(R.string.nav_dark_mode_set))
-        val item = findResult.second ?: return@launch
+        val findResult = settingAdapter.findItemByName(getString(R.string.nav_dark_mode_set)) ?: return@launch
         val mode = DarkModeSetDialog().showAndRequest(childFragmentManager, DarkModeSetDialog.TAG, DarkModeSetDialog.REQUEST_KEY, viewLifecycleOwner)
             .firstOrNull()?.getInt(DarkModeSetDialog.RESULT_MODE)?: AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
-        item.value = DarkModeUtil.convertDarkModeName(requireContext(), mode)
-        Log.d(TAG, "showDarkModeSetDialog: select mode $mode name ${item.value}")
-        withContext(Dispatchers.IO) {
-            UserPrefUtil.setPreference(requireContext()) { builder -> builder.setDarkMode(mode) }
-        }
-        Log.d(TAG, "showDarkModeSetDialog: ${findResult.first}")
+        findResult.second.value = DarkModeUtil.convertDarkModeName(requireContext(), mode)
         settingAdapter.notifyItemChanged(findResult.first)
-        // 模式转变时会引起activity重建，在manifest中配置了configChange后不会重建
-        AppCompatDelegate.setDefaultNightMode(mode)
+        DarkModeUtil.setDarkMode(mode)
     }
-    private fun logout() {
+
+    private fun logout() = lifecycleScope.launch {
+        if (!viewModel.alreadyLogin) {
+            Toast.makeText(requireContext(), "用户未登录", Toast.LENGTH_SHORT).show()
+            return@launch
+        }
         val progressDialog = ProgressDialog.newInstance("退出登录中……")
+        progressDialog.show(childFragmentManager, ProgressDialog.TAG)
         viewModel.logoutAndClear()
-            .onStart { progressDialog.show(childFragmentManager, ProgressDialog.TAG) }
-            .onCompletion {
-                updateUserInfo(null)
-                progressDialog.dismiss()
-            }
-            .launchIn(lifecycleScope)
+        progressDialog.dismissAllowingStateLoss()
     }
+
     private fun updateUserInfo(info: UserDetailInfo?) {
         with(viewBinding) {
             tvNickname.text = info?.userInfo?.userName?: getString(R.string.nav_sign_in_or_up)
@@ -201,9 +185,21 @@ class ProfileFragment : Fragment() {
             tvLevel.text = info?.coinInfo?.level?.toString()?.run { String.format("No.%s", this) } ?: getString(R.string.prompt_default_value)
         }
     }
+
+    private fun updateSettings(profileInfo: ProfileInfo) {
+        settingAdapter.findItemByName(getString(R.string.nav_dark_mode_set))?.let {
+            it.second.value = profileInfo.darkModeState
+            settingAdapter.notifyItemChanged(it.first)
+        }
+        settingAdapter.findItemByName(getString(R.string.nav_clear_cache))?.let {
+            it.second.value = profileInfo.cacheSize
+            settingAdapter.notifyItemChanged(it.first)
+        }
+    }
+
     @androidx.annotation.OptIn(com.google.android.material.badge.ExperimentalBadgeUtils::class)
-    private fun updateUnreadBadge(show: Boolean) {
-        if (show) {
+    private fun updateUnreadBadge(msgCount: Int) {
+        if (msgCount > 0) {
             BadgeUtils.attachBadgeDrawable(badgeDrawable, viewBinding.toolbar, R.id.menu_notification)
         } else {
             BadgeUtils.detachBadgeDrawable(badgeDrawable, viewBinding.toolbar, R.id.menu_notification)

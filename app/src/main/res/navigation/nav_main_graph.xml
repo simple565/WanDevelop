@@ -11,11 +11,11 @@
         android:label="@string/nav_home"
         tools:layout="@layout/fragment_home" />
 
-    <fragment
+    <!--<fragment
         android:id="@+id/navigation_bookmark"
         android:name="com.maureen.wandevelop.feature.bookmark.ui.BookmarkFragment"
         android:label="@string/nav_bookmark"
-        tools:layout="@layout/fragment_discovery" />
+        tools:layout="@layout/fragment_discovery" />-->
 
     <fragment
         android:id="@+id/navigation_explore"
@@ -28,4 +28,9 @@
         android:name="com.maureen.wandevelop.feature.profile.ui.ProfileFragment"
         android:label="@string/nav_profile"
         tools:layout="@layout/fragment_profile" />
+
+    <activity
+        android:id="@+id/navigation_notification"
+        android:name="com.maureen.wandevelop.feature.setting.NotificationActivity"
+        tools:layout="@layout/acitivity_notification"/>
 </navigation>

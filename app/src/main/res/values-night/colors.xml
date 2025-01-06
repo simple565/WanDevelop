@@ -6,4 +6,5 @@
     <color name="colorError">#FF84B7</color>
     <color name="colorWarning">#FFD789</color>
     <color name="textBody">#B0B3B8</color>
+    <color name="tagBackground">#343434</color>
 </resources>

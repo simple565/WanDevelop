@@ -1,4 +1,4 @@
-package com.maureen.wandevelop.base
+package com.maureen.wandevelop.base.view
 
 import android.os.Bundle
 import android.view.LayoutInflater

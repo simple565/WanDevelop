@@ -1,11 +1,12 @@
 package com.maureen.wandevelop.entity
 
 import androidx.annotation.Keep
+import kotlinx.serialization.Serializable
 
 /**
  * 问答信息实体类
  */
-@Keep
+@Serializable
 data class QaInfo(
     val adminAdd: Boolean,
     val apkLink: String,

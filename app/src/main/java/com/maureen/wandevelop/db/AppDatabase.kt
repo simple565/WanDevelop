@@ -9,7 +9,7 @@ import com.maureen.wandevelop.MyApplication
  * @author lianml
  * @date 2024/1/9
  */
-@Database(entities = [ReadRecord::class, SearchRecent::class], version = 1)
+@Database(entities = [ReadRecord::class], version = 1)
 abstract class AppDatabase : RoomDatabase() {
     companion object {
         val instance by lazy {
@@ -21,5 +21,4 @@ abstract class AppDatabase : RoomDatabase() {
     }
     abstract fun readLaterDao(): ReadRecordDao
 
-    abstract fun searchRecentDao(): SearchRecentDao
 }

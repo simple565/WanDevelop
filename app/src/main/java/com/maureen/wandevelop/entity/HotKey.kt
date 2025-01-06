@@ -1,13 +1,14 @@
 package com.maureen.wandevelop.entity
 
 import androidx.annotation.Keep
+import kotlinx.serialization.Serializable
 
 /**
  * 搜索热词
  * @author lianml
  * @date 2023/12/20
  */
-@Keep
+@Serializable
 data class HotKey(
     val id: Int,
     val link: String,
