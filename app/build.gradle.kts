@@ -1,10 +1,10 @@
-@Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
 plugins {
     alias(libs.plugins.com.android.application)
-    alias(libs.plugins.org.jetbrains.kotlin.android)
     alias(libs.plugins.com.google.devtools.ksp)
-    alias(libs.plugins.safeargs)
+    alias(libs.plugins.org.jetbrains.kotlin.android)
     alias(libs.plugins.org.jetbrains.kotlin.serialization)
+    alias(libs.plugins.org.jetbrains.kotlin.compose)
+    alias(libs.plugins.androidx.navigation.safeargs)
 }
 
 android {
@@ -42,38 +42,39 @@ android {
     }
     buildFeatures {
         viewBinding = true
+        compose = true
     }
 }
-/*protobuf {
-    protoc {
-        artifact = libs.protobuf.protoc.get().toString()
-    }
-    generateProtoTasks {
-        all().forEach { task ->
-            task.builtins {
-                register("java") {
-                    option("lite")
-                }
-                register("kotlin") {
-                    option("lite")
-                }
-            }
-        }
-    }
-}*/
+
 dependencies {
 
-    implementation(libs.activity)
-    implementation(libs.appcompat)
-    implementation(libs.core.ktx)
-    implementation(libs.constraintlayout)
-    implementation(libs.swiperefreshlayout)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.activity)
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.constraintlayout)
+    implementation(libs.androidx.fragment)
+    implementation(libs.androidx.swiperefreshlayout)
+
+    // Compose
+    val composeBom = platform(libs.androidx.compose.bom)
+    implementation(composeBom)
+    implementation(libs.androidx.compose.activity)
+    implementation(libs.androidx.compose.material3)
+    implementation(libs.androidx.compose.material3.adaptive)
+    implementation(libs.androidx.compose.material3.adaptive.layout)
+    implementation(libs.androidx.compose.material3.adaptive.navigation)
+    implementation(libs.androidx.compose.ui.tooling.preview)
+    implementation(libs.androidx.lifecycle.runtime.compose)
+
+    debugImplementation(libs.androidx.compose.ui.tooling)
+    androidTestImplementation(libs.androidx.compose.ui.test.junit4)
+    debugImplementation(libs.androidx.compose.ui.test.manifest)
+
     implementation(libs.coroutines.core)
     implementation(libs.coroutines.android)
     implementation(libs.serialization)
 
     implementation(libs.datastore.preferences)
-    implementation(libs.fragment)
     implementation(libs.lifecycle.runtime.ktx)
     implementation(libs.navigation.ui.ktx)
     implementation(libs.navigation.fragment.ktx)
@@ -83,16 +84,16 @@ dependencies {
     implementation(libs.room.ktx)
     ksp(libs.room.complier)
 
-    implementation(libs.material)
     implementation(libs.banner)
+    implementation(libs.coil)
+    implementation(libs.material)
     implementation(libs.moshi)
+    implementation(libs.multitype)
     implementation(libs.retrofit)
     implementation(libs.retrofit.converter.moshi)
     implementation(libs.okhttp.logging)
-    implementation(libs.multitype)
-    implementation(libs.coil)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)
-    androidTestImplementation(libs.espresso.core)
+    androidTestImplementation(libs.android.test.espresso.core)
 }

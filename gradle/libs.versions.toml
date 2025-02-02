@@ -4,75 +4,93 @@ compileVersion = "35"
 targetVersion = "34"
 agp = "8.8.0"
 kotlin = "2.1.10"
-ksp = "2.0.21-1.0.27"
+ksp = "2.1.10-1.0.29"
 junit = "4.13.2"
-testExtJunit = "1.2.1"
-espressoCore = "3.6.1"
-appcompat = "1.7.0"
-coreKtx = "1.15.0"
-material = "1.12.0"
-constraintlayout = "2.2.0"
-swiperefreshlayout = "1.1.0"
+androidx-test-ext-junit = "1.2.1"
+android-test-espresso-core = "3.6.1"
+androidx-appcompat = "1.7.0"
+androidx-activity = "1.10.0"
+androidx-constraintlayout = "2.2.0"
+androidx-compose-bom = "2025.01.01"
+androidx-core-ktx = "1.15.0"
+androidx-datastore = "1.1.1"
+androidx-fragment = "1.8.5"
+androidx-lifecycle = "2.8.7"
+androidx-navigation = "2.8.6"
+androidx-paging = "3.1.1"
+androidx-preference = "1.2.1"
+androidx-room = "2.6.1"
+androidx-swiperefreshlayout = "1.1.0"
 banner = "2.2.3"
 coil = "2.7.0"
 coroutines = "1.10.1"
-dataStore = "1.1.1"
-activity = "1.10.0"
-fragment = "1.8.5"
-glide = "4.16.0"
-lifecycle = "2.8.7"
-navigation = "2.8.6"
-okhttpLogging = "4.12.0"
-paging = "3.1.1"
-room = "2.6.1"
+material = "1.12.0"
 retrofit = "2.11.0"
 moshi = "1.15.2"
-preference = "1.2.1"
 multitype = "4.3.0"
+okhttp-logging-interceptor = "4.12.0"
 serialization = "1.8.0"
 serializationPlugin = "2.0.21"
 
 [libraries]
 junit = { group = "junit", name = "junit", version.ref = "junit" }
-androidx-test-ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "testExtJunit" }
-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
-activity = { group = "androidx.activity", name = "activity-ktx", version.ref = "activity" }
-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
-fragment = { group = "androidx.fragment", name = "fragment-ktx", version.ref = "fragment" }
+androidx-test-ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidx-test-ext-junit" }
+android-test-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "android-test-espresso-core" }
+androidx-activity = { group = "androidx.activity", name = "activity-ktx", version.ref = "androidx-activity" }
+androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "androidx-appcompat" }
+androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "androidx-core-ktx" }
+androidx-fragment = { group = "androidx.fragment", name = "fragment-ktx", version.ref = "androidx-fragment" }
+
+# Compose
+androidx-compose-bom = { module = "androidx.compose:compose-bom", version.ref = "androidx-compose-bom" }
+androidx-compose-material3 = { module = "androidx.compose.material3:material3" }
+androidx-compose-material3-adaptive = { module = "androidx.compose.material3.adaptive:adaptive" }
+androidx-compose-material3-adaptive-layout = { module = "androidx.compose.material3.adaptive:adaptive-layout" }
+androidx-compose-material3-adaptive-navigation = { module = "androidx.compose.material3.adaptive:adaptive-navigation" }
+androidx-compose-foundation = { module = "androidx.compose.foundation:foundation" }
+androidx-compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling" }
+androidx-compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview" }
+androidx-compose-activity = { group = "androidx.activity", name = "activity-compose", version.ref = "androidx-activity" }
+androidx-lifecycle-runtime-compose = { group = "androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "androidx-lifecycle" }
+androidx-compose-ui-test-junit4 = { module = "androidx.compose.ui:ui-test-junit4" }
+androidx-compose-ui-test-manifest = { module = "androidx.compose.ui:ui-test-manifest" }
+
 
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
-swiperefreshlayout = { group = "androidx.swiperefreshlayout", name = "swiperefreshlayout", version.ref = "swiperefreshlayout" }
+androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "androidx-constraintlayout" }
+androidx-swiperefreshlayout = { group = "androidx.swiperefreshlayout", name = "swiperefreshlayout", version.ref = "androidx-swiperefreshlayout" }
 
-datastore-preferences = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "dataStore" }
-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycle" }
-navigation-fragment-ktx = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "navigation" }
-navigation-ui-ktx = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "navigation" }
-paging-runtime = { group = "androidx.paging", name = "paging-runtime", version.ref = "paging" }
-preference = { group = "androidx.preference", name = "preference", version.ref = "preference" }
-room-complier = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
-room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
+# Jetpack
+datastore-preferences = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "androidx-datastore" }
+lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "androidx-lifecycle" }
+navigation-fragment-ktx = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "androidx-navigation" }
+navigation-ui-ktx = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "androidx-navigation" }
+paging-runtime = { group = "androidx.paging", name = "paging-runtime", version.ref = "androidx-paging" }
+preference = { group = "androidx.preference", name = "preference", version.ref = "androidx-preference" }
+room-complier = { group = "androidx.room", name = "room-compiler", version.ref = "androidx-room" }
+room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "androidx-room" }
+room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "androidx-room" }
 
 coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "coroutines" }
 coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "coroutines" }
-serialization = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "serialization"}
+serialization = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "serialization" }
 
 coil = { group = "io.coil-kt", name = "coil", version.ref = "coil" }
 moshi = { group = "com.squareup.moshi", name = "moshi-kotlin", version.ref = "moshi" }
+okhttp-logging = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okhttp-logging-interceptor" }
 retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
 retrofit-converter-moshi = { group = "com.squareup.retrofit2", name = "converter-moshi", version.ref = "retrofit" }
-okhttp-logging = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okhttpLogging" }
+
 banner = { group = "io.github.youth5201314", name = "banner", version.ref = "banner" }
 multitype = { group = "com.drakeet.multitype", name = "multitype", version.ref = "multitype" }
 
 [plugins]
 com-android-application = { id = "com.android.application", version.ref = "agp" }
-org-jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
-org-jetbrains-kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "serializationPlugin" }
-safeargs = { id = "androidx.navigation.safeargs", version.ref = "navigation" }
 com-google-devtools-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+org-jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+androidx-navigation-safeargs = { id = "androidx.navigation.safeargs", version.ref = "androidx-navigation" }
+org-jetbrains-kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "serializationPlugin" }
+org-jetbrains-kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 
 [bundles]
 
