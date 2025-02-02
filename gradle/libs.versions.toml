@@ -2,52 +2,51 @@
 minVersion = "24"
 compileVersion = "35"
 targetVersion = "34"
-agp = "8.7.3"
-org-jetbrains-kotlin-android = "2.0.20"
+agp = "8.8.0"
+kotlin = "2.1.10"
 ksp = "2.0.21-1.0.27"
 junit = "4.13.2"
-androidx-test-ext-junit = "1.2.1"
-espresso-core = "3.6.1"
+testExtJunit = "1.2.1"
+espressoCore = "3.6.1"
 appcompat = "1.7.0"
-core-ktx = "1.15.0"
+coreKtx = "1.15.0"
 material = "1.12.0"
-constraintlayout = "2.1.4"
+constraintlayout = "2.2.0"
 swiperefreshlayout = "1.1.0"
 banner = "2.2.3"
-coil = "2.6.0"
+coil = "2.7.0"
 coroutines = "1.10.1"
 dataStore = "1.1.1"
-activity = "1.9.3"
-fragment = "1.8.3"
-gson = "2.11.0"
+activity = "1.10.0"
+fragment = "1.8.5"
 glide = "4.16.0"
 lifecycle = "2.8.7"
-navigation = "2.7.7"
-okhttp-logging = "4.12.0"
+navigation = "2.8.6"
+okhttpLogging = "4.12.0"
 paging = "3.1.1"
 room = "2.6.1"
 retrofit = "2.11.0"
 moshi = "1.15.2"
 preference = "1.2.1"
 multitype = "4.3.0"
-serialization = "1.7.3"
+serialization = "1.8.0"
 serializationPlugin = "2.0.21"
 
 [libraries]
 junit = { group = "junit", name = "junit", version.ref = "junit" }
-androidx-test-ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidx-test-ext-junit" }
-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espresso-core" }
+androidx-test-ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "testExtJunit" }
+espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
 activity = { group = "androidx.activity", name = "activity-ktx", version.ref = "activity" }
 appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
-datastore-preferences = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "dataStore" }
-datastore = { group = "androidx.datastore", name = "datastore", version.ref = "dataStore" }
+core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 fragment = { group = "androidx.fragment", name = "fragment-ktx", version.ref = "fragment" }
-lifecycle-livedata-ktx = { group = "androidx.lifecycle", name = "lifecycle-livedata-ktx", version.ref = "lifecycle" }
-lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycle" }
-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycle" }
+
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
+swiperefreshlayout = { group = "androidx.swiperefreshlayout", name = "swiperefreshlayout", version.ref = "swiperefreshlayout" }
+
+datastore-preferences = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "dataStore" }
+lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycle" }
 navigation-fragment-ktx = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "navigation" }
 navigation-ui-ktx = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "navigation" }
 paging-runtime = { group = "androidx.paging", name = "paging-runtime", version.ref = "paging" }
@@ -55,25 +54,22 @@ preference = { group = "androidx.preference", name = "preference", version.ref =
 room-complier = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
 room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
 room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
-swiperefreshlayout = { group = "androidx.swiperefreshlayout", name = "swiperefreshlayout", version.ref = "swiperefreshlayout" }
 
 coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "coroutines" }
 coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "coroutines" }
 serialization = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "serialization"}
-gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson" }
-glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glide" }
+
+coil = { group = "io.coil-kt", name = "coil", version.ref = "coil" }
 moshi = { group = "com.squareup.moshi", name = "moshi-kotlin", version.ref = "moshi" }
 retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
-retrofit-converter-gson = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofit" }
 retrofit-converter-moshi = { group = "com.squareup.retrofit2", name = "converter-moshi", version.ref = "retrofit" }
-okhttp-logging = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okhttp-logging" }
-coil = { group = "io.coil-kt", name = "coil", version.ref = "coil" }
+okhttp-logging = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okhttpLogging" }
 banner = { group = "io.github.youth5201314", name = "banner", version.ref = "banner" }
 multitype = { group = "com.drakeet.multitype", name = "multitype", version.ref = "multitype" }
 
 [plugins]
 com-android-application = { id = "com.android.application", version.ref = "agp" }
-org-jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "org-jetbrains-kotlin-android" }
+org-jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 org-jetbrains-kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "serializationPlugin" }
 safeargs = { id = "androidx.navigation.safeargs", version.ref = "navigation" }
 com-google-devtools-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
