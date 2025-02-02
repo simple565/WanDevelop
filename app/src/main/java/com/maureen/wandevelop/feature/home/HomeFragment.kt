@@ -16,7 +16,7 @@ import com.maureen.wandevelop.adapter.BannerAdapter
 import com.maureen.wandevelop.databinding.FragmentHomeBinding
 import com.maureen.wandevelop.entity.Article
 import com.maureen.wandevelop.ext.startActivity
-import com.maureen.wandevelop.feature.common.ArticleActionDialog
+import com.maureen.wandevelop.common.ArticleActionDialog
 import com.maureen.wandevelop.feature.discovery.SearchActivity
 import com.youth.banner.indicator.CircleIndicator
 import kotlinx.coroutines.flow.launchIn

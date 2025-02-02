@@ -107,14 +107,24 @@ interface WanAndroidService {
     suspend fun collectionList(@Path("page") page: Int): BaseResponse<BasePage<Collection>>
 
     /**
-     * 取消收藏
+     * 收藏文章
+     */
+    @FormUrlEncoded
+    @POST("lg/collect/{id}/json")
+    suspend fun collect(@Path("id") id: Long): BaseResponse<String?>
+
+    /**
+     * 已收藏列表取消收藏
      */
     @FormUrlEncoded
     @POST("lg/uncollect/{id}/json")
-    suspend fun cancelCollect(
-        @Path("id") id: Long,
-        @Field("originId") key: Long
-    ): BaseResponse<String?>
+    suspend fun cancelCollect(@Path("id") id: Long, @Field("originId") key: Long): BaseResponse<String?>
+
+    /**
+     * 文章列表取消收藏
+     */
+    @POST("lg/uncollect_originId/{id}/json")
+    suspend fun cancelCollect(@Path("id") id: Long): BaseResponse<String?>
 
     /**
      * 自己分享的文章

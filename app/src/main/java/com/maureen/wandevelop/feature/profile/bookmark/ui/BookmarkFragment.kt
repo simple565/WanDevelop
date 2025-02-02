@@ -1,4 +1,4 @@
-package com.maureen.wandevelop.feature.bookmark.ui
+package com.maureen.wandevelop.feature.profile.bookmark.ui
 
 import android.os.Bundle
 import android.util.Log
@@ -11,7 +11,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.maureen.wandevelop.R
 import com.maureen.wandevelop.adapter.NavPageAdapter
 import com.maureen.wandevelop.databinding.FragmentBookmarkBinding
-import com.maureen.wandevelop.feature.bookmark.BookmarkViewModel
+import com.maureen.wandevelop.feature.profile.bookmark.BookmarkViewModel
 
 class BookmarkFragment : Fragment() {
     companion object {
@@ -39,12 +39,12 @@ class BookmarkFragment : Fragment() {
         val tabText = listOf(getString(R.string.nav_my_bookmark), getString(R.string.nav_read_later))
         val createFunList = listOf({ CollectionFragment() }, { ReadLaterFragment() })
         viewBinding.vpBookmark.adapter = NavPageAdapter(childFragmentManager, lifecycle, createFunList)
-        TabLayoutMediator(
+        /*TabLayoutMediator(
             viewBinding.tbl,
             viewBinding.vpBookmark
         ) { tab, position ->
             Log.d(TAG, "onViewCreated: show $position")
             tab.text = tabText[position]
-        }.attach()
+        }.attach()*/
     }
 }

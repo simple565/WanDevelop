@@ -1,9 +1,10 @@
-package com.maureen.wandevelop.feature.profile
+package com.maureen.wandevelop.feature.profile.sign
 
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
+import com.maureen.wandevelop.feature.profile.UserRepository
 import com.maureen.wandevelop.util.UserPrefUtil
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow

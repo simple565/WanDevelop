@@ -37,13 +37,13 @@ class SettingAdapter : MultiTypeAdapter() {
         }
     }
 
-    fun findItemByName(name: String): Pair<Int, SettingItem?> {
+    fun findItemByName(name: String): Pair<Int, SettingItem>? {
         this.items.forEachIndexed { index, any ->
             if (name == (any as? SettingItem)?.name) {
                 return Pair(index, any)
             }
         }
-        return Pair(-1, null)
+        return null
     }
 
     class EmptyProvider : ItemViewDelegate<SettingItem, EmptyProvider.ViewHolder>() {

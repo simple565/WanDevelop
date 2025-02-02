@@ -1,4 +1,4 @@
-package com.maureen.wandevelop.feature.profile.ui
+package com.maureen.wandevelop.feature.profile.sign
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.maureen.wandevelop.databinding.FragmentSignUpBinding
-import com.maureen.wandevelop.feature.profile.SignViewModel
 
 /**
  * 注册页面

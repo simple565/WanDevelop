@@ -25,7 +25,7 @@
 
     <fragment
         android:id="@+id/navigation_profile"
-        android:name="com.maureen.wandevelop.feature.profile.ui.ProfileFragment"
+        android:name="com.maureen.wandevelop.feature.profile.ProfileFragment"
         android:label="@string/nav_profile"
         tools:layout="@layout/fragment_profile" />
 

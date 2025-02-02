@@ -8,9 +8,8 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.bundleOf
 import androidx.fragment.app.setFragmentResult
 import com.maureen.wandevelop.R
-import com.maureen.wandevelop.base.BaseDialogFragment
+import com.maureen.wandevelop.base.view.BaseDialogFragment
 import com.maureen.wandevelop.databinding.FragmentDarkModeSetBinding
-import com.maureen.wandevelop.databinding.FragmentProgressBinding
 
 /**
  * 深色模式设置对话框

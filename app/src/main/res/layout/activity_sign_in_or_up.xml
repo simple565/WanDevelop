@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".feature.profile.ui.SignInOrUpActivity">
+    tools:context=".feature.profile.sign.SignInOrUpActivity">
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/login_fragment_container"

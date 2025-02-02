@@ -15,21 +15,12 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tv_bookmark"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:padding="@dimen/padding_large"
-        android:text="@string/collect"
-        app:layout_constraintTop_toBottomOf="@id/tv_read_later" />
-
-    <TextView
         android:id="@+id/tv_share"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:padding="@dimen/padding_large"
         android:text="@string/nav_share"
-        app:layout_constraintTop_toBottomOf="@id/tv_bookmark" />
+        app:layout_constraintTop_toBottomOf="@id/tv_read_later" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

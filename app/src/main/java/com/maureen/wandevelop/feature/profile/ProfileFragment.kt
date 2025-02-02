@@ -1,6 +1,5 @@
-package com.maureen.wandevelop.feature.profile.ui
+package com.maureen.wandevelop.feature.profile
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -18,7 +17,6 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.navigation.fragment.findNavController
 import com.google.android.material.badge.BadgeDrawable
 import com.google.android.material.badge.BadgeUtils
 import com.maureen.wandevelop.R
@@ -31,7 +29,7 @@ import com.maureen.wandevelop.entity.UserDetailInfo
 import com.maureen.wandevelop.ext.cacheSize
 import com.maureen.wandevelop.ext.showAndRequest
 import com.maureen.wandevelop.ext.startActivity
-import com.maureen.wandevelop.feature.profile.ProfileViewModel
+import com.maureen.wandevelop.feature.profile.sign.SignInOrUpActivity
 import com.maureen.wandevelop.feature.setting.DarkModeSetDialog
 import com.maureen.wandevelop.feature.setting.NotificationActivity
 import com.maureen.wandevelop.feature.setting.ReadRecordActivity

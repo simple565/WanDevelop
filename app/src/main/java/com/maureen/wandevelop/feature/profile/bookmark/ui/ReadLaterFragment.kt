@@ -1,4 +1,4 @@
-package com.maureen.wandevelop.feature.bookmark.ui
+package com.maureen.wandevelop.feature.profile.bookmark.ui
 
 import androidx.fragment.app.Fragment
 

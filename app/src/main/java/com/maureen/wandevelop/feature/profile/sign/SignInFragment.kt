@@ -1,4 +1,4 @@
-package com.maureen.wandevelop.feature.profile.ui
+package com.maureen.wandevelop.feature.profile.sign
 
 import android.app.Activity
 import android.os.Bundle
@@ -16,8 +16,6 @@ import com.google.android.material.snackbar.Snackbar
 import com.maureen.wandevelop.R
 import com.maureen.wandevelop.base.view.ProgressDialog
 import com.maureen.wandevelop.databinding.FragmentSignInBinding
-import com.maureen.wandevelop.feature.profile.SignUiState
-import com.maureen.wandevelop.feature.profile.SignViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 

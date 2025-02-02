@@ -1,12 +1,10 @@
-package com.maureen.wandevelop.feature.profile.ui
+package com.maureen.wandevelop.feature.setting
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.maureen.wandevelop.R
 import com.maureen.wandevelop.databinding.ItemNotificationBinding
 import com.maureen.wandevelop.entity.MessageInfo
 
@@ -29,7 +27,7 @@ class NotificationAdapter: PagingDataAdapter<MessageInfo, NotificationAdapter.Vi
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        getItem(position)?.also { holder.bind(it) }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -45,10 +43,7 @@ class NotificationAdapter: PagingDataAdapter<MessageInfo, NotificationAdapter.Vi
                 }
             }
         }
-        fun bind(messageInfo: MessageInfo?) {
-            if (messageInfo == null) {
-                return
-            }
+        fun bind(messageInfo: MessageInfo) {
             this.data = messageInfo
             viewBinding.tvUserName.text = messageInfo.fromUser
             viewBinding.tvTitle.text = messageInfo.title

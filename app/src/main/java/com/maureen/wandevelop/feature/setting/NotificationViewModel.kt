@@ -1,12 +1,13 @@
-package com.maureen.wandevelop.feature.profile
+package com.maureen.wandevelop.feature.setting
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import com.maureen.wandevelop.base.getCommonPager
+import com.maureen.wandevelop.base.WanAndroidPagePagingSource
 import com.maureen.wandevelop.entity.MessageInfo
+import com.maureen.wandevelop.ext.toPager
 import com.maureen.wandevelop.network.WanAndroidService
 import com.maureen.wandevelop.network.parse
 import kotlinx.coroutines.CompletableDeferred
@@ -23,8 +24,12 @@ class NotificationViewModel : ViewModel() {
     companion object {
         private const val TAG = "NotificationViewModel"
     }
-    private var messageFlow: Flow<PagingData<MessageInfo>>? = null
     val deferred = CompletableDeferred<Boolean>()
+    val messageFlow: Flow<PagingData<MessageInfo>> by lazy {
+        WanAndroidPagePagingSource(loadDataBlock = { pageNum ->
+            WanAndroidService.instance.readMessageList(pageNum)
+        }).toPager().flow.flowOn(Dispatchers.IO).cachedIn(viewModelScope)
+    }
 
     init {
         // 先请求未读消息列表，保证未读消息都转为已读消息
@@ -38,10 +43,4 @@ class NotificationViewModel : ViewModel() {
             }
         }
     }
-
-    fun loadReadMessageList(): Flow<PagingData<MessageInfo>> {
-        return messageFlow ?: getCommonPager { pageNum -> WanAndroidService.instance.readMessageList(pageNum) }
-                .flow.flowOn(Dispatchers.IO).cachedIn(viewModelScope).also { messageFlow = it }
-    }
-
 }

@@ -3,8 +3,7 @@ package com.maureen.wandevelop.adapter
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.maureen.wandevelop.R
+import coil.load
 import com.maureen.wandevelop.entity.Banner
 
 
@@ -35,10 +34,11 @@ class BannerAdapter(bannerList: List<Banner>) :
         }
         fun bind(banner: Banner) {
             this.banner = banner
-            Glide.with(bannerView)
+            bannerView.load(banner.imagePath)
+            /*Glide.with(bannerView)
                 .load(banner.imagePath)
                 .placeholder(R.drawable.bg_tag)
-                .into(bannerView)
+                .into(bannerView)*/
         }
     }
 }

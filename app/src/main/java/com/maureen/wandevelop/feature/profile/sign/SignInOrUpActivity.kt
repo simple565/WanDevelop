@@ -1,4 +1,4 @@
-package com.maureen.wandevelop.feature.profile.ui
+package com.maureen.wandevelop.feature.profile.sign
 
 import android.os.Bundle
 import android.util.Log
@@ -7,8 +7,6 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.maureen.wandevelop.databinding.ActivitySignInOrUpBinding
-import com.maureen.wandevelop.feature.profile.SignUiState
-import com.maureen.wandevelop.feature.profile.SignViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 

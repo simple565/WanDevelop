@@ -1,21 +1,15 @@
 package com.maureen.wandevelop.feature.setting
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.navigation.Navigation
-import androidx.navigation.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.maureen.wandevelop.base.LoadStateFooterAdapter
+import com.maureen.wandevelop.base.view.LoadStateFooterAdapter
 import com.maureen.wandevelop.databinding.AcitivityNotificationBinding
-import com.maureen.wandevelop.feature.profile.NotificationViewModel
-import com.maureen.wandevelop.feature.profile.ui.NotificationAdapter
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -33,6 +27,7 @@ class NotificationActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(viewBinding.root)
+        viewBinding.toolbar.setNavigationOnClickListener { finish() }
         viewBinding.swrl.isRefreshing = true
         viewBinding.swrl.setOnRefreshListener { adapter.refresh() }
         initAdapter()
@@ -51,7 +46,7 @@ class NotificationActivity : AppCompatActivity() {
     private fun observeData() = lifecycleScope.launch {
         viewModel.deferred.await()
         repeatOnLifecycle(Lifecycle.State.RESUMED) {
-            viewModel.loadReadMessageList().collectLatest {
+            viewModel.messageFlow.collectLatest {
                 adapter.submitData(it)
             }
         }
