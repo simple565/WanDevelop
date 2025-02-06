@@ -17,5 +17,6 @@ data class ReadRecord(
     val author: String,
     val tags: String,
     val description: String,
+    val timestamp: Long,
     val read: Boolean
 )

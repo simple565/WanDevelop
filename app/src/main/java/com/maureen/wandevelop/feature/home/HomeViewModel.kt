@@ -1,13 +1,12 @@
 package com.maureen.wandevelop.feature.home
 
 import android.app.Application
-import android.content.Context
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
 import androidx.paging.map
 import com.maureen.wandevelop.entity.Banner
+import com.maureen.wandevelop.ext.fixTags
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -26,7 +25,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
     private val repository = HomePageRepository()
     val articleFlow by lazy {
         repository.loadHomeArticleList().flow
-            .map { it.map { data -> data.refreshTags(application) } }
+            .map { it.map { data -> data.fixTags(application) } }
             .flowOn(Dispatchers.IO)
             .cachedIn(viewModelScope)
     }

@@ -5,7 +5,7 @@ import com.maureen.wandevelop.entity.Banner
 import com.maureen.wandevelop.entity.BasePage
 import com.maureen.wandevelop.entity.BaseResponse
 import com.maureen.wandevelop.entity.Collection
-import com.maureen.wandevelop.entity.HotKey
+import com.maureen.wandevelop.entity.Hotkey
 import com.maureen.wandevelop.entity.MessageInfo
 import com.maureen.wandevelop.entity.SharerInfo
 import com.maureen.wandevelop.entity.TreeInfo
@@ -137,7 +137,7 @@ interface WanAndroidService {
      * 热门搜索关键词
      */
     @GET("hotkey/json")
-    suspend fun hotKey(): BaseResponse<HotKey>
+    suspend fun hotKey(): BaseResponse<List<Hotkey>>
 
     /**
      * 搜索文章

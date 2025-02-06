@@ -5,14 +5,13 @@ import androidx.core.text.HtmlCompat
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
-import java.util.logging.SimpleFormatter
 
 /**
  * Function:
  * @author lianml
  * Create 2021-07-14
  */
-fun String.fromHtml(): Spanned {
+fun String.displayHtml(): Spanned {
     return HtmlCompat.fromHtml(this, HtmlCompat.FROM_HTML_MODE_LEGACY)
 }
 

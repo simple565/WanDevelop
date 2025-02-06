@@ -4,6 +4,7 @@ import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import com.maureen.wandevelop.MyApplication
 import com.maureen.wandevelop.ext.preferenceStore
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.runBlocking
@@ -36,6 +37,10 @@ object UserPrefUtil {
 
     suspend fun getPreference(key: String): String? {
         return dataStore.data.map { it[stringPreferencesKey(key)] }.firstOrNull()
+    }
+
+    fun getPreferenceFlow(key: String, defaultValue: String?): Flow<String?> {
+        return dataStore.data.map { it[stringPreferencesKey(key)] ?: defaultValue }
     }
 
     suspend fun <T> setPreference(key: String, value: T) {

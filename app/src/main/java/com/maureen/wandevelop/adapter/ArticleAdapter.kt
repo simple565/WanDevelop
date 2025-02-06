@@ -7,14 +7,13 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.chip.Chip
 import com.maureen.wandevelop.R
 import com.maureen.wandevelop.databinding.ItemArticleBinding
 import com.maureen.wandevelop.entity.Article
-import com.maureen.wandevelop.ext.context
-import com.maureen.wandevelop.ext.fromHtml
+import com.maureen.wandevelop.ext.displayAuthor
+import com.maureen.wandevelop.ext.displayPublishData
+import com.maureen.wandevelop.ext.displayHtml
 
 /**
  * 文章列表适配器
@@ -72,9 +71,9 @@ class ArticleAdapter(private val itemClick: (View, Article) -> Unit) : PagingDat
                 chip.setBackgroundResource(it.getBackgroundDrawableResId(viewBinding.cgTag.context))
                 viewBinding.cgTag.addView(chip)
             }
-            viewBinding.tvDate.text = item.niceDate.ifBlank { item.niceShareDate }
-            viewBinding.tvTitle.text = item.title.fromHtml()
-            viewBinding.tvAuthor.text = item.author.ifBlank { item.shareUser }
+            viewBinding.tvDate.text = item.displayPublishData
+            viewBinding.tvTitle.text = item.title.displayHtml()
+            viewBinding.tvAuthor.text = item.displayAuthor
         }
     }
 }

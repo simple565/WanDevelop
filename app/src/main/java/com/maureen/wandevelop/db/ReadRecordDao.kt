@@ -1,6 +1,5 @@
 package com.maureen.wandevelop.db
 
-import androidx.paging.PagingSource
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -17,10 +16,10 @@ interface ReadRecordDao {
     fun addOrUpdateRecord(record: ReadRecord)
 
     @Query("SELECT * FROM read_record WHERE read = 1")
-    fun queryRecordList(): Flow<ReadRecord>
+    fun queryRecordList(): Flow<List<ReadRecord>>
 
     @Query("SELECT * FROM read_record WHERE read = 0")
-    fun queryReadLaterList(): Flow<ReadRecord>
+    fun queryReadLaterList(): Flow<List<ReadRecord>>
 
     @Query("DELETE FROM read_record")
     fun clearAll()

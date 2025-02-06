@@ -1,8 +1,6 @@
 package com.maureen.wandevelop.base
 
 import android.util.Log
-import androidx.paging.Pager
-import androidx.paging.PagingConfig
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.maureen.wandevelop.entity.BasePage
@@ -45,20 +43,9 @@ class WanAndroidPagePagingSource<T : Any>(
             val data = preLoadDataBlock?.invoke(pageNum)?.let { it + result.data.dataList } ?: result.data.dataList
             LoadResult.Page(data, prevKey = preKey, nextKey = pageNum.plus(1))
         } catch (e: Exception) {
+            Log.e(TAG, "load: ", e)
             Log.d(TAG, "load: ${e.parse().msg}")
             LoadResult.Error(e)
         }
     }
 }
-
-/*
-fun <T : Any> getCommonPager(
-    startPage: Int = WanAndroidService.DEFAULT_START_PAGE_INDEX,
-    pageSize: Int = WanAndroidService.DEFAULT_PAGE_SIZE,
-    preLoadDataBlock: (suspend (Int) -> List<T>)? = null,
-    loadDataBlock: suspend (Int) -> BaseResponse<BasePage<T>>
-): Pager<Int, T> {
-    return Pager(
-        config = PagingConfig(pageSize, enablePlaceholders = false),
-        pagingSourceFactory = { WanAndroidPagePagingSource(startPage, preLoadDataBlock, loadDataBlock) })
-}*/

@@ -1,6 +1,5 @@
 package com.maureen.wandevelop.entity
 
-import androidx.annotation.Keep
 import kotlinx.serialization.Serializable
 
 /**
@@ -9,10 +8,10 @@ import kotlinx.serialization.Serializable
  * @date 2023/12/20
  */
 @Serializable
-data class HotKey(
+data class Hotkey(
     val id: Int,
-    val link: String,
+    val link: String = "",
     val name: String,
     val order: Int,
-    val visible: Int
+    val visible: Int = 1
 )
