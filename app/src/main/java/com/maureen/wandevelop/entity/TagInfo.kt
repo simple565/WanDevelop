@@ -5,7 +5,7 @@ import com.maureen.wandevelop.R
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class Tag(
+data class TagInfo(
     val name: String,
     val url: String
 ) {

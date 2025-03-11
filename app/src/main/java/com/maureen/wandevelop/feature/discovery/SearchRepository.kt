@@ -5,8 +5,8 @@ import com.maureen.wandevelop.base.BaseRepository
 import com.maureen.wandevelop.base.WanAndroidPagePagingSource
 import com.maureen.wandevelop.db.AppDatabase
 import com.maureen.wandevelop.db.SearchKey
-import com.maureen.wandevelop.entity.Article
-import com.maureen.wandevelop.entity.Hotkey
+import com.maureen.wandevelop.entity.ArticleInfo
+import com.maureen.wandevelop.entity.HotkeyInfo
 import com.maureen.wandevelop.ext.toPager
 import com.maureen.wandevelop.network.WanAndroidService
 import com.maureen.wandevelop.util.UserPrefUtil
@@ -44,13 +44,13 @@ class SearchRepository : BaseRepository() {
         keyDao.deleteSearchRecentKey(keywords)
     }
 
-    fun getSearchResultList(keyword: String): Flow<PagingData<Article>> {
+    fun getSearchResultFlow(keyword: String): Flow<PagingData<ArticleInfo>> {
         return WanAndroidPagePagingSource(loadDataBlock = { pageNum ->
             WanAndroidService.instance.search(pageNum, keyword)
         }).toPager().flow
     }
 
-    fun getHistoryKeyList(): Flow<List<SearchKey>> {
+    fun getHistoryKeyFlow(): Flow<List<SearchKey>> {
         return keyDao.querySearchRecentKey()
     }
 
@@ -63,7 +63,7 @@ class SearchRepository : BaseRepository() {
         UserPrefUtil.setPreference(key = KEY_SHOW_HOTKEY, value = visible)
     }
 
-    fun getHotkeyList(): Flow<List<Hotkey>> {
+    fun getHotkeyList(): Flow<List<HotkeyInfo>> {
         return flow {
             val fromDb = keyDao.queryHotkey().first()
             if (fromDb.isNotEmpty()) {
@@ -83,9 +83,9 @@ class SearchRepository : BaseRepository() {
         }
     }
 
-    private fun List<SearchKey>.toHotkeyList(): List<Hotkey> {
+    private fun List<SearchKey>.toHotkeyList(): List<HotkeyInfo> {
         return this.mapIndexed { index, searchKey ->
-            Hotkey(
+            HotkeyInfo(
                 id = index,
                 name = searchKey.key,
                 order = index

@@ -1,17 +1,13 @@
 package com.maureen.wandevelop.entity
 
-import androidx.annotation.Keep
 import kotlinx.serialization.Serializable
 
-/**
- * 问答信息实体类
- */
 @Serializable
-data class QaInfo(
+data class ArticleInfo(
     val adminAdd: Boolean,
     val apkLink: String,
     val audit: Int,
-    val author: String,
+    val author: String?,
     val canEdit: Boolean,
     val chapterId: Int,
     val chapterName: String,
@@ -22,25 +18,26 @@ data class QaInfo(
     val envelopePic: String,
     val fresh: Boolean,
     val host: String,
-    val id: Int,
+    val id: Long,
     val isAdminAdd: Boolean,
     val link: String,
-    val niceDate: String,
-    val niceShareDate: String,
+    val niceDate: String?,
+    val niceShareDate: String?,
     val origin: String,
     val prefix: String,
     val projectLink: String,
     val publishTime: Long,
     val realSuperChapterId: Int,
     val selfVisible: Int,
-    val shareDate: Long,
-    val shareUser: String,
+    val shareDate: Long?,
+    val shareUser: String?,
     val superChapterId: Int,
     val superChapterName: String,
-    val tags: List<Tag>,
+    val tags: List<TagInfo>,
     val title: String,
     val type: Int,
     val userId: Int,
     val visible: Int,
-    val zan: Int
-)
+    val zan: Int,
+    val top: Boolean = false
+) : java.io.Serializable

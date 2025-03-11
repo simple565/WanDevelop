@@ -1,6 +1,5 @@
 package com.maureen.wandevelop.entity
 
-import androidx.annotation.Keep
 import com.squareup.moshi.Json
 import kotlinx.serialization.Serializable
 

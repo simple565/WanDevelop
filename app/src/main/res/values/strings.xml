@@ -64,4 +64,9 @@
     <string name="nav_todo">待办事项</string>
     <string name="bookmark_delete_hint">将文章从列表删除？</string>
     <string name="load_more_history_notification">查看更多历史消息</string>
+    
+    <string name="nav_square">广场</string>
+    <string name="nav_qa">问答</string>
+    <string name="nav_course">教程</string>
+    <string name="nav_learning_path">学习路线</string>
 </resources>

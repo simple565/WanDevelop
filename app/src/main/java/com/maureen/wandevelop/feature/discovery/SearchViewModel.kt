@@ -4,11 +4,12 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import androidx.paging.map
 import com.maureen.wandevelop.MyApplication
-import com.maureen.wandevelop.entity.Article
-import com.maureen.wandevelop.entity.Hotkey
-import com.maureen.wandevelop.ext.fixTags
+import com.maureen.wandevelop.common.entity.Feed
+import com.maureen.wandevelop.entity.HotkeyInfo
+import com.maureen.wandevelop.ext.toFeed
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
@@ -35,20 +36,21 @@ class SearchViewModel(private val savedStateHandle: SavedStateHandle) : ViewMode
         initialValue = false
     )
 
-    val searchResultFlow: StateFlow<PagingData<Article>> = searchKeywordState.flatMapLatest {
+    val searchResultFlow: StateFlow<PagingData<Feed>> = searchKeywordState.flatMapLatest {
         if (it.first.isBlank() || it.second.not()) {
             flowOf(PagingData.empty())
         } else {
-            repository.getSearchResultList(it.first)
-                .map { paging -> paging.map { article -> article.fixTags(MyApplication.instance.applicationContext) } }
+            repository.getSearchResultFlow(it.first)
+                .map { paging -> paging.map { article -> article.toFeed(MyApplication.instance.applicationContext) } }
         }
-    }.stateIn(
-        scope = viewModelScope,
-        started = SharingStarted.WhileSubscribed(5_000),
-        initialValue = PagingData.empty()
-    )
+    }.cachedIn(viewModelScope)
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5_000),
+            initialValue = PagingData.empty()
+        )
 
-    val hotkeyUiState: StateFlow<Pair<Boolean, List<Hotkey>>> =
+    val hotkeyInfoUiState: StateFlow<Pair<Boolean, List<HotkeyInfo>>> =
         repository.getHotkeyListVisibilityFlow().flatMapLatest {
             if (it) {
                 repository.getHotkeyList().mapLatest { hotkeys -> Pair(true, hotkeys) }
@@ -62,7 +64,7 @@ class SearchViewModel(private val savedStateHandle: SavedStateHandle) : ViewMode
         )
 
     val historyKeyUiState: StateFlow<Pair<Boolean, List<String>>> =
-        combine(repository.getHistoryKeyList(), keyDeleteState) { hotkeyList, deleteState ->
+        combine(repository.getHistoryKeyFlow(), keyDeleteState) { hotkeyList, deleteState ->
             Pair(deleteState, hotkeyList.map { key -> key.key })
         }.stateIn(
             scope = viewModelScope,

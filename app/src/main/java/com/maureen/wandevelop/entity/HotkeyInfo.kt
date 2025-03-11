@@ -8,7 +8,7 @@ import kotlinx.serialization.Serializable
  * @date 2023/12/20
  */
 @Serializable
-data class Hotkey(
+data class HotkeyInfo(
     val id: Int,
     val link: String = "",
     val name: String,

@@ -1,14 +1,15 @@
 package com.maureen.wandevelop.network
 
-import com.maureen.wandevelop.entity.Article
-import com.maureen.wandevelop.entity.Banner
+import com.maureen.wandevelop.entity.ArticleInfo
+import com.maureen.wandevelop.entity.BannerInfo
 import com.maureen.wandevelop.entity.BasePage
 import com.maureen.wandevelop.entity.BaseResponse
 import com.maureen.wandevelop.entity.Collection
-import com.maureen.wandevelop.entity.Hotkey
+import com.maureen.wandevelop.entity.CourseInfo
+import com.maureen.wandevelop.entity.HotkeyInfo
 import com.maureen.wandevelop.entity.MessageInfo
 import com.maureen.wandevelop.entity.SharerInfo
-import com.maureen.wandevelop.entity.TreeInfo
+import com.maureen.wandevelop.entity.SystemNodeInfo
 import com.maureen.wandevelop.entity.UserDetailInfo
 import com.maureen.wandevelop.entity.UserInfo
 import retrofit2.http.Field
@@ -78,26 +79,46 @@ interface WanAndroidService {
     suspend fun readMessageList(@Path("page") page: Int): BaseResponse<BasePage<MessageInfo>>
 
     @GET("banner/json")
-    suspend fun banner(): BaseResponse<List<Banner>>
+    suspend fun banner(): BaseResponse<List<BannerInfo>>
 
     /**
      * 置顶文章列表
      */
     @GET("article/top/json")
-    suspend fun stickyArticleList(): BaseResponse<List<Article>>
+    suspend fun stickyArticleList(): BaseResponse<List<ArticleInfo>>
 
     /**
      * 首页文章列表
      * @param page 从0开始
      */
     @GET("article/list/{page}/json")
-    suspend fun homeArticleList(@Path("page") page: Int): BaseResponse<BasePage<Article>>
+    suspend fun homeArticleList(@Path("page") page: Int): BaseResponse<BasePage<ArticleInfo>>
+
+    /**
+     * 广场文章列表
+     * @param page 从0开始
+     */
+    @GET("user_article/list/{page}/json")
+    suspend fun squareArticleList(@Path("page") page: Int): BaseResponse<BasePage<ArticleInfo>>
+
+    /**
+     * 问答列表
+     * @param page 从1开始
+     */
+    @GET("wenda/list/{page}/json")
+    suspend fun qaList(@Path("page") page: Int): BaseResponse<BasePage<ArticleInfo>>
+
+    /**
+     * 课程列表
+     */
+    @GET("chapter/547/sublist/json")
+    suspend fun courseList(): BaseResponse<List<CourseInfo>>
 
     /**
      * 体系数据列表
      */
     @GET("tree/json")
-    suspend fun treeList(): BaseResponse<List<TreeInfo>>
+    suspend fun treeList(): BaseResponse<List<SystemNodeInfo>>
 
     /**
      * 收藏文章列表
@@ -118,7 +139,10 @@ interface WanAndroidService {
      */
     @FormUrlEncoded
     @POST("lg/uncollect/{id}/json")
-    suspend fun cancelCollect(@Path("id") id: Long, @Field("originId") key: Long): BaseResponse<String?>
+    suspend fun cancelCollect(
+        @Path("id") id: Long,
+        @Field("originId") key: Long
+    ): BaseResponse<String?>
 
     /**
      * 文章列表取消收藏
@@ -131,13 +155,13 @@ interface WanAndroidService {
      * @param page 从1开始
      */
     @GET("user/lg/private_articles/{page}/json")
-    suspend fun myShareList(@Path("page") page: Int): BaseResponse<BasePage<Article>>
+    suspend fun myShareList(@Path("page") page: Int): BaseResponse<BasePage<ArticleInfo>>
 
     /**
      * 热门搜索关键词
      */
     @GET("hotkey/json")
-    suspend fun hotKey(): BaseResponse<List<Hotkey>>
+    suspend fun hotKey(): BaseResponse<List<HotkeyInfo>>
 
     /**
      * 搜索文章
@@ -148,7 +172,7 @@ interface WanAndroidService {
     suspend fun search(
         @Path("page") page: Int,
         @Field("k") key: String
-    ): BaseResponse<BasePage<Article>>
+    ): BaseResponse<BasePage<ArticleInfo>>
 
     /**
      * 根据作者昵称搜索文章列表
@@ -158,7 +182,7 @@ interface WanAndroidService {
     suspend fun searchByAuthorNickname(
         @Path("page") page: Int,
         @Query("author") authorId: Int
-    ): BaseResponse<BasePage<Article>>
+    ): BaseResponse<BasePage<ArticleInfo>>
 
     /**
      * 分享人信息及分享文章列表
