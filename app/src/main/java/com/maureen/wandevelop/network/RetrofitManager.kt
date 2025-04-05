@@ -28,6 +28,7 @@ object RetrofitManager {
             .connectTimeout(DEFAULT_TIME_OUT, TimeUnit.SECONDS)
             .readTimeout(DEFAULT_TIME_OUT, TimeUnit.SECONDS)
             .writeTimeout(DEFAULT_TIME_OUT, TimeUnit.SECONDS)
+            .hostnameVerifier { hostname, session -> return@hostnameVerifier true }
             .addInterceptor(logger)
             .addNetworkInterceptor(CacheInterceptor())
             .cache(Cache(MyApplication.instance.cacheDir, MAX_CACHE_SIZE))
