@@ -1,56 +1,103 @@
 package com.maureen.wandevelop.feature.profile.sign
 
-import android.app.Application
 import android.util.Log
-import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.maureen.wandevelop.feature.profile.UserRepository
-import com.maureen.wandevelop.util.UserPrefUtil
+import com.maureen.wandevelop.R
+import com.maureen.wandevelop.feature.profile.ProfileRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import kotlinx.serialization.encodeToString
-import kotlinx.serialization.json.Json
 
 /**
  * @author lianml
  * @date 2024/1/31
  */
-class SignViewModel(application: Application): AndroidViewModel(application) {
+class SignViewModel() : ViewModel() {
     companion object {
         private const val TAG = "SignViewModel"
     }
-    private val _uiState = MutableStateFlow<SignUiState>(SignUiState.Idle)
-    val uiState = _uiState.asStateFlow()
 
-    private val repository by lazy {
-        UserRepository()
+    private val repository = ProfileRepository()
+    private val _inputState = MutableStateFlow<Map<Int, SignInputState>>(emptyMap())
+    val inputState = _inputState.asStateFlow()
+
+    private val _signState = MutableStateFlow<SignState>(SignState())
+    val signState = _signState.asStateFlow()
+
+    fun setupInput(keys: List<Int>) {
+        _inputState.value = keys.associate { it to SignInputState() }
     }
 
-    fun signIn(userName: String, password: String) = viewModelScope.launch(Dispatchers.IO) {
-        if (userName.isBlank() or password.isBlank()) {
-            _uiState.emit(SignUiState.SignResult(false, "用户名或密码为空"))
+    fun confirmInput(key: Int, input: String = "") {
+        val new = _inputState.value.toMutableMap()
+        new[key] = if (input.isBlank()) {
+            SignInputState(
+                isError = true,
+                verifyResult = if (key == R.string.label_username) R.string.prompt_username_is_blank else R.string.prompt_password_is_blank
+            )
+        } else {
+            SignInputState(
+                input = input,
+                isError = false,
+                verifyResult = null
+            )
+        }
+        Log.d(TAG, "confirmInput: ${new.values}")
+        _inputState.value = new
+    }
+
+    fun toggleInputVisibility(key: Int) {
+        val new = _inputState.value.toMutableMap()
+        new[key] = if (new.containsKey(key)) {
+            new[key]!!.let { it.copy(showInput = it.showInput.not()) }
+        } else {
+            SignInputState()
+        }
+        _inputState.value = new
+    }
+
+    fun signInOrUp(signIn: Boolean = true) = viewModelScope.launch(Dispatchers.IO) {
+        val input = _inputState.value.toMutableMap()
+        val userName = input[R.string.label_username]?.input
+        val password = input[R.string.label_password]?.input
+        if (userName.isNullOrBlank() || password.isNullOrBlank()) {
             return@launch
         }
-        val result = repository.signIn(userName, password)
-        Log.d(TAG, "signIn: $result")
-        if (result.isSuccessWithData) {
-            repository.getUserDetailInfo().data?.also {
-                UserPrefUtil.setPreference(UserPrefUtil.KEY_USER_DETAIL, Json.encodeToString(it))
-            }
-            UserPrefUtil.setPreference(UserPrefUtil.KEY_LAST_REQUEST_USER_DETAIL, System.currentTimeMillis())
+        val passwordAgain = input[R.string.label_password_again]?.input
+        if (signIn.not() && passwordAgain.isNullOrBlank()) {
+            return@launch
         }
-        val resultMsg = if (result.isSuccess) "登录成功" else result.errorMsg
-        _uiState.emit(SignUiState.SignResult(result.isSuccess, resultMsg))
+        _signState.value = SignState(isLoading = true)
+
+        val result = if (signIn) {
+            repository.signIn(userName, password)
+        } else {
+            repository.signUp(userName, password, passwordAgain!!)
+        }
+        if (result.isSuccessWithData) {
+            // 保存用户信息
+            result.data?.also { repository.saveUserInfo(it) }
+        }
+        _signState.value = SignState(result = result.isSuccess, resultMsg = result.errorMsg, isLoading = false)
     }
 
-    fun signUp(userName: String, password: String, passwordConfirm: String) = viewModelScope.launch(Dispatchers.IO) {
-        repository.signUp(userName, password, passwordConfirm)
+    fun clearSignState() {
+        Log.d(TAG, "clearSignState: ")
+        _signState.value = SignState()
     }
 }
-sealed class SignUiState {
 
-    data object Idle : SignUiState()
-    data class SignResult(val result: Boolean, val resultMsg: String) : SignUiState()
-}
+data class SignInputState(
+    val input: String = "",
+    val isError: Boolean = false,
+    val verifyResult: Int? = null,
+    val showInput: Boolean = false
+)
+
+data class SignState(
+    val result: Boolean = false,
+    val resultMsg: String = "",
+    val isLoading: Boolean = false
+)
