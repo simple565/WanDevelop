@@ -1,13 +1,12 @@
-package com.maureen.wandevelop.feature.discovery
+package com.maureen.wandevelop.feature.search
 
 import androidx.paging.PagingData
 import com.maureen.wandevelop.base.BaseRepository
-import com.maureen.wandevelop.base.WanAndroidPagePagingSource
 import com.maureen.wandevelop.db.AppDatabase
 import com.maureen.wandevelop.db.SearchKey
 import com.maureen.wandevelop.entity.ArticleInfo
 import com.maureen.wandevelop.entity.HotkeyInfo
-import com.maureen.wandevelop.ext.toPager
+import com.maureen.wandevelop.ext.newWanAndroidPager
 import com.maureen.wandevelop.network.WanAndroidService
 import com.maureen.wandevelop.util.UserPrefUtil
 import kotlinx.coroutines.Dispatchers
@@ -45,9 +44,9 @@ class SearchRepository : BaseRepository() {
     }
 
     fun getSearchResultFlow(keyword: String): Flow<PagingData<ArticleInfo>> {
-        return WanAndroidPagePagingSource(loadDataBlock = { pageNum ->
+        return newWanAndroidPager(loadDataBlock = { pageNum ->
             WanAndroidService.instance.search(pageNum, keyword)
-        }).toPager().flow
+        }).flow
     }
 
     fun getHistoryKeyFlow(): Flow<List<SearchKey>> {
@@ -60,7 +59,7 @@ class SearchRepository : BaseRepository() {
     }
 
     suspend fun setHotkeyListVisibility(visible: Boolean) {
-        UserPrefUtil.setPreference(key = KEY_SHOW_HOTKEY, value = visible)
+        UserPrefUtil.setPreference(key = KEY_SHOW_HOTKEY, value = visible.toString())
     }
 
     fun getHotkeyList(): Flow<List<HotkeyInfo>> {

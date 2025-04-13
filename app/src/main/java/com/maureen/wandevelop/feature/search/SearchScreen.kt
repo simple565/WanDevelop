@@ -1,11 +1,5 @@
-@file:OptIn(ExperimentalLayoutApi::class)
+package com.maureen.wandevelop.feature.search
 
-package com.maureen.wandevelop.feature.discovery
-
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.activity.viewModels
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -13,16 +7,14 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.layout.wrapContentSize
-import androidx.compose.foundation.shape.CornerSize
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.ArrowBack
 import androidx.compose.material.icons.filled.Clear
@@ -38,37 +30,27 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.maureen.wandevelop.R
 import com.maureen.wandevelop.common.composable.FeedPagingColumn
 import com.maureen.wandevelop.common.composable.SearchView
 import com.maureen.wandevelop.common.theme.WanDevelopTheme
 import com.maureen.wandevelop.common.theme.WanDevelopTypography
+import com.maureen.wandevelop.common.tooling.UiModePreviews
 import com.maureen.wandevelop.entity.HotkeyInfo
 
-class SearchActivity : ComponentActivity() {
-    private val viewModel by viewModels<SearchViewModel>()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContent {
-            WanDevelopTheme {
-                SearchScreen(onBackIconClick = { finish() }, viewModel = viewModel)
-            }
-        }
-    }
-}
-
 @Composable
-fun SearchScreen(
+internal fun SearchScreen(
+    onBackClick: () -> Unit,
+    onFeedClick: (String) -> Unit,
     modifier: Modifier = Modifier,
-    onBackIconClick: () -> Unit = {},
-    viewModel: SearchViewModel
+    viewModel: SearchViewModel = viewModel()
 ) {
     val keywordState by viewModel.searchKeywordState.collectAsStateWithLifecycle()
     val hotkeyState by viewModel.hotkeyInfoUiState.collectAsStateWithLifecycle()
@@ -78,41 +60,42 @@ fun SearchScreen(
     Column(
         modifier = modifier
             .fillMaxSize()
-            .background(color = MaterialTheme.colorScheme.surface),
-        content = {
-            Column {
-                SearchToolbar(
-                    onBackIconClick = onBackIconClick,
-                    query = keywordState.first,
-                    onValueChange = { viewModel.onSearchKeywordChanged(it) },
-                    onSearch = { viewModel.onSearchKeywordChanged(it, true) }
+            .background(color = MaterialTheme.colorScheme.background)
+    ) {
+        SearchToolbar(
+            onBackIconClick = onBackClick,
+            modifier = modifier
+                .fillMaxWidth()
+                .systemBarsPadding(),
+            query = keywordState.first,
+            onValueChange = { viewModel.onSearchKeywordChanged(it) },
+            onSearch = { viewModel.onSearchKeywordChanged(it, true) }
+        )
+        if (keywordState.second) {
+            FeedPagingColumn(
+                pagingItems = searchResultList,
+                showMoreButton = false,
+                showCollectButton = false,
+                onItemClick = { onFeedClick(it.url) }
+            )
+        } else {
+            if (hotkeyState.first) {
+                HotKeyFlowRow(
+                    hotkeyInfoList = hotkeyState.second,
+                    onHotkeyClick = { viewModel.onSearchKeywordChanged(it.name, true) }
                 )
-                if (keywordState.second) {
-                    FeedPagingColumn(
-                        pagingItems = searchResultList,
-                        onItemClick = {
-                            // TODO: 跳转webview
-                        })
-                } else {
-                    if (hotkeyState.first) {
-                        HotKeyFlowRow(
-                            hotkeyInfoList = hotkeyState.second,
-                            onHotkeyClick = { viewModel.onSearchKeywordChanged(it.name, true) }
-                        )
-                    }
-                    if (searchHistoryState.second.isNotEmpty()) {
-                        SearchHistoryFlowRow(
-                            historyList = searchHistoryState.second,
-                            isDeleteModeOn = searchHistoryState.first,
-                            onDeleteModeChange = { viewModel.deleteSearchHistory(if (it) emptyList() else null) },
-                            onDeleteClick = { viewModel.deleteSearchHistory(it) },
-                            onHistoryClick = { viewModel.onSearchKeywordChanged(it, true) }
-                        )
-                    }
-                }
+            }
+            if (searchHistoryState.second.isNotEmpty()) {
+                SearchHistoryFlowRow(
+                    historyList = searchHistoryState.second,
+                    isDeleteModeOn = searchHistoryState.first,
+                    onDeleteModeChange = { viewModel.deleteSearchHistory(if (it) emptyList() else null) },
+                    onDeleteClick = { viewModel.deleteSearchHistory(it) },
+                    onHistoryClick = { viewModel.onSearchKeywordChanged(it, true) }
+                )
             }
         }
-    )
+    }
 }
 
 @Composable
@@ -147,13 +130,13 @@ internal fun SearchToolbar(
             modifier = Modifier
                 .fillMaxHeight()
                 .weight(0.75F),
-            placeholderText = "搜索关键词以空格形式隔开",
+            placeholderText = stringResource(R.string.prompt_search_hint),
             query = query,
             onValueChange = onValueChange,
             onSearch = onSearch
         )
         Text(
-            text = "搜索",
+            text = stringResource(R.string.search),
             style = WanDevelopTypography.labelLarge,
             textAlign = TextAlign.Center,
             modifier = Modifier
@@ -177,76 +160,84 @@ internal fun SearchHistoryFlowRow(
     Column(
         modifier = modifier
             .fillMaxWidth()
-            .padding(horizontal = 14.dp, vertical = 10.dp)
+            .padding(10.dp)
     ) {
         Row(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(30.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Text("历史搜索", color = MaterialTheme.colorScheme.onSurface)
-            if (isDeleteModeOn) {
-                Row(verticalAlignment = Alignment.CenterVertically) {
+            Text(
+                text = stringResource(R.string.prompt_search_history),
+                style = MaterialTheme.typography.titleSmall
+            )
+            Row(
+                modifier = Modifier.fillMaxHeight(),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                if (isDeleteModeOn) {
                     Text(
-                        "删除全部",
+                        text = stringResource(R.string.delete_all),
                         modifier = Modifier.clickable {
                             onDeleteClick.invoke(historyList)
                         },
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
                         style = WanDevelopTypography.labelLarge
                     )
-                    Spacer(modifier = Modifier.size(10.dp))
                     Text(
-                        "完成",
-                        modifier = Modifier.clickable {
-                            onDeleteModeChange.invoke(false)
-                        },
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        text = stringResource(R.string.done),
+                        modifier = Modifier
+                            .padding(start = 10.dp)
+                            .clickable {
+                                onDeleteModeChange.invoke(false)
+                            },
                         style = WanDevelopTypography.labelLarge
+                    )
+                } else if (historyList.isNotEmpty()) {
+                    IconButton(
+                        onClick = {
+                            onDeleteModeChange.invoke(true)
+                        },
+                        modifier = Modifier.size(28.dp),
+                        content = {
+                            Icon(
+                                imageVector = ImageVector.vectorResource(R.drawable.ic_delete),
+                                contentDescription = stringResource(R.string.delete),
+                                tint = MaterialTheme.colorScheme.onSurface
+                            )
+                        }
                     )
                 }
-            } else if (historyList.isNotEmpty()) {
-                IconButton(
-                    onClick = {
-                        onDeleteModeChange.invoke(true)
-                    },
-                    modifier = Modifier.size(26.dp),
-                    content = {
-                        Icon(
-                            imageVector = ImageVector.vectorResource(R.drawable.ic_delete),
-                            "删除",
-                            tint = MaterialTheme.colorScheme.onSurface
-                        )
-                    })
             }
         }
-        Spacer(modifier = Modifier.size(10.dp))
         FlowRow(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp)
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 6.dp),
+            horizontalArrangement = Arrangement.spacedBy(6.dp),
+            verticalArrangement = Arrangement.spacedBy(6.dp)
         ) {
             historyList.forEach {
                 Row(
                     modifier = Modifier
-                        .background(
-                            color = MaterialTheme.colorScheme.inverseOnSurface,
-                            shape = RoundedCornerShape(corner = CornerSize(12.dp))
-                        )
-                        .padding(10.dp)
                         .clickable {
                             if (isDeleteModeOn) {
                                 onDeleteClick.invoke(listOf(it))
                             } else {
                                 onHistoryClick.invoke(it)
                             }
-                        },
-                    horizontalArrangement = Arrangement.SpaceEvenly,
+                        }
+                        .background(
+                            color = MaterialTheme.colorScheme.surfaceBright,
+                            shape = MaterialTheme.shapes.medium
+                        )
+                        .padding(10.dp),
+                    horizontalArrangement = Arrangement.Center,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
                         text = it,
-                        color = MaterialTheme.colorScheme.onSurface,
                         style = WanDevelopTypography.labelLarge
                     )
                     if (isDeleteModeOn) {
@@ -254,7 +245,7 @@ internal fun SearchHistoryFlowRow(
                             Icons.Default.Clear,
                             null,
                             modifier = Modifier
-                                .padding(2.dp)
+                                .padding(start = 2.dp)
                                 .size(14.dp),
                             tint = MaterialTheme.colorScheme.onSurfaceVariant
                         )
@@ -265,6 +256,7 @@ internal fun SearchHistoryFlowRow(
     }
 }
 
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 internal fun HotKeyFlowRow(
     hotkeyInfoList: List<HotkeyInfo>,
@@ -274,28 +266,31 @@ internal fun HotKeyFlowRow(
     Column(
         modifier = modifier
             .fillMaxWidth()
-            .padding(horizontal = 14.dp, vertical = 10.dp)
+            .padding(10.dp)
     ) {
-        Text("热门搜索", color = MaterialTheme.colorScheme.onSurface)
-        Spacer(modifier = Modifier.size(10.dp))
+        Text(
+            text = stringResource(R.string.prompt_hotkey),
+            style = MaterialTheme.typography.titleSmall
+        )
         FlowRow(
-            modifier = modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(10.dp),
+            modifier = modifier
+                .fillMaxWidth()
+                .padding(top = 6.dp),
+            horizontalArrangement = Arrangement.spacedBy(6.dp),
             verticalArrangement = Arrangement.spacedBy(6.dp)
         ) {
             hotkeyInfoList.forEach {
                 Text(
                     text = it.name,
                     modifier = Modifier
-                        .background(
-                            color = MaterialTheme.colorScheme.inverseOnSurface,
-                            shape = RoundedCornerShape(corner = CornerSize(12.dp))
-                        )
                         .clickable {
                             onHotkeyClick.invoke(it)
                         }
+                        .background(
+                            color = MaterialTheme.colorScheme.surfaceBright,
+                            shape = MaterialTheme.shapes.medium
+                        )
                         .padding(10.dp),
-                    color = MaterialTheme.colorScheme.inverseSurface,
                     style = WanDevelopTypography.labelLarge,
                 )
             }
@@ -303,11 +298,11 @@ internal fun HotKeyFlowRow(
     }
 }
 
-@Preview
+@UiModePreviews
 @Composable
 fun SearchToolbarPreview() {
-    WanDevelopTheme(darkThemeOn = false) {
-        Surface(modifier = Modifier.background(color = MaterialTheme.colorScheme.surface)) {
+    WanDevelopTheme {
+        Surface(modifier = Modifier.background(color = MaterialTheme.colorScheme.background)) {
             SearchToolbar(
                 onBackIconClick = {},
                 query = "",
@@ -318,16 +313,16 @@ fun SearchToolbarPreview() {
     }
 }
 
-@Preview
+@UiModePreviews
 @Composable
 fun SearchHistoryFlowRowPreview() {
     val historyList = mutableListOf<String>()
     repeat(10) {
         historyList.add("compose${it}")
     }
-    val deleteMode = remember { mutableStateOf(false) }
-    WanDevelopTheme(darkThemeOn = false) {
-        Surface(modifier = Modifier.background(color = MaterialTheme.colorScheme.surface)) {
+    val deleteMode = remember { mutableStateOf(true) }
+    WanDevelopTheme {
+        Surface(modifier = Modifier.background(color = MaterialTheme.colorScheme.background)) {
             SearchHistoryFlowRow(
                 historyList = historyList,
                 isDeleteModeOn = deleteMode.value,
@@ -344,18 +339,19 @@ fun SearchHistoryFlowRowPreview() {
     }
 }
 
-@Preview
+@UiModePreviews
 @Composable
 fun HotkeyFlowRowPreview() {
     val hotkeyInfoList = mutableListOf<HotkeyInfo>()
     repeat(10) {
         hotkeyInfoList.add(HotkeyInfo(it, "", "compose $it", 0, 1))
     }
-    WanDevelopTheme(darkThemeOn = false) {
-        Surface(modifier = Modifier.background(color = MaterialTheme.colorScheme.surface)) {
+    WanDevelopTheme {
+        Surface(modifier = Modifier.background(color = MaterialTheme.colorScheme.background)) {
             HotKeyFlowRow(
                 hotkeyInfoList = hotkeyInfoList,
-                onHotkeyClick = { })
+                onHotkeyClick = { }
+            )
         }
     }
 }

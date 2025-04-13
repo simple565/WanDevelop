@@ -1,4 +1,4 @@
-package com.maureen.wandevelop.feature.discovery
+package com.maureen.wandevelop.feature.search
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
@@ -10,6 +10,7 @@ import com.maureen.wandevelop.MyApplication
 import com.maureen.wandevelop.common.entity.Feed
 import com.maureen.wandevelop.entity.HotkeyInfo
 import com.maureen.wandevelop.ext.toFeed
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
@@ -36,6 +37,7 @@ class SearchViewModel(private val savedStateHandle: SavedStateHandle) : ViewMode
         initialValue = false
     )
 
+    @OptIn(ExperimentalCoroutinesApi::class)
     val searchResultFlow: StateFlow<PagingData<Feed>> = searchKeywordState.flatMapLatest {
         if (it.first.isBlank() || it.second.not()) {
             flowOf(PagingData.empty())
@@ -50,6 +52,7 @@ class SearchViewModel(private val savedStateHandle: SavedStateHandle) : ViewMode
             initialValue = PagingData.empty()
         )
 
+    @OptIn(ExperimentalCoroutinesApi::class)
     val hotkeyInfoUiState: StateFlow<Pair<Boolean, List<HotkeyInfo>>> =
         repository.getHotkeyListVisibilityFlow().flatMapLatest {
             if (it) {
