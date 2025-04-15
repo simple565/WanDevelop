@@ -21,13 +21,11 @@ androidx-paging = "3.3.5"
 androidx-preference = "1.2.1"
 androidx-room = "2.6.1"
 androidx-swiperefreshlayout = "1.1.0"
-banner = "2.2.3"
 coil = "2.7.0"
 coroutines = "1.10.1"
 material = "1.12.0"
 retrofit = "2.11.0"
 moshi = "1.15.2"
-multitype = "4.3.0"
 okhttp-logging-interceptor = "4.12.0"
 serialization = "1.8.0"
 
@@ -81,9 +79,6 @@ moshi = { group = "com.squareup.moshi", name = "moshi-kotlin", version.ref = "mo
 okhttp-logging = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okhttp-logging-interceptor" }
 retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
 retrofit-converter-moshi = { group = "com.squareup.retrofit2", name = "converter-moshi", version.ref = "retrofit" }
-
-banner = { group = "io.github.youth5201314", name = "banner", version.ref = "banner" }
-multitype = { group = "com.drakeet.multitype", name = "multitype", version.ref = "multitype" }
 
 [plugins]
 com-android-application = { id = "com.android.application", version.ref = "agp" }
