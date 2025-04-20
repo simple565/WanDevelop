@@ -59,8 +59,7 @@ fun BannerContainer(pagerState: PagerState, bannerInfos: List<BannerInfo>, modif
             horizontalArrangement = Arrangement.Center
         ) {
             repeat(pagerState.pageCount) { iteration ->
-                val color =
-                    if (pagerState.currentPage == iteration) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.inverseSurface
+                val color = if (pagerState.currentPage == iteration) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.inverseSurface
                 Box(
                     modifier = Modifier
                         .padding(2.dp)
