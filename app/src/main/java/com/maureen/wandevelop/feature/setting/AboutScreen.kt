@@ -25,7 +25,7 @@ import com.maureen.wandevelop.ext.curVersionName
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-internal fun AboutPage(
+internal fun AboutScreen(
     onBackClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {

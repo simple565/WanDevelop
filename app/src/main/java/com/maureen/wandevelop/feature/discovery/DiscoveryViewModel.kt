@@ -1,17 +1,15 @@
 package com.maureen.wandevelop.feature.discovery
 
 import android.util.Log
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import androidx.paging.map
 import com.maureen.wandevelop.MyApplication
 import com.maureen.wandevelop.R
-import com.maureen.wandevelop.common.FeedRepository
 import com.maureen.wandevelop.common.entity.DataLoadState
 import com.maureen.wandevelop.common.entity.Feed
-import com.maureen.wandevelop.entity.CourseInfo
+import com.maureen.wandevelop.common.feed.FeedViewModel
 import com.maureen.wandevelop.entity.SystemNodeInfo
 import com.maureen.wandevelop.ext.toFeed
 import kotlinx.coroutines.Dispatchers
@@ -27,28 +25,20 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
-class DiscoveryViewModel : ViewModel() {
+class DiscoveryViewModel : FeedViewModel() {
     companion object {
         private const val TAG = "DiscoveryViewModel"
     }
 
     val pageList = DiscoveryPage.entries
 
-    private val feedRepository: FeedRepository = FeedRepository()
     private val discoveryRepository: DiscoveryRepository = DiscoveryRepository()
 
     private val pagingDataFlowMap = mutableMapOf<DiscoveryPage, Flow<PagingData<Feed>>>()
-    private val _expandedRouteIdSet: MutableStateFlow<Set<Long>> = MutableStateFlow(emptySet())
-
-    val collectedFeedIdsState: StateFlow<Set<Long>> = feedRepository.loadCollected()
-        .map { it.map { record -> record.id }.toSet() }
-        .stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(),
-            initialValue = emptySet()
-        )
+    private val _expandedRouteIdSetState: MutableStateFlow<Set<Long>> = MutableStateFlow(emptySet())
 
     fun getPagingFlow(page: DiscoveryPage, useCache: Boolean = true): Flow<PagingData<Feed>> {
+        val context = MyApplication.instance.applicationContext
         if (!page.isPageData) {
             return flowOf(PagingData.empty())
         }
@@ -63,9 +53,7 @@ class DiscoveryViewModel : ViewModel() {
                 } else {
                     discoveryRepository.getQaFlow()
                 }.map { pagingData ->
-                    pagingData.map {
-                        it.toFeed(MyApplication.instance.applicationContext)
-                    }
+                    pagingData.map { it.toFeed(context) }
                 }
             }
 
@@ -95,7 +83,7 @@ class DiscoveryViewModel : ViewModel() {
         )
 
     val loadRouteListState: StateFlow<DataLoadState<SystemNodeInfo>> = combine(
-        _expandedRouteIdSet, flow { emit(discoveryRepository.getRouteList()) }
+        _expandedRouteIdSetState, flow { emit(discoveryRepository.getRouteList()) }
     ) { set, result ->
         DataLoadState(
             isLoading = false,
@@ -116,13 +104,13 @@ class DiscoveryViewModel : ViewModel() {
     }
 
     fun toggleRouteExpandState(nodeInfo: SystemNodeInfo) {
-        val old = _expandedRouteIdSet.value.toMutableSet()
+        val old = _expandedRouteIdSetState.value.toMutableSet()
         if (old.contains(nodeInfo.id)) {
             old.remove(nodeInfo.id)
         } else {
             old.add(nodeInfo.id)
         }
-        _expandedRouteIdSet.value = old
+        _expandedRouteIdSetState.value = old
     }
 }
 

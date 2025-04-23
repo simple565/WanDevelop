@@ -1,7 +1,7 @@
 package com.maureen.wandevelop.common.entity
 
 /**
- * @author lianml
+ * 数据加载状态
  * @date 2025/3/9
  */
 data class DataLoadState<T>(

@@ -8,7 +8,6 @@ import java.util.concurrent.TimeUnit
 /**
  * 缓存拦截器
  * Date:   2021/8/17
- * @author lianml
  */
 class CacheInterceptor(private val interval: Int = 30) : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {

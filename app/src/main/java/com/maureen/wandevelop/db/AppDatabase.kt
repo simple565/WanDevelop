@@ -20,7 +20,7 @@ abstract class AppDatabase : RoomDatabase() {
         }
     }
 
-    abstract fun readLaterDao(): ReadRecordDao
+    abstract fun readRecordDao(): ReadRecordDao
 
     abstract fun searchKeyDao(): SearchKeyDao
 }

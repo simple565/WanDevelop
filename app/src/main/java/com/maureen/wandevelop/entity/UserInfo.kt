@@ -1,10 +1,9 @@
 package com.maureen.wandevelop.entity
 
-import androidx.annotation.Keep
 import kotlinx.serialization.Serializable
 
 /**
- * 用户信息
+ * 用户详细信息, 获取用户信息接口请求返回
  * @author lianml
  * @date 2023/12/19
  */
@@ -15,12 +14,15 @@ data class UserDetailInfo(
     val userInfo: UserInfo
 )
 
+/**
+ * 用户信息，登录成功后返回
+ */
 @Serializable
 data class UserInfo(
     val admin: Boolean,
-    val chapterTops: List<Int>,
+    val chapterTops: List<Long>,
     val coinCount: Int,
-    val collectIds: List<Int>,
+    val collectIds: List<Long>,
     val email: String,
     val icon: String,
     val id: Int,
@@ -30,33 +32,24 @@ data class UserInfo(
     val token: String,
     val type: Int,
     val username: String
-) {
-    val userName: String
-        get() {
-            val builder = StringBuilder(this.username)
-            if (this.publicName.isNotEmpty()) {
-                builder.append("(").append(this.publicName).append(")")
-            }
-            return builder.toString()
-        }
-}
+)
 
 /**
- * 用户登记、积分及排名
+ * 用户等级、积分及排名
  */
 @Serializable
 data class CoinInfo(
-    val coinCount: Int,
-    val level: Int,
-    val nickname: String,
-    val rank: String,
-    val userId: Int,
-    val username: String
+    val coinCount: Long = 0L,
+    val level: Int = 0,
+    val nickname: String = "",
+    val rank: String = "",
+    val userId: Int = 0,
+    val username: String = ""
 )
 
 @Serializable
 data class CollectArticleInfo(
-    val count: Int
+    val count: Int = 0
 )
 
 /**
@@ -65,5 +58,5 @@ data class CollectArticleInfo(
 @Serializable
 data class SharerInfo(
     val coinInfo: CoinInfo,
-    val shareList: BasePage<Article>
+    val shareList: BasePage<ArticleInfo>
 )

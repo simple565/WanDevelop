@@ -38,7 +38,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.maureen.wandevelop.R
-import com.maureen.wandevelop.common.composable.FeedPagingColumn
+import com.maureen.wandevelop.common.composable.FeedPullToRefreshBox
 import com.maureen.wandevelop.common.composable.SearchView
 import com.maureen.wandevelop.common.theme.WanDevelopTheme
 import com.maureen.wandevelop.common.theme.WanDevelopTypography
@@ -58,9 +58,7 @@ internal fun SearchScreen(
     val searchResultList = viewModel.searchResultFlow.collectAsLazyPagingItems()
 
     Column(
-        modifier = modifier
-            .fillMaxSize()
-            .background(color = MaterialTheme.colorScheme.background)
+        modifier = modifier.fillMaxSize()
     ) {
         SearchToolbar(
             onBackIconClick = onBackClick,
@@ -72,7 +70,7 @@ internal fun SearchScreen(
             onSearch = { viewModel.onSearchKeywordChanged(it, true) }
         )
         if (keywordState.second) {
-            FeedPagingColumn(
+            FeedPullToRefreshBox(
                 pagingItems = searchResultList,
                 showMoreButton = false,
                 showCollectButton = false,

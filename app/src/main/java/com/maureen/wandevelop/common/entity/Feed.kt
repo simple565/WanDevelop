@@ -1,12 +1,14 @@
 package com.maureen.wandevelop.common.entity
 
 import com.maureen.wandevelop.entity.TagInfo
+import kotlinx.serialization.Serializable
 
 /**
  * 通用信息流实体类
  * @date 2025/2/7
  */
-data class Feed(
+@Serializable
+data class Feed constructor(
     val id: Long,
     val title: String,
     val url: String = "",

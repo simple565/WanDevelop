@@ -65,7 +65,7 @@ fun FeedPullToRefreshBox(
     onItemClick: (Feed) -> Unit = {},
     onItemLongClick: (Feed) -> Unit = {},
     onMoreClick: (Feed) -> Unit = {},
-    onCollectClick: (Feed) -> Unit = {},
+    toggleCollect: (Feed, Boolean) -> Unit = {_, _ -> },
     noMoreDataHint: String = stringResource(R.string.load_no_more_data),
     onNoMoreDataHintClick: () -> Unit = {}
 ) {
@@ -86,7 +86,7 @@ fun FeedPullToRefreshBox(
             showMoreButton = showMoreButton,
             onItemClick = onItemClick,
             onItemLongClick = onItemLongClick,
-            onCollectClick = onCollectClick,
+            toggleCollect = toggleCollect,
             onMoreClick = onMoreClick,
             noMoreDataHint = noMoreDataHint,
             onNoMoreDataHintClick = onNoMoreDataHintClick
@@ -107,7 +107,7 @@ fun FeedPagingColumn(
     showMoreButton: Boolean = false,
     onItemClick: (Feed) -> Unit = {},
     onItemLongClick: (Feed) -> Unit = {},
-    onCollectClick: (Feed) -> Unit = {},
+    toggleCollect: (Feed, Boolean) -> Unit = {_, _ -> },
     onMoreClick: (Feed) -> Unit = {},
     noMoreDataHint: String = stringResource(R.string.load_no_more_data),
     onNoMoreDataHintClick: () -> Unit = {}
@@ -128,7 +128,7 @@ fun FeedPagingColumn(
                 modifier = Modifier,
                 showCollectButton = showCollectButton,
                 isCollect = collectedFeedIdSet.contains(feed.id),
-                onCollectClick = onCollectClick,
+                toggleCollect = toggleCollect,
                 showMoreButton = showMoreButton,
                 onMoreClick = onMoreClick,
                 onCardClick = onItemClick,
@@ -180,7 +180,7 @@ fun FeedCard(
     modifier: Modifier = Modifier,
     showCollectButton: Boolean = false,
     isCollect: Boolean = false,
-    onCollectClick: (Feed) -> Unit = {},
+    toggleCollect: (Feed, Boolean) -> Unit = {_, _ -> },
     showMoreButton: Boolean = false,
     onMoreClick: (Feed) -> Unit = {},
     onCardClick: (Feed) -> Unit = {},
@@ -213,7 +213,7 @@ fun FeedCard(
             )
             if (showCollectButton) {
                 IconButton(
-                    onClick = { onCollectClick(feed) },
+                    onClick = { toggleCollect(feed, isCollect.not()) },
                     modifier = Modifier
                         .size(28.dp)
                         .align(alignment = Alignment.CenterEnd),
@@ -348,7 +348,7 @@ fun FeedCardPreview() {
                 feed = feed,
                 isCollect = false,
                 showCollectButton = true,
-                onCollectClick = {},
+                toggleCollect = {_, _ -> },
                 showMoreButton = true,
                 onMoreClick = {}
             )

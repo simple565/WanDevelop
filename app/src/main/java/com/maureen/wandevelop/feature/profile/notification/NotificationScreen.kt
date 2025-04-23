@@ -1,6 +1,5 @@
 package com.maureen.wandevelop.feature.profile.notification
 
-import android.content.res.Configuration
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -12,12 +11,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -31,7 +26,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.paging.LoadState
@@ -39,6 +33,7 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemKey
 import com.maureen.wandevelop.R
 import com.maureen.wandevelop.common.composable.WanDevTpoAppBar
+import com.maureen.wandevelop.common.tooling.UiModePreviews
 import com.maureen.wandevelop.entity.MessageInfo
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -57,23 +52,8 @@ internal fun NotificationScreen(
         modifier = modifier.fillMaxSize(),
         topBar = {
             WanDevTpoAppBar(
-                title = {
-                    Text(
-                        text = stringResource(R.string.nav_notification),
-                        style = MaterialTheme.typography.titleLarge
-                    )
-                },
-                navigationIcon = {
-                    IconButton(
-                        onClick = onBackClick,
-                        content = {
-                            Icon(
-                                imageVector = Icons.AutoMirrored.Outlined.ArrowBack,
-                                contentDescription = ""
-                            )
-                        }
-                    )
-                }
+                title = stringResource(R.string.nav_notification),
+                onNavigationIconClick = onBackClick
             )
         },
         content = { padding ->
@@ -205,8 +185,7 @@ private fun MessageCard(
     }
 }
 
-@Preview(uiMode = Configuration.UI_MODE_NIGHT_NO, name = "Light theme")
-@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES, name = "Dark theme")
+@UiModePreviews
 @Composable
 private fun MessageCardPreview() {
     val message = MessageInfo(

@@ -5,7 +5,7 @@ package com.maureen.wandevelop.entity
  * @author lianml
  * @date 2024/2/17
  */
-data class Collection(
+data class CollectionInfo(
     val author: String,
     val chapterId: Int,
     val chapterName: String,

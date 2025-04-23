@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:padding="@dimen/padding_large"
-        android:text="@string/nav_read_later"
+        android:text="@string/prompt_read_later"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView

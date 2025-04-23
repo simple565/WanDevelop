@@ -16,8 +16,13 @@ import kotlinx.coroutines.runBlocking
  */
 object UserPrefUtil {
     private const val TAG = "UserPrefUtil"
-    const val KEY_USER_DETAIL = "KEY_USER_DETAIL"
-    const val KEY_LAST_REQUEST_USER_DETAIL = "KEY_LAST_REQUEST_USER_DETAIL"
+    const val KEY_SHOW_BANNER = "KEY_SHOW_BANNER"
+    const val KEY_SHOW_STICK_TOP_ARTICLE = "KEY_SHOW_STICK_TOP_ARTICLE"
+    const val KEY_SHOW_HOTKEY = "KEY_SHOW_HOTKEY"
+    const val KEY_PRIVATE_MODE = "KEY_PRIVATE_MODE"
+    const val KEY_USER_INFO = "KEY_USER_INFO"
+    const val KEY_USER_UNREAD_MSG_COUNT = "KEY_USER_UNREAD_MSG_COUNT"
+    const val KEY_USER_COLLECT_ID = "KEY_USER_COLLECT_ID"
 
     private val dataStore by lazy {
         MyApplication.instance.preferenceStore
@@ -39,13 +44,21 @@ object UserPrefUtil {
         return dataStore.data.map { it[stringPreferencesKey(key)] }.firstOrNull()
     }
 
-    fun getPreferenceFlow(key: String, defaultValue: String?): Flow<String?> {
+    fun getPreferenceFlow(key: String, defaultValue: String? = null): Flow<String?> {
         return dataStore.data.map { it[stringPreferencesKey(key)] ?: defaultValue }
     }
 
-    suspend fun <T> setPreference(key: String, value: T) {
+    suspend fun setPreference(key: String, value: String) {
         dataStore.edit {
             it[stringPreferencesKey(key)] = value.toString()
+        }
+    }
+
+    suspend fun setPreference(valueMap: Map<String, String>) {
+        dataStore.edit {
+            valueMap.forEach { entry ->
+                it[stringPreferencesKey(entry.key)] = entry.value
+            }
         }
     }
 }

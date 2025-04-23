@@ -14,12 +14,12 @@ fun NavGraphBuilder.settingScreens(
     onBackClick: () -> Unit
 ) {
     composable<AboutRoute> {
-        AboutPage(
+        AboutScreen(
             onBackClick = onBackClick
         )
     }
     composable<SettingRoute> {
-        SettingsPage(
+        SettingsScreen(
             onBackClick = onBackClick
         )
     }

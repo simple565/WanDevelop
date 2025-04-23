@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.maureen.wandevelop.R
+import com.maureen.wandevelop.entity.toProfileInfo
 import com.maureen.wandevelop.feature.profile.ProfileRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -76,9 +77,10 @@ class SignViewModel() : ViewModel() {
         } else {
             repository.signUp(userName, password, passwordAgain!!)
         }
+        val unreadCount = repository.getUnreadMessageCount().data ?: 0
         if (result.isSuccessWithData) {
             // 保存用户信息
-            result.data?.also { repository.saveUserInfo(it) }
+            result.data?.also { repository.saveProfileInfo(it.toProfileInfo().copy(unreadMsgCount = unreadCount)) }
         }
         _signState.value = SignState(result = result.isSuccess, resultMsg = result.errorMsg, isLoading = false)
     }

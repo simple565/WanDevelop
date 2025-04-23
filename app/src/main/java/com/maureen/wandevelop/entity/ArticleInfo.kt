@@ -40,4 +40,4 @@ data class ArticleInfo(
     val visible: Int,
     val zan: Int,
     val top: Boolean = false
-) : java.io.Serializable
+)

@@ -11,8 +11,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -24,7 +22,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
@@ -47,7 +44,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.maureen.wandevelop.R
 import com.maureen.wandevelop.common.composable.ProgressDialog
-import com.maureen.wandevelop.common.composable.defaultDialogSize
+import com.maureen.wandevelop.common.composable.WanDevTpoAppBar
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -73,8 +70,7 @@ internal fun SignInOrUpScreen(
     Log.d("TAG", "SignInOrUpScreen: $signState")
     if (signState.isLoading) {
         ProgressDialog(
-            message = stringResource(if (isSignInMode) R.string.prompt_sign_in_loading else R.string.prompt_sign_up_loading),
-            modifier = Modifier.defaultDialogSize()
+            message = stringResource(if (isSignInMode) R.string.prompt_sign_in_loading else R.string.prompt_sign_up_loading)
         )
     }
     if (signState.result) {
@@ -113,19 +109,9 @@ internal fun SignInOrUpScreen(
     Scaffold(
         modifier = modifier.fillMaxSize(),
         topBar = {
-            TopAppBar(
-                title = {},
-                navigationIcon = {
-                    IconButton(
-                        onClick = onBackClick,
-                        content = {
-                            Icon(
-                                imageVector = Icons.AutoMirrored.Outlined.ArrowBack,
-                                contentDescription = ""
-                            )
-                        }
-                    )
-                }
+            WanDevTpoAppBar(
+                title = "",
+                onNavigationIconClick = onBackClick
             )
         },
         content = { padding ->
@@ -137,7 +123,7 @@ internal fun SignInOrUpScreen(
                 Text(
                     text = stringResource(R.string.prompt_welcome_back),
                     modifier = Modifier.fillMaxWidth(),
-                    style = MaterialTheme.typography.displaySmall,
+                    style = MaterialTheme.typography.titleLarge,
                     color = MaterialTheme.colorScheme.primary
                 )
                 Spacer(modifier = Modifier.fillMaxSize(0.1F))

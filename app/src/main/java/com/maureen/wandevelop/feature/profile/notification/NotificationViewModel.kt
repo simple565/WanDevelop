@@ -4,9 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import com.maureen.wandevelop.base.WanAndroidPagePagingSource
 import com.maureen.wandevelop.entity.MessageInfo
-import com.maureen.wandevelop.ext.toPager
+import com.maureen.wandevelop.ext.newWanAndroidPager
 import com.maureen.wandevelop.feature.profile.ProfileRepository
 import com.maureen.wandevelop.network.WanAndroidService
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -35,15 +34,21 @@ class NotificationViewModel : ViewModel() {
     }
 
     private val unreadMsgPagingFlow: Flow<PagingData<MessageInfo>> by lazy {
-        WanAndroidPagePagingSource(loadDataBlock = { pageNum ->
-            WanAndroidService.instance.unreadMessageList(pageNum)
-        }).toPager().flow
+        newWanAndroidPager(
+            startPage = WanAndroidService.DEFAULT_START_PAGE_INDEX_ALIAS,
+            loadDataBlock = { pageNum ->
+                WanAndroidService.instance.unreadMessageList(pageNum)
+            }
+        ).flow
     }
 
     private val readMsgPagingFlow: Flow<PagingData<MessageInfo>> by lazy {
-        WanAndroidPagePagingSource(loadDataBlock = { pageNum ->
-            WanAndroidService.instance.readMessageList(pageNum)
-        }).toPager().flow
+        newWanAndroidPager(
+            startPage = WanAndroidService.DEFAULT_START_PAGE_INDEX_ALIAS,
+            loadDataBlock = { pageNum ->
+                WanAndroidService.instance.readMessageList(pageNum)
+            }
+        ).flow
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)
@@ -61,9 +66,5 @@ class NotificationViewModel : ViewModel() {
             return
         }
         _showReadMsgListState.update { it.not() }
-    }
-
-    fun refresh() {
-
     }
 }

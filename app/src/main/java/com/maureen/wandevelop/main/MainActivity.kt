@@ -1,35 +1,32 @@
 package com.maureen.wandevelop.main
 
+import android.os.Build
 import android.os.Bundle
-import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.Navigation.findNavController
-import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.NavigationUI.setupWithNavController
-import androidx.navigation.ui.setupWithNavController
-import com.maureen.wandevelop.R
-import com.maureen.wandevelop.databinding.ActivityMainBinding
+import android.view.WindowManager
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
+import com.maureen.wandevelop.common.theme.WanDevelopTheme
+import com.maureen.wandevelop.main.ui.WanDevelopApp
+import com.maureen.wandevelop.main.ui.rememberWanDevAppState
 
 
-class MainActivity : AppCompatActivity() {
-    companion object {
-        private const val TAG = "MainActivity"
-    }
-
-    private val viewModel by viewModels<MainViewModel>()
-
-    private val viewBinding by lazy {
-        ActivityMainBinding.inflate(layoutInflater)
-    }
+class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(viewBinding.root)
-        initView()
-    }
-
-    private fun initView() {
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host) as NavHostFragment
-        viewBinding.bottomNavView.setupWithNavController(navHostFragment.navController)
+        // 沉浸式导航栏适配小米手机
+        if (Build.MANUFACTURER.equals("xiaomi", true)) {
+            window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION)
+        }
+        enableEdgeToEdge()
+        setContent {
+            val appState = rememberWanDevAppState()
+            WanDevelopTheme {
+                WanDevelopApp(
+                    appState = appState
+                )
+            }
+        }
     }
 }

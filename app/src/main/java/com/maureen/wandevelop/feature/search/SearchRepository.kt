@@ -9,6 +9,7 @@ import com.maureen.wandevelop.entity.HotkeyInfo
 import com.maureen.wandevelop.ext.newWanAndroidPager
 import com.maureen.wandevelop.network.WanAndroidService
 import com.maureen.wandevelop.util.UserPrefUtil
+import com.maureen.wandevelop.util.UserPrefUtil.KEY_SHOW_HOTKEY
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
@@ -24,7 +25,6 @@ class SearchRepository : BaseRepository() {
     companion object {
         const val KEY_SEARCH_KEYWORD = "KEY_SEARCH_KEYWORD"
         const val KEY_IS_DELETING_HISTORY = "KEY_IS_DELETING_HISTORY"
-        private const val KEY_SHOW_HOTKEY = "KEY_SHOW_HOTKEY"
     }
 
     private val keyDao by lazy { AppDatabase.instance.searchKeyDao() }

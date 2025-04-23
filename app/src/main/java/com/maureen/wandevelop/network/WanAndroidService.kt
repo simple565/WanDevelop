@@ -4,7 +4,7 @@ import com.maureen.wandevelop.entity.ArticleInfo
 import com.maureen.wandevelop.entity.BannerInfo
 import com.maureen.wandevelop.entity.BasePage
 import com.maureen.wandevelop.entity.BaseResponse
-import com.maureen.wandevelop.entity.Collection
+import com.maureen.wandevelop.entity.CollectionInfo
 import com.maureen.wandevelop.entity.CourseInfo
 import com.maureen.wandevelop.entity.HotkeyInfo
 import com.maureen.wandevelop.entity.MessageInfo
@@ -20,8 +20,7 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 /**
- * Function: WanAndroid 网站API
- * @author lianml
+ * WanAndroid 网站API
  * Create 2021-01-31
  */
 interface WanAndroidService {
@@ -125,12 +124,11 @@ interface WanAndroidService {
      * @param page 从0开始
      */
     @GET("lg/collect/list/{page}/json")
-    suspend fun collectionList(@Path("page") page: Int): BaseResponse<BasePage<Collection>>
+    suspend fun collectionList(@Path("page") page: Int): BaseResponse<BasePage<CollectionInfo>>
 
     /**
      * 收藏文章
      */
-    @FormUrlEncoded
     @POST("lg/collect/{id}/json")
     suspend fun collect(@Path("id") id: Long): BaseResponse<String?>
 

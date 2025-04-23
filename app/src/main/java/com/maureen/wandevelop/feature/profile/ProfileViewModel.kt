@@ -1,77 +1,56 @@
 package com.maureen.wandevelop.feature.profile
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.maureen.wandevelop.base.BaseRepository
 import com.maureen.wandevelop.entity.ProfileInfo
-import com.maureen.wandevelop.entity.UserDetailInfo
-import com.maureen.wandevelop.ext.cacheSize
-import com.maureen.wandevelop.util.DarkModeUtil
-import com.maureen.wandevelop.util.UserPrefUtil
+import com.maureen.wandevelop.entity.toProfileInfo
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import kotlinx.serialization.encodeToString
-import kotlinx.serialization.json.Json
 
 /**
- * Function: 我的页面 ViewModel
- * @author lianml
- * Create 2021-07-11
+ * 我的页面 ViewModel
  */
-class ProfileViewModel(private val application: Application) : AndroidViewModel(application) {
+class ProfileViewModel : ViewModel() {
     companion object {
         private const val TAG = "ProfileViewModel"
+        private const val DEFAULT_USER_DATA = "--"
     }
 
-    private val repository = UserRepository()
-    private val _profileInfoFlow = MutableStateFlow(
-        ProfileInfo(
-            darkModeState = DarkModeUtil.getDarkModeName(application),
-            cacheSize = application.cacheSize
+    private val repository = ProfileRepository()
+    private val requestTime: MutableStateFlow<Long> = MutableStateFlow(0L)
+
+    val profileInfoState = repository.getProfileInfoFromCache().map {
+        it.copy(
+            level = if (it.level.isNotBlank()) String.format("Lv.%s", it.level) else DEFAULT_USER_DATA,
+            coin = it.coin.ifBlank { DEFAULT_USER_DATA },
+            rank = if (it.rank.isNotBlank()) String.format("No.%s", it.rank) else DEFAULT_USER_DATA
         )
+    }.stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(),
+        initialValue = ProfileInfo(rank = DEFAULT_USER_DATA, level = DEFAULT_USER_DATA, coin = DEFAULT_USER_DATA)
     )
-    val profileInfoFlow = _profileInfoFlow.asStateFlow()
-    val alreadyLogin: Boolean
-        get() = _profileInfoFlow.value.userDetailInfo != null
 
     fun loadProfile() = viewModelScope.launch(Dispatchers.IO) {
-        val currentTime = System.currentTimeMillis()
-        val lastRequestTime = UserPrefUtil.getPreference(UserPrefUtil.KEY_LAST_REQUEST_USER_DETAIL)?.toLong() ?: 0L
-        val userDetailInfo = UserPrefUtil.getPreference(UserPrefUtil.KEY_USER_DETAIL)
-            .run { if (this.isNullOrBlank()) null else Json.decodeFromString<UserDetailInfo>(this) }
-        val new = _profileInfoFlow.value.copy(
-            userDetailInfo = userDetailInfo,
-            darkModeState = DarkModeUtil.getDarkModeNameFromPreference(application),
-            cacheSize = application.cacheSize
-        )
-        _profileInfoFlow.emit(new)
-        if (currentTime - lastRequestTime <= 5 * 1000 || new.userDetailInfo == null) {
-            // 5s时间内重复获取用户信息、用户未登录不进行请求
+        val requestAlready = System.currentTimeMillis() - requestTime.value <= BaseRepository.NETWORK_REQUEST_INTERVAL
+        if (repository.hasProfileCache().not() || requestAlready) {
+            // 用户未登录不进行请求、5s时间内重复请求用户信息
             return@launch
         }
         val response = repository.getUserDetailInfo()
-        UserPrefUtil.setPreference(UserPrefUtil.KEY_LAST_REQUEST_USER_DETAIL, currentTime)
-        if (response.isSuccessWithData) {
-            val unreadCount = repository.getUnreadMessageCount().data ?: 0
-            _profileInfoFlow.emit(new.copy(userDetailInfo = response.data, unreadCount = unreadCount))
-            UserPrefUtil.setPreference(UserPrefUtil.KEY_USER_DETAIL, Json.encodeToString(response.data))
-        } else {
-            _profileInfoFlow.emit(new)
+        requestTime.value = System.currentTimeMillis()
+        if (!response.isSuccessWithData) {
+            return@launch
         }
-    }
-
-    suspend fun logoutAndClear() = withContext(Dispatchers.IO) {
-        repository.logout()
-        UserPrefUtil.setPreference(UserPrefUtil.KEY_LAST_REQUEST_USER_DETAIL, "0")
-        UserPrefUtil.setPreference(UserPrefUtil.KEY_USER_DETAIL, "")
-        val new = _profileInfoFlow.value.copy(
-            userDetailInfo = null,
-            darkModeState = DarkModeUtil.getDarkModeNameFromPreference(application),
-            cacheSize = application.cacheSize
-        )
-        _profileInfoFlow.emit(new)
+        val unreadCount = repository.getUnreadMessageCount().data ?: 0
+        response.data?.also {
+            repository.saveProfileInfo(it.toProfileInfo().copy(unreadMsgCount = unreadCount))
+            repository.saveUserCollectIds(it.userInfo.collectIds)
+        }
     }
 }

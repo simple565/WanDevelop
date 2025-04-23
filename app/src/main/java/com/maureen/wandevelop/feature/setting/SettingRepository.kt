@@ -4,8 +4,10 @@ import android.content.Context
 import androidx.appcompat.app.AppCompatDelegate
 import com.maureen.wandevelop.MyApplication
 import com.maureen.wandevelop.R
+import com.maureen.wandevelop.base.BaseRepository
 import com.maureen.wandevelop.entity.SettingItem
 import com.maureen.wandevelop.entity.SettingType
+import com.maureen.wandevelop.network.WanAndroidService
 import com.maureen.wandevelop.util.DarkModeUtil
 import com.maureen.wandevelop.util.UserPrefUtil
 import kotlinx.coroutines.flow.Flow
@@ -15,7 +17,7 @@ import kotlinx.coroutines.flow.combine
  * @author lianml
  * @date 2025/3/13
  */
-class SettingRepository {
+class SettingRepository : BaseRepository() {
     val defaultSettingList = mutableListOf<SettingItem>(
         SettingItem(
             name = R.string.prompt_clear_cache,
@@ -81,6 +83,7 @@ class SettingRepository {
                             )
                         }
                     }
+
                     else -> listOf(it)
                 }
             }
@@ -111,5 +114,14 @@ class SettingRepository {
         if (key.isNotBlank()) {
             UserPrefUtil.setPreference(key, value.toString())
         }
+    }
+
+    suspend fun signOut() = requestSafely { WanAndroidService.instance.logout() }
+
+    suspend fun clearProfileCache() {
+        UserPrefUtil.setPreference(UserPrefUtil.KEY_USER_INFO, "")
+        UserPrefUtil.setPreference(UserPrefUtil.KEY_USER_COLLECT_ID, "")
+        UserPrefUtil.setPreference(UserPrefUtil.KEY_USER_UNREAD_MSG_COUNT, "")
+        // TODO: 数据库删除
     }
 }

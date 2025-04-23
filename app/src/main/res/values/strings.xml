@@ -3,49 +3,69 @@
 
     <string name="prompt_hello">你好!</string>
     <string name="prompt_welcome_back">欢迎归来!</string>
-    <string name="prompt_username">用户名<font color='red'>*</font></string>
-    <string name="prompt_password">密码<font color='red'>*</font></string>
+    <string name="label_username">用户名</string>
+    <string name="label_password">密码</string>
+    <string name="label_password_again">确认密码</string>
+    <string name="label_star">*</string>
+    <string name="prompt_username_is_blank">用户名不能为空</string>
+    <string name="prompt_password_is_blank">密码不能为空</string>
     <string name="prompt_confirm_password">再次输入密码</string>
     <string name="prompt_no_account">没有账号?</string>
     <string name="prompt_had_account">已有账号</string>
+    <string name="prompt_sign_in_loading">登录中，请稍候……</string>
+    <string name="prompt_sign_in_failed">登录失败</string>
+    <string name="prompt_sign_up_loading">注册中，请稍候……</string>
+    <string name="prompt_sign_out_loading">退出中，请稍候……</string>
     <string name="action_sign_in">登录</string>
     <string name="action_sign_up">注册</string>
     <string name="action_forgot_password">忘记密码?</string>
 
 
     <string name="nav_home">首页</string>
-    <string name="nav_explore">发现</string>
+    <string name="nav_discovery">发现</string>
     <string name="nav_bookmark">书签</string>
-    <string name="nav_profile">我的</string>
     <string name="nav_share">分享</string>
     <string name="nav_more">更多操作</string>
 
+    <string name="prompt_search_hint">搜索关键词以空格形式隔开</string>
+    <string name="search">搜索</string>
+    <string name="prompt_hotkey">热门搜索</string>
+    <string name="prompt_search_history">历史搜索</string>
+
+    <string name="nav_profile">我的</string>
     <string name="nav_sign_in_or_up">注册/登录</string>
     <string name="nav_notification">通知</string>
     <string name="nav_settings">设置</string>
     <string name="prompt_level">等级</string>
     <string name="prompt_coin">积分</string>
     <string name="prompt_rank">排名</string>
-    <string name="prompt_default_value">--</string>
     <string name="nav_read_record">浏览记录</string>
     <string name="nav_language">语言</string>
-    <string name="nav_dark_mode_set">深色模式</string>
     <string name="promote_dark_mode_follow_system">跟随系统</string>
     <string name="promote_off">关闭</string>
     <string name="promote_on">开启</string>
-    <string name="nav_clear_cache">清除缓存</string>
     <string name="nav_check_update">检查更新</string>
     <string name="nav_about_us">关于</string>
-    <string name="nav_logout">退出登录</string>
-    <string name="nav_notification_settings">消息设置</string>
+
+    <string name="prompt_clear_cache">清除缓存</string>
+    <string name="prompt_receive_notification">接受消息通知</string>
+    <string name="prompt_show_banner">显示轮播图</string>
+    <string name="prompt_show_sticky_top_article">显示置顶文章</string>
+    <string name="prompt_show_hotkey">显示热门搜索</string>
+    <string name="prompt_private_mode">无痕模式</string>
+    <string name="prompt_dark_mode_follow_system">深色模式跟随系统</string>
+    <string name="prompt_dark_mode">深色模式</string>
+    <string name="nav_sign_out">退出登录</string>
 
     <string name="collect">收藏</string>
     <string name="cancel_collect">取消收藏</string>
     <string name="confirm">确定</string>
+    <string name="done">完成</string>
     <string name="delete">删除</string>
-    <string name="search">搜索</string>
+    <string name="delete_all">删除全部</string>
     <string name="cancel">取消</string>
     <string name="reload">重新加载</string>
+    <string name="load_no_more_data">已经到底了</string>
     <string name="network_connection_failed">网络连接失败</string>
     <string name="network_request_failed">网络请求失败</string>
     <string name="network_request_timeout">网络请求超时</string>
@@ -58,13 +78,14 @@
 
     <string name="nav_recommend">推荐</string>
     <string name="nav_system">体系</string>
-    <string name="nav_my_bookmark">我的收藏</string>
-    <string name="nav_read_later">稍后再看</string>
+    <string name="nav_my_bookmark">我的书签</string>
+    <string name="prompt_my_collection">我的收藏</string>
+    <string name="prompt_read_later">稍后再看</string>
     <string name="nav_my_share">我的分享</string>
     <string name="nav_todo">待办事项</string>
     <string name="bookmark_delete_hint">将文章从列表删除？</string>
     <string name="load_more_history_notification">查看更多历史消息</string>
-    
+
     <string name="nav_square">广场</string>
     <string name="nav_qa">问答</string>
     <string name="nav_course">教程</string>

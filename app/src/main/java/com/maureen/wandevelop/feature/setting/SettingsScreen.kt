@@ -17,6 +17,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
+import androidx.compose.material3.minimumInteractiveComponentSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -29,6 +30,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.maureen.wandevelop.R
+import com.maureen.wandevelop.common.composable.ProgressDialog
 import com.maureen.wandevelop.common.composable.WanDevTpoAppBar
 import com.maureen.wandevelop.common.theme.WanDevelopTypography
 import com.maureen.wandevelop.entity.SettingItem
@@ -37,7 +39,7 @@ import com.maureen.wandevelop.entity.SettingType
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-internal fun SettingsPage(
+internal fun SettingsScreen(
     onBackClick: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: SettingsViewModel = viewModel()
@@ -52,6 +54,10 @@ internal fun SettingsPage(
         },
         content = { paddingValues ->
             val settingItems by viewModel.settingItemsFlow.collectAsStateWithLifecycle()
+            val operationState by viewModel.operationState.collectAsStateWithLifecycle()
+            if (operationState.isOperating) {
+                ProgressDialog(operationState.operatingMsg)
+            }
             Column(
                 modifier = Modifier
                     .fillMaxSize()
@@ -85,7 +91,7 @@ internal fun SettingsPage(
                 }
 
                 TextButton(
-                    onClick = { viewModel.settingAction(R.string.nav_sign_out) },
+                    onClick = { viewModel.signOut() },
                     content = {
                         Text(
                             text = stringResource(R.string.nav_sign_out),
@@ -131,13 +137,14 @@ private fun SettingItem(
         if (item.type == SettingType.ACTION) {
             Icon(
                 painter = painterResource(R.drawable.ic_arrow_right),
-                contentDescription = null
+                contentDescription = null,
+                modifier = Modifier.minimumInteractiveComponentSize()
             )
         } else {
             Switch(
                 checked = item.value.toBoolean(),
                 onCheckedChange = { onCheckChange(item.name, it) },
-                modifier = Modifier.scale(0.7F)
+                modifier = Modifier.scale(0.6F)
             )
         }
     }

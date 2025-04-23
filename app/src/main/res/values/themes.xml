@@ -1,16 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
 
-    <style name="AppTheme" parent="Theme.Material3.DayNight.NoActionBar">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/white</item>
-        <item name="colorAccent">@color/colorPrimary</item>
-        <item name="colorControlNormal">@color/black</item>
-        <item name="android:textColor">@color/black</item>
-        <item name="android:textColorPrimary">@color/textBody</item>
-        <item name="android:windowLightStatusBar">true</item>
-        <item name="android:windowBackground">@color/windowBackground</item>
-        <item name="android:navigationBarColor">@color/white</item>
-        <item name="cardBackgroundColor">@color/cardBackgroundColor</item>
-        <item name="android:forceDarkAllowed" tools:ignore="NewApi">true</item>
-    </style>
+    <style name="AppTheme" parent="Theme.Material3.DayNight.NoActionBar" />
 </resources>

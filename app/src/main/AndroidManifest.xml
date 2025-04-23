@@ -13,9 +13,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".feature.discovery.SearchActivity"
-            android:exported="false" />
-        <activity
             android:name=".main.MainActivity"
             android:exported="true">
             <intent-filter>
@@ -24,18 +21,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".main.ArticleDetailActivity"
-            android:exported="false" />
-        <activity
-            android:name=".feature.setting.ReadRecordActivity"
-            android:exported="false" />
-        <activity
-            android:name=".feature.setting.NotificationActivity"
-            android:exported="false" />
-        <activity
-            android:name=".feature.profile.sign.SignInOrUpActivity"
-            android:exported="true" />
     </application>
 
 </manifest>

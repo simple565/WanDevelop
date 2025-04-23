@@ -44,7 +44,7 @@ fun ProgressDialog(
         properties = DialogProperties(usePlatformDefaultWidth = false),
         content = {
             Surface(
-                modifier = modifier,
+                modifier = modifier.then(Modifier.defaultDialogSize()),
                 shape = MaterialTheme.shapes.large,
                 tonalElevation = AlertDialogDefaults.TonalElevation
             ) {

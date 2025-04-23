@@ -1,7 +1,7 @@
 package com.maureen.wandevelop.common.entity
 
 /**
- * @author lianml
+ * 可展开节点实体类
  * @date 2025/3/12
  */
 data class NodeInfo(

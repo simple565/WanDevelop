@@ -1,6 +1,5 @@
 package com.maureen.wandevelop.entity
 
-import androidx.annotation.Keep
 import kotlinx.serialization.Serializable
 
 /**
@@ -8,7 +7,7 @@ import kotlinx.serialization.Serializable
  * @date 2023/12/20
  */
 @Serializable
-data class Banner(
+data class BannerInfo(
     val desc: String,
     val id: Int,
     val imagePath: String,

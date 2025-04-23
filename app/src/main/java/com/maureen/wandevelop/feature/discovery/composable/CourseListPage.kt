@@ -2,28 +2,28 @@ package com.maureen.wandevelop.feature.discovery.composable
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.pulltorefresh.PullToRefreshBox
+import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.fromHtml
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
@@ -31,40 +31,46 @@ import com.maureen.wandevelop.common.entity.DataLoadState
 import com.maureen.wandevelop.common.entity.Feed
 import com.maureen.wandevelop.common.theme.WanDevelopTheme
 import com.maureen.wandevelop.common.theme.WanDevelopTypography
+import com.maureen.wandevelop.common.tooling.UiModePreviews
 import com.maureen.wandevelop.entity.TagInfo
 
 /**
  * @author lianml
  * @date 2025/3/9
  */
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun CourseListPage(
     loadState: DataLoadState<Feed>,
+    onCourseClick: (Long) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    if (loadState.isLoading) {
-        Column(
-            modifier = modifier.fillMaxSize(),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            CircularProgressIndicator()
-        }
-        return
-    }
-    if (loadState.dataList.isEmpty()) {
-
-    } else {
+    val state = rememberPullToRefreshState()
+    PullToRefreshBox(
+        isRefreshing = loadState.isLoading,
+        onRefresh = { },
+        modifier = modifier,
+        state = state
+    ) {
         LazyColumn(modifier = modifier.fillMaxSize()) {
             items(items = loadState.dataList, key = { it.id }) {
-                CourseCard(
-                    feed = it,
-                    onCardClick = {}
-                )
+                Column(
+                    modifier = Modifier.padding(10.dp)
+                ) {
+                    CourseCard(
+                        feed = it,
+                        onCardClick = { onCourseClick(it.id) }
+                    )
+                    HorizontalDivider(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(1.dp)
+                            .padding(top = 10.dp)
+                    )
+                }
             }
         }
     }
-
 }
 
 @Composable
@@ -75,10 +81,7 @@ private fun CourseCard(
 ) {
     Row(
         modifier = modifier
-            .padding(vertical = 2.dp)
             .fillMaxWidth()
-            .background(color = MaterialTheme.colorScheme.surface)
-            .padding(10.dp)
             .clickable {
                 onCardClick(feed)
             },
@@ -94,34 +97,49 @@ private fun CourseCard(
             contentDescription = "Cover",
             contentScale = ContentScale.Crop,
         )
-        Spacer(modifier = Modifier.size(10.dp))
-        Column {
-            Text(text = feed.title, style = WanDevelopTypography.titleMedium)
-            Spacer(modifier = Modifier.size(10.dp))
-            Text(text = feed.author, style = WanDevelopTypography.labelMedium)
-            Spacer(modifier = Modifier.size(10.dp))
+        Column(
+            modifier = Modifier
+                .padding(start = 10.dp)
+                .fillMaxWidth()
+        ) {
             Text(
-                text = feed.description,
-                maxLines = 2,
+                text = AnnotatedString.fromHtml(feed.title),
+                style = WanDevelopTypography.titleSmall,
+                modifier = Modifier.fillMaxWidth()
+            )
+            Text(
+                text = feed.author,
+                style = WanDevelopTypography.labelMedium,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 4.dp)
+            )
+            Text(
+                text = AnnotatedString.fromHtml(feed.description),
+                maxLines = 3,
                 overflow = TextOverflow.Ellipsis,
-                style = WanDevelopTypography.labelMedium
+                style = WanDevelopTypography.labelMedium,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 4.dp)
             )
         }
 
     }
 }
 
+
+@UiModePreviews
 @Composable
-@Preview
 private fun CourseCardPreview() {
     val feed = Feed(
         id = 29464,
-        title = "【HenCoder Android 开发进阶】自定义 View 1-7：属性动画（进阶篇）",
-        description = "【HenCoder Android 开发进阶】自定义 View 1-7：属性动画（进阶篇）",
+        title = "C语言入门教程_阮一峰",
+        description = "C语言入门教程",
         url = "https=//www.wanandroid.com/blog/show/3732",
         coverUrl = "https://www.wanandroid.com/blogimgs/f1cb8d34-82c1-46f7-80fe-b899f56b69c1.png",
         isCollect = false,
-        author = "玩Android",
+        author = "阮一峰",
         publishData = "2025-01-28",
         tags = listOf(
             TagInfo(name = "广场", ""),
@@ -129,12 +147,16 @@ private fun CourseCardPreview() {
             TagInfo(name = "广场3", "")
         )
     )
-    WanDevelopTheme(darkThemeOn = false) {
-        CourseCard(
-            modifier = Modifier
+    WanDevelopTheme {
+        Column(
+            Modifier
                 .fillMaxWidth()
-                .background(color = MaterialTheme.colorScheme.surface),
-            feed = feed,
-        )
+                .background(color = MaterialTheme.colorScheme.background)
+        ) {
+            CourseCard(
+                modifier = Modifier,
+                feed = feed,
+            )
+        }
     }
 }
