@@ -34,16 +34,19 @@ fun WanDevelopApp(
         },
     ) { padding ->
         NavHost(modifier = modifier, navController = navController, startDestination = IndexRoute) {
+            feedDetailScreen(
+                onBackClick = navController::popBackStack
+            )
             indexScreen(
                 appState = appState
             )
             searchScreen(
                 onBackClick = navController::popBackStack,
-                onFeedClick = {},
+                onFeedClick = navController::navigateToFeedDetail
             )
             profilerScreens(
                 onBackClick = navController::popBackStack,
-                onFeedClick = {}
+                onFeedClick = navController::navigateToFeedDetail
             )
             settingScreens(
                 onBackClick = navController::popBackStack

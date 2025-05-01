@@ -1,4 +1,4 @@
-package com.maureen.wandevelop.common.entity
+package com.maureen.wandevelop.core.entity
 
 /**
  * 可展开节点实体类

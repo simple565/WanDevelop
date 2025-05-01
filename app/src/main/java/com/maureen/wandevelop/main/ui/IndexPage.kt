@@ -126,10 +126,10 @@ private fun IndexHost(
     NavHost(modifier = modifier, navController = navController, startDestination = HomeRoute) {
         homeScreen(
             onSearchClick = appState.navController::navigateToSearch,
-            onFeedClick = {}
+            onFeedClick = appState.navController::navigateToFeedDetail
         )
         discoveryScreen(
-            onFeedClick = {}
+            onFeedClick = appState.navController::navigateToFeedDetail
         )
         profileScreen(
             otherEntranceList = WanDevAppState.otherEntranceList,

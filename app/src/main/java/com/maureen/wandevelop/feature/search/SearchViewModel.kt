@@ -7,7 +7,7 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import androidx.paging.map
 import com.maureen.wandevelop.MyApplication
-import com.maureen.wandevelop.common.entity.Feed
+import com.maureen.wandevelop.core.entity.Feed
 import com.maureen.wandevelop.entity.HotkeyInfo
 import com.maureen.wandevelop.ext.toFeed
 import kotlinx.coroutines.ExperimentalCoroutinesApi

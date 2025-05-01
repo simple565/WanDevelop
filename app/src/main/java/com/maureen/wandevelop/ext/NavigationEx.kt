@@ -7,7 +7,7 @@ import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.navOptions
-import com.maureen.wandevelop.common.entity.WanDevNavDestination
+import com.maureen.wandevelop.core.entity.WanDevNavDestination
 
 /**
  * 跳转到指定底部导航Tab

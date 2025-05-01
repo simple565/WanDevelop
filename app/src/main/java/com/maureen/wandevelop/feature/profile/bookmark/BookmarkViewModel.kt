@@ -6,7 +6,7 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import androidx.paging.map
 import com.maureen.wandevelop.R
-import com.maureen.wandevelop.common.entity.Feed
+import com.maureen.wandevelop.core.entity.Feed
 import com.maureen.wandevelop.db.ReadRecord
 import com.maureen.wandevelop.entity.CollectionInfo
 import com.maureen.wandevelop.entity.TagInfo

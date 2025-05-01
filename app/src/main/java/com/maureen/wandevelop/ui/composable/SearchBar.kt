@@ -1,4 +1,4 @@
-package com.maureen.wandevelop.common.composable
+package com.maureen.wandevelop.ui.composable
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -29,8 +29,8 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.maureen.wandevelop.common.theme.WanDevelopTheme
-import com.maureen.wandevelop.common.theme.WanDevelopTypography
+import com.maureen.wandevelop.ui.theme.WanDevelopTheme
+import com.maureen.wandevelop.ui.theme.WanDevelopTypography
 
 /**
  * 通用搜索框

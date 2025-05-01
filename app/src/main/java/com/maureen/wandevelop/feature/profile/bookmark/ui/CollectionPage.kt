@@ -15,8 +15,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.paging.compose.collectAsLazyPagingItems
-import com.maureen.wandevelop.common.composable.FeedPullToRefreshBox
 import com.maureen.wandevelop.feature.profile.bookmark.BookmarkViewModel
+import com.maureen.wandevelop.ui.composable.FeedPullToRefreshBox
 
 /**
  * 我的收藏

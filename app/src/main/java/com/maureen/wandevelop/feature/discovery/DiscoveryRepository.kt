@@ -1,7 +1,7 @@
 package com.maureen.wandevelop.feature.discovery
 
 import androidx.paging.PagingData
-import com.maureen.wandevelop.base.BaseRepository
+import com.maureen.wandevelop.core.BaseRepository
 import com.maureen.wandevelop.entity.ArticleInfo
 import com.maureen.wandevelop.ext.newWanAndroidPager
 import com.maureen.wandevelop.network.WanAndroidService

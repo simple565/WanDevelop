@@ -2,7 +2,7 @@ package com.maureen.wandevelop.ext
 
 import android.content.Context
 import com.maureen.wandevelop.R
-import com.maureen.wandevelop.common.entity.Feed
+import com.maureen.wandevelop.core.entity.Feed
 import com.maureen.wandevelop.entity.ArticleInfo
 import com.maureen.wandevelop.entity.TagInfo
 

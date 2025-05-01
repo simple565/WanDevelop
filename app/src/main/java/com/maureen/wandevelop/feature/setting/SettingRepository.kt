@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.appcompat.app.AppCompatDelegate
 import com.maureen.wandevelop.MyApplication
 import com.maureen.wandevelop.R
-import com.maureen.wandevelop.base.BaseRepository
+import com.maureen.wandevelop.core.BaseRepository
 import com.maureen.wandevelop.entity.SettingItem
 import com.maureen.wandevelop.entity.SettingType
 import com.maureen.wandevelop.network.WanAndroidService

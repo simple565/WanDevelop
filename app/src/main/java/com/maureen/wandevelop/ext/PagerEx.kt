@@ -3,7 +3,7 @@ package com.maureen.wandevelop.ext
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingSource
-import com.maureen.wandevelop.base.WanAndroidPagePagingSource
+import com.maureen.wandevelop.core.WanAndroidPagePagingSource
 import com.maureen.wandevelop.entity.BasePage
 import com.maureen.wandevelop.entity.BaseResponse
 import com.maureen.wandevelop.network.WanAndroidService

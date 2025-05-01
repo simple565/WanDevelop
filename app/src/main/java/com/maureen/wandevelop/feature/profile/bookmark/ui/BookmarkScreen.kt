@@ -17,8 +17,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.maureen.wandevelop.R
-import com.maureen.wandevelop.common.composable.WanDevTpoAppBar
 import com.maureen.wandevelop.feature.profile.bookmark.BookmarkViewModel
+import com.maureen.wandevelop.ui.composable.WanDevTpoAppBar
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

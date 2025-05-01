@@ -1,8 +1,8 @@
-package com.maureen.wandevelop.common.feed
+package com.maureen.wandevelop.core.feed
 
 import android.util.Log
-import com.maureen.wandevelop.base.BaseRepository
-import com.maureen.wandevelop.common.entity.Feed
+import com.maureen.wandevelop.core.BaseRepository
+import com.maureen.wandevelop.core.entity.Feed
 import com.maureen.wandevelop.db.AppDatabase
 import com.maureen.wandevelop.db.ReadRecord
 import com.maureen.wandevelop.network.WanAndroidService

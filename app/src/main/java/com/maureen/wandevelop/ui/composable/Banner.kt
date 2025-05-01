@@ -1,4 +1,4 @@
-package com.maureen.wandevelop.common.composable
+package com.maureen.wandevelop.ui.composable
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -26,8 +26,8 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import coil.size.Scale
-import com.maureen.wandevelop.common.theme.WanDevelopTheme
 import com.maureen.wandevelop.entity.BannerInfo
+import com.maureen.wandevelop.ui.theme.WanDevelopTheme
 
 /**
  * @author lianml

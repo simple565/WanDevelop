@@ -6,7 +6,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.rememberNavController
 import com.maureen.wandevelop.R
-import com.maureen.wandevelop.common.entity.WanDevNavDestination
+import com.maureen.wandevelop.core.entity.WanDevNavDestination
 import com.maureen.wandevelop.feature.discovery.DiscoveryRoute
 import com.maureen.wandevelop.feature.home.HomeRoute
 import com.maureen.wandevelop.feature.profile.BookmarkRoute

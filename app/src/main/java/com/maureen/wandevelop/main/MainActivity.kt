@@ -6,9 +6,9 @@ import android.view.WindowManager
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import com.maureen.wandevelop.common.theme.WanDevelopTheme
 import com.maureen.wandevelop.main.ui.WanDevelopApp
 import com.maureen.wandevelop.main.ui.rememberWanDevAppState
+import com.maureen.wandevelop.ui.theme.WanDevelopTheme
 
 
 class MainActivity : ComponentActivity() {

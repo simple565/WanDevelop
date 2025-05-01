@@ -1,7 +1,7 @@
 package com.maureen.wandevelop.feature.search
 
 import androidx.paging.PagingData
-import com.maureen.wandevelop.base.BaseRepository
+import com.maureen.wandevelop.core.BaseRepository
 import com.maureen.wandevelop.db.AppDatabase
 import com.maureen.wandevelop.db.SearchKey
 import com.maureen.wandevelop.entity.ArticleInfo

@@ -22,7 +22,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.maureen.wandevelop.common.entity.DataLoadState
+import com.maureen.wandevelop.core.entity.DataLoadState
 import com.maureen.wandevelop.entity.ArticleInfo
 import com.maureen.wandevelop.entity.SystemNodeInfo
 

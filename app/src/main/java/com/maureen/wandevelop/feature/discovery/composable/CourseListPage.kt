@@ -27,12 +27,12 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
-import com.maureen.wandevelop.common.entity.DataLoadState
-import com.maureen.wandevelop.common.entity.Feed
-import com.maureen.wandevelop.common.theme.WanDevelopTheme
-import com.maureen.wandevelop.common.theme.WanDevelopTypography
-import com.maureen.wandevelop.common.tooling.UiModePreviews
+import com.maureen.wandevelop.core.entity.DataLoadState
+import com.maureen.wandevelop.core.entity.Feed
 import com.maureen.wandevelop.entity.TagInfo
+import com.maureen.wandevelop.ui.theme.WanDevelopTheme
+import com.maureen.wandevelop.ui.theme.WanDevelopTypography
+import com.maureen.wandevelop.ui.tooling.UiModePreviews
 
 /**
  * @author lianml

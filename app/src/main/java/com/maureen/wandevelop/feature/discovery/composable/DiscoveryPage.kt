@@ -18,9 +18,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.paging.compose.collectAsLazyPagingItems
-import com.maureen.wandevelop.common.composable.FeedPullToRefreshBox
 import com.maureen.wandevelop.feature.discovery.DiscoveryPage
 import com.maureen.wandevelop.feature.discovery.DiscoveryViewModel
+import com.maureen.wandevelop.ui.composable.FeedPullToRefreshBox
 import kotlinx.coroutines.launch
 
 /**
@@ -60,7 +60,8 @@ internal fun DiscoveryPage(
                         val loadState by viewModel.loadCourseListState.collectAsStateWithLifecycle()
                         CourseListPage(
                             loadState = loadState,
-                            onCourseClick = {}
+                            onCourseClick = {},
+                            modifier = Modifier.fillMaxSize()
                         )
                     }
 
@@ -69,7 +70,8 @@ internal fun DiscoveryPage(
                         RouteListPage(
                             loadState = loadState,
                             toggleExpand = viewModel::toggleRouteExpandState,
-                            onRouteClick = {  }
+                            onRouteClick = {  },
+                            modifier = Modifier.fillMaxSize()
                         )
                     }
 
@@ -78,6 +80,7 @@ internal fun DiscoveryPage(
                         val collectedIds by viewModel.collectedIsSetFlow.collectAsStateWithLifecycle()
                         FeedPullToRefreshBox(
                             pagingItems = pagingState,
+                            modifier = Modifier.fillMaxSize(),
                             collectedFeedIdSet = collectedIds,
                             onItemClick = { onFeedClick(it.url) },
                             toggleCollect = { feed, collect -> viewModel.toggleFeedCollect(feed, collect) },

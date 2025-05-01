@@ -1,4 +1,4 @@
-package com.maureen.wandevelop.common.tooling
+package com.maureen.wandevelop.ui.tooling
 
 import android.content.res.Configuration
 import androidx.compose.ui.tooling.preview.Preview

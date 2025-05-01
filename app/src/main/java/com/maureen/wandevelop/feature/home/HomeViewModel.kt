@@ -5,8 +5,8 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
 import androidx.paging.map
 import com.maureen.wandevelop.MyApplication
-import com.maureen.wandevelop.common.entity.DataLoadState
-import com.maureen.wandevelop.common.feed.FeedViewModel
+import com.maureen.wandevelop.core.entity.DataLoadState
+import com.maureen.wandevelop.core.feed.FeedViewModel
 import com.maureen.wandevelop.ext.toFeed
 import com.maureen.wandevelop.util.UserPrefUtil
 import kotlinx.coroutines.Dispatchers

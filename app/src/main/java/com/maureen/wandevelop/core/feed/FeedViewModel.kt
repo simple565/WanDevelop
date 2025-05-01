@@ -1,9 +1,9 @@
-package com.maureen.wandevelop.common.feed
+package com.maureen.wandevelop.core.feed
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.maureen.wandevelop.common.entity.Feed
+import com.maureen.wandevelop.core.entity.Feed
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.stateIn

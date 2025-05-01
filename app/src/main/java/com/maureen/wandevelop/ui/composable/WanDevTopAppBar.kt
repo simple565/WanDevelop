@@ -1,4 +1,4 @@
-package com.maureen.wandevelop.common.composable
+package com.maureen.wandevelop.ui.composable
 
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.WindowInsets

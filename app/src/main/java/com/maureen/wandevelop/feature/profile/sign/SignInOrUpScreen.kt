@@ -43,8 +43,8 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.maureen.wandevelop.R
-import com.maureen.wandevelop.common.composable.ProgressDialog
-import com.maureen.wandevelop.common.composable.WanDevTpoAppBar
+import com.maureen.wandevelop.ui.composable.ProgressDialog
+import com.maureen.wandevelop.ui.composable.WanDevTpoAppBar
 
 
 @OptIn(ExperimentalMaterial3Api::class)

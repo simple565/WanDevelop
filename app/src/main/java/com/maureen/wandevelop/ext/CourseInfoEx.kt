@@ -1,6 +1,6 @@
 package com.maureen.wandevelop.ext
 
-import com.maureen.wandevelop.common.entity.Feed
+import com.maureen.wandevelop.core.entity.Feed
 import com.maureen.wandevelop.entity.CourseInfo
 
 /**

@@ -5,7 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.maureen.wandevelop.MyApplication
 import com.maureen.wandevelop.R
-import com.maureen.wandevelop.common.entity.OperationState
+import com.maureen.wandevelop.core.entity.OperationState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted

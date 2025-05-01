@@ -1,4 +1,4 @@
-package com.maureen.wandevelop.base
+package com.maureen.wandevelop.core
 
 import com.maureen.wandevelop.entity.BaseResponse
 import com.maureen.wandevelop.network.parse

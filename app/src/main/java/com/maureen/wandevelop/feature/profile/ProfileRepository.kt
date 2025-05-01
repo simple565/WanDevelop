@@ -1,6 +1,6 @@
 package com.maureen.wandevelop.feature.profile
 
-import com.maureen.wandevelop.base.BaseRepository
+import com.maureen.wandevelop.core.BaseRepository
 import com.maureen.wandevelop.entity.ProfileInfo
 import com.maureen.wandevelop.network.WanAndroidService
 import com.maureen.wandevelop.util.UserPrefUtil

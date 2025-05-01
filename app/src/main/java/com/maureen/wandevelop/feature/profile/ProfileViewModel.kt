@@ -2,7 +2,7 @@ package com.maureen.wandevelop.feature.profile
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.maureen.wandevelop.base.BaseRepository
+import com.maureen.wandevelop.core.BaseRepository
 import com.maureen.wandevelop.entity.ProfileInfo
 import com.maureen.wandevelop.entity.toProfileInfo
 import kotlinx.coroutines.Dispatchers

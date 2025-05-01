@@ -5,7 +5,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
-import com.maureen.wandevelop.common.entity.WanDevNavDestination
+import com.maureen.wandevelop.core.entity.WanDevNavDestination
 import com.maureen.wandevelop.feature.profile.bookmark.ui.BookmarkScreen
 import com.maureen.wandevelop.feature.profile.bookmark.ui.ReadRecordScreen
 import com.maureen.wandevelop.feature.profile.notification.NotificationScreen

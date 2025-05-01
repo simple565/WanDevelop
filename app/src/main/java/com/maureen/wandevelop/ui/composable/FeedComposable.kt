@@ -1,4 +1,4 @@
-package com.maureen.wandevelop.common.composable
+package com.maureen.wandevelop.ui.composable
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
@@ -45,11 +45,11 @@ import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.itemKey
 import com.maureen.wandevelop.R
-import com.maureen.wandevelop.common.entity.Feed
-import com.maureen.wandevelop.common.theme.WanDevelopTheme
-import com.maureen.wandevelop.common.theme.WanDevelopTypography
-import com.maureen.wandevelop.common.tooling.UiModePreviews
+import com.maureen.wandevelop.core.entity.Feed
 import com.maureen.wandevelop.entity.TagInfo
+import com.maureen.wandevelop.ui.theme.WanDevelopTheme
+import com.maureen.wandevelop.ui.theme.WanDevelopTypography
+import com.maureen.wandevelop.ui.tooling.UiModePreviews
 
 /**
  * Feed流页面（下拉刷新，上拉加载更多）

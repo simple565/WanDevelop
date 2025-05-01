@@ -9,10 +9,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.maureen.wandevelop.R
-import com.maureen.wandevelop.common.composable.FeedPullToRefreshBox
-import com.maureen.wandevelop.common.composable.WanDevTpoAppBar
 import com.maureen.wandevelop.db.ReadRecord
 import com.maureen.wandevelop.feature.profile.bookmark.BookmarkViewModel
+import com.maureen.wandevelop.ui.composable.FeedPullToRefreshBox
+import com.maureen.wandevelop.ui.composable.WanDevTpoAppBar
 
 /**
  * 浏览记录

@@ -38,12 +38,12 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.maureen.wandevelop.R
-import com.maureen.wandevelop.common.composable.FeedPullToRefreshBox
-import com.maureen.wandevelop.common.composable.SearchView
-import com.maureen.wandevelop.common.theme.WanDevelopTheme
-import com.maureen.wandevelop.common.theme.WanDevelopTypography
-import com.maureen.wandevelop.common.tooling.UiModePreviews
 import com.maureen.wandevelop.entity.HotkeyInfo
+import com.maureen.wandevelop.ui.composable.FeedPullToRefreshBox
+import com.maureen.wandevelop.ui.composable.SearchView
+import com.maureen.wandevelop.ui.theme.WanDevelopTheme
+import com.maureen.wandevelop.ui.theme.WanDevelopTypography
+import com.maureen.wandevelop.ui.tooling.UiModePreviews
 
 @Composable
 internal fun SearchScreen(

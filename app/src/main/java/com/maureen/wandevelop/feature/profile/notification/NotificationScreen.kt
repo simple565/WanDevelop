@@ -32,9 +32,9 @@ import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemKey
 import com.maureen.wandevelop.R
-import com.maureen.wandevelop.common.composable.WanDevTpoAppBar
-import com.maureen.wandevelop.common.tooling.UiModePreviews
 import com.maureen.wandevelop.entity.MessageInfo
+import com.maureen.wandevelop.ui.composable.WanDevTpoAppBar
+import com.maureen.wandevelop.ui.tooling.UiModePreviews
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

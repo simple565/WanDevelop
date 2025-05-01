@@ -1,4 +1,4 @@
-package com.maureen.wandevelop.common.entity
+package com.maureen.wandevelop.core.entity
 
 import com.maureen.wandevelop.entity.TagInfo
 import kotlinx.serialization.Serializable

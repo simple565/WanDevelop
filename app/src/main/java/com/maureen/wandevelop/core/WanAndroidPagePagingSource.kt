@@ -1,4 +1,4 @@
-package com.maureen.wandevelop.base
+package com.maureen.wandevelop.core
 
 import android.util.Log
 import androidx.paging.PagingSource
