@@ -44,23 +44,23 @@ open class FeedRepository : BaseRepository() {
         AppDatabase.instance.readRecordDao().addOrUpdateRecord(record)
     }
 
-    suspend fun toggleCollect(feed: Feed, collect: Boolean): Pair<Boolean, String> {
+    suspend fun toggleCollect(feedId: Long, collect: Boolean): Pair<Boolean, String> {
         val curCollectIsSet = UserPrefUtil.getPreference(UserPrefUtil.KEY_USER_COLLECT_ID)?.let {
             it.split(",").map { id -> id.toLong() }
         }?.toMutableSet() ?: mutableSetOf<Long>()
         Log.d(TAG, "toggleCollect: collect id set count before ${curCollectIsSet.size}")
         val result = if (collect) {
-            WanAndroidService.instance.collect(feed.id)
+            WanAndroidService.instance.collect(feedId)
         } else {
-            WanAndroidService.instance.cancelCollect(feed.id)
+            WanAndroidService.instance.cancelCollect(feedId)
         }
-        Log.d(TAG, "collectOrNot: $collect article $feed.id result ${result.errorCode}")
+        Log.d(TAG, "collectOrNot: $collect article $feedId result ${result.errorCode}")
 
         if (result.isSuccess) {
             if (collect) {
-                curCollectIsSet.add(feed.id)
+                curCollectIsSet.add(feedId)
             } else {
-                curCollectIsSet.remove(feed.id)
+                curCollectIsSet.remove(feedId)
             }
             Log.d(TAG, "toggleCollect: collect id set count after ${curCollectIsSet.size}")
             UserPrefUtil.setPreference(UserPrefUtil.KEY_USER_COLLECT_ID, curCollectIsSet.joinToString(","))

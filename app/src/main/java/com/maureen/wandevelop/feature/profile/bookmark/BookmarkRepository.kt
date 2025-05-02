@@ -9,8 +9,7 @@ import com.maureen.wandevelop.ext.newWanAndroidPager
 import com.maureen.wandevelop.network.WanAndroidService
 
 /**
- * 书签相关
- * @author lianml
+ * 书签相关代码
  * @date 2024-02-18
  */
 class BookmarkRepository : FeedRepository() {
@@ -26,14 +25,4 @@ class BookmarkRepository : FeedRepository() {
         )
     }
 
-    suspend fun cancelCollect(id: Long, originId: Long): Pair<Boolean, String> {
-        val response = requestSafely { WanAndroidService.instance.cancelCollect(id, originId) }
-        return if (response.isSuccess) {
-            //
-
-            true to ""
-        } else {
-            false to response.errorMsg
-        }
-    }
 }

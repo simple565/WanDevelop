@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
 /**
- * @author lianml
+ * Feed流 ViewModel
  * @date 2025/4/20
  */
 open class FeedViewModel : ViewModel() {
@@ -28,6 +28,6 @@ open class FeedViewModel : ViewModel() {
 
     fun toggleFeedCollect(feed: Feed, collect: Boolean) = viewModelScope.launch(Dispatchers.Default) {
         Log.d(TAG, "toggleFeedCollect: ${feed.id} $collect")
-        feedRepository.toggleCollect(feed = feed, collect = collect)
+        feedRepository.toggleCollect(feedId = feed.id, collect = collect)
     }
 }

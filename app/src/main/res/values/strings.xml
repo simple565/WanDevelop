@@ -59,6 +59,7 @@
 
     <string name="collect">收藏</string>
     <string name="cancel_collect">取消收藏</string>
+    <string name="prompt_delete_article_or_not">将文章从列表中删除？</string>
     <string name="confirm">确定</string>
     <string name="done">完成</string>
     <string name="delete">删除</string>

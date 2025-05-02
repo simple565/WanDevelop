@@ -100,7 +100,7 @@ class DiscoveryViewModel : FeedViewModel() {
 
     fun toggleFeedCollectState(feed: Feed) = viewModelScope.launch(Dispatchers.IO) {
         // TODO: 校验是否登录
-        feedRepository.toggleCollect(feed, feed.isCollect.not())
+        feedRepository.toggleCollect(feed.id, feed.isCollect.not())
     }
 
     fun toggleRouteExpandState(nodeInfo: SystemNodeInfo) {

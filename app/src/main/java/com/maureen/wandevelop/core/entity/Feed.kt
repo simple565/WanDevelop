@@ -8,7 +8,7 @@ import kotlinx.serialization.Serializable
  * @date 2025/2/7
  */
 @Serializable
-data class Feed constructor(
+data class Feed (
     val id: Long,
     val title: String,
     val url: String = "",
