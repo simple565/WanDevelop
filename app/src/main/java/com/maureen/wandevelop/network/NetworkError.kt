@@ -1,7 +1,7 @@
 package com.maureen.wandevelop.network
 
-import com.squareup.moshi.JsonDataException
-import com.squareup.moshi.JsonEncodingException
+import kotlinx.serialization.SerializationException
+import org.json.JSONException
 import retrofit2.HttpException
 import java.net.ConnectException
 import java.net.SocketException
@@ -114,7 +114,7 @@ fun Throwable.parse(): NetworkError {
                 else -> NetworkError.UNKNOWN
             }
         }
-        is JsonEncodingException, is JsonDataException -> NetworkError.PARSE_ERROR
+        is JSONException, is SerializationException -> NetworkError.PARSE_ERROR
         is ConnectException -> NetworkError.NETWORK_ERROR
         is SSLException -> NetworkError.SSL_ERROR
         is SocketException -> NetworkError.TIMEOUT_ERROR

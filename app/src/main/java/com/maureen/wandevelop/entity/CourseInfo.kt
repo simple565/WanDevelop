@@ -1,6 +1,6 @@
 package com.maureen.wandevelop.entity
 
-import com.squareup.moshi.Json
+import kotlinx.serialization.SerialName
 
 /**
  * @author lianml
@@ -14,9 +14,9 @@ data class CourseInfo(
     val cover: String,
     val desc: String,
     val id: Long,
-    @Json(name = "lisense")
+    @SerialName("lisense")
     val license: String,
-    @Json(name = "lisenseLink")
+    @SerialName("lisenseLink")
     val licenseLink: String,
     val name: String,
     val order: Int,

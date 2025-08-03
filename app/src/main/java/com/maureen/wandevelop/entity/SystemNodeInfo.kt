@@ -1,6 +1,6 @@
 package com.maureen.wandevelop.entity
 
-import com.squareup.moshi.Json
+import kotlinx.serialization.SerialName
 
 /**
  * 体系节点实体类
@@ -15,9 +15,9 @@ data class SystemNodeInfo(
     val cover: String,
     val desc: String,
     val id: Long,
-    @Json(name = "lisense")
+    @SerialName("lisense")
     val license: String,
-    @Json(name = "lisenseLink")
+    @SerialName("lisenseLink")
     val licenseLink: String,
     val name: String,
     val order: Int,

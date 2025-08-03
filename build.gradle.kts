@@ -7,4 +7,3 @@ plugins {
     alias(libs.plugins.org.jetbrains.kotlin.compose) apply false
     alias(libs.plugins.androidx.navigation.safeargs) apply false
 }
-true // Needed to make the Suppress annotation work for the plugins block

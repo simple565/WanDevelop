@@ -1,6 +1,6 @@
 package com.maureen.wandevelop.entity
 
-import com.squareup.moshi.Json
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 /**
@@ -22,7 +22,7 @@ data class BaseResponse<T>(
 @Serializable
 data class BasePage<T>(
     val curPage: Int = 0,
-    @Json(name = "datas")
+    @SerialName("datas")
     val dataList: List<T>,
     val offset: Int = 0,
     val over: Boolean = false,
