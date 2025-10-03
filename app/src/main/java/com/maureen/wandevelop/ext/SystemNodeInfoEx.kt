@@ -1,13 +1,13 @@
 package com.maureen.wandevelop.ext
 
 import com.maureen.wandevelop.core.entity.Feed
-import com.maureen.wandevelop.entity.CourseInfo
+import com.maureen.wandevelop.entity.SystemNodeInfo
 
 /**
  * @author lianml
  * @date 2025/2/9
  */
-fun CourseInfo.toFeed(): Feed {
+fun SystemNodeInfo.toFeed(): Feed {
     return Feed(
         id = this.id,
         title = this.name,

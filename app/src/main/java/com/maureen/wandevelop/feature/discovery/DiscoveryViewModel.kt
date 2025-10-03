@@ -1,6 +1,5 @@
 package com.maureen.wandevelop.feature.discovery
 
-import android.util.Log
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
@@ -10,11 +9,9 @@ import com.maureen.wandevelop.R
 import com.maureen.wandevelop.core.entity.DataLoadState
 import com.maureen.wandevelop.core.entity.Feed
 import com.maureen.wandevelop.core.feed.FeedViewModel
-import com.maureen.wandevelop.entity.SystemNodeInfo
 import com.maureen.wandevelop.ext.toFeed
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
@@ -35,7 +32,6 @@ class DiscoveryViewModel : FeedViewModel() {
     private val discoveryRepository: DiscoveryRepository = DiscoveryRepository()
 
     private val pagingDataFlowMap = mutableMapOf<DiscoveryPage, Flow<PagingData<Feed>>>()
-    private val _expandedRouteIdSetState: MutableStateFlow<Set<Long>> = MutableStateFlow(emptySet())
 
     fun getPagingFlow(page: DiscoveryPage, useCache: Boolean = true): Flow<PagingData<Feed>> {
         val context = MyApplication.instance.applicationContext
@@ -66,32 +62,15 @@ class DiscoveryViewModel : FeedViewModel() {
         return flow
     }
 
-    val loadCourseListState: StateFlow<DataLoadState<Feed>> = flow {
-        val result = discoveryRepository.getCourseList()
-        Log.d(TAG, "load course count: ${result.data?.size}")
-        emit(
-            DataLoadState(
-                isLoading = false,
-                dataList = result.data?.map { it.toFeed() } ?: emptyList(),
-                errorMsg = result.errorMsg
-            ))
-    }.flowOn(Dispatchers.IO)
-        .stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(),
-            initialValue = DataLoadState(isLoading = true)
-        )
-
-    val loadRouteListState: StateFlow<DataLoadState<SystemNodeInfo>> = combine(
-        _expandedRouteIdSetState,
+    val loadCourseListState: StateFlow<DataLoadState<Feed>> = combine(
+        flow { emit(discoveryRepository.getCourseList()) },
         flow { emit(discoveryRepository.getRouteList()) }
-    ) { set, result ->
-        Log.d(TAG, "load route count: ${result.data?.size}")
+    ) { courseResult, systemResult ->
+        val resultList = (courseResult.data ?: emptyList()) + (systemResult.data ?: emptyList())
         DataLoadState(
             isLoading = false,
-            dataList = result.data ?: emptyList(),
-            errorMsg = result.errorMsg,
-            operatedIdSet = set
+            dataList = resultList.map { it.toFeed() },
+            errorMsg = courseResult.errorMsg.ifBlank { systemResult.errorMsg }
         )
     }.flowOn(Dispatchers.IO)
         .stateIn(
@@ -104,22 +83,11 @@ class DiscoveryViewModel : FeedViewModel() {
         // TODO: 校验是否登录
         feedRepository.toggleCollect(feed.id, feed.isCollect.not())
     }
-
-    fun toggleRouteExpandState(nodeInfo: SystemNodeInfo) {
-        val old = _expandedRouteIdSetState.value.toMutableSet()
-        if (old.contains(nodeInfo.id)) {
-            old.remove(nodeInfo.id)
-        } else {
-            old.add(nodeInfo.id)
-        }
-        _expandedRouteIdSetState.value = old
-    }
 }
 
 enum class DiscoveryPage(val titleRes: Int, val isPageData: Boolean) {
     SQUARE(R.string.nav_square, true),
     QA(R.string.nav_qa, true),
-    COURSE(R.string.nav_course, false),
-    ROUTE(R.string.nav_learning_path, false)
+    COURSE(R.string.nav_course, false)
 }
 

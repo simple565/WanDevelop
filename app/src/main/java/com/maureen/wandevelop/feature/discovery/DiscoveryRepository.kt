@@ -45,9 +45,7 @@ class DiscoveryRepository : BaseRepository() {
     suspend fun getRouteList() = requestSafely { WanAndroidService.instance.treeList() }.let {
         if (it.isSuccessWithData) {
             return@let it.copy(data = it.data?.filter { nodeInfo ->
-                nodeInfo.name.matches(
-                    routeNameRegex
-                )
+                nodeInfo.name.matches(routeNameRegex)
             })
         }
         return@let it

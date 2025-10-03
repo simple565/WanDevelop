@@ -52,22 +52,16 @@ internal fun CourseListPage(
         modifier = modifier,
         state = state
     ) {
-        LazyColumn(modifier = modifier.fillMaxSize()) {
+        LazyColumn(modifier = Modifier.fillMaxSize()) {
             items(items = loadState.dataList, key = { it.id }) {
-                Column(
-                    modifier = Modifier.padding(10.dp)
-                ) {
-                    CourseCard(
-                        feed = it,
-                        onCardClick = { onCourseClick(it.id) }
-                    )
-                    HorizontalDivider(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(1.dp)
-                            .padding(top = 10.dp)
-                    )
-                }
+                CourseCard(
+                    feed = it,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clickable {
+                            onCourseClick(it.id)
+                        }
+                )
             }
         }
     }
@@ -76,55 +70,63 @@ internal fun CourseListPage(
 @Composable
 private fun CourseCard(
     feed: Feed,
-    modifier: Modifier = Modifier,
-    onCardClick: (Feed) -> Unit = {}
+    modifier: Modifier = Modifier
 ) {
-    Row(
-        modifier = modifier
-            .fillMaxWidth()
-            .clickable {
-                onCardClick(feed)
-            },
-    ) {
-        AsyncImage(
-            model = ImageRequest.Builder(LocalContext.current)
-                .data(feed.coverUrl)
-                .crossfade(500)
-                .build(),
-            modifier = Modifier
-                .height(110.dp)
-                .width(80.dp),
-            contentDescription = "Cover",
-            contentScale = ContentScale.Crop,
+    Column(
+        modifier = modifier.then(
+            Modifier
+                .background(color = MaterialTheme.colorScheme.surfaceBright)
+                .padding(horizontal = 10.dp)
         )
-        Column(
-            modifier = Modifier
-                .padding(start = 10.dp)
-                .fillMaxWidth()
-        ) {
-            Text(
-                text = AnnotatedString.fromHtml(feed.title),
-                style = WanDevelopTypography.titleSmall,
-                modifier = Modifier.fillMaxWidth()
-            )
-            Text(
-                text = feed.author,
-                style = WanDevelopTypography.labelMedium,
+    ) {
+        Row(modifier = Modifier.padding(vertical = 10.dp)) {
+            AsyncImage(
+                model = ImageRequest.Builder(LocalContext.current)
+                    .data(feed.coverUrl)
+                    .crossfade(500)
+                    .build(),
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 4.dp)
+                    .height(110.dp)
+                    .width(80.dp),
+                contentDescription = "Cover",
+                contentScale = ContentScale.Crop,
             )
-            Text(
-                text = AnnotatedString.fromHtml(feed.description),
-                maxLines = 3,
-                overflow = TextOverflow.Ellipsis,
-                style = WanDevelopTypography.labelMedium,
+            Column(
                 modifier = Modifier
+                    .padding(start = 10.dp)
                     .fillMaxWidth()
-                    .padding(top = 4.dp)
-            )
+            ) {
+                Text(
+                    text = AnnotatedString.fromHtml(feed.title),
+                    style = WanDevelopTypography.titleSmall,
+                    color = MaterialTheme.colorScheme.onSurface,
+                    modifier = Modifier.fillMaxWidth()
+                )
+                Text(
+                    text = feed.author,
+                    style = WanDevelopTypography.labelMedium,
+                    color = MaterialTheme.colorScheme.onSurface,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 4.dp)
+                )
+                Text(
+                    text = AnnotatedString.fromHtml(feed.description),
+                    maxLines = 3,
+                    overflow = TextOverflow.Ellipsis,
+                    style = WanDevelopTypography.labelMedium,
+                    color = MaterialTheme.colorScheme.onSurface,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 4.dp)
+                )
+            }
         }
-
+        HorizontalDivider(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(1.dp)
+        )
     }
 }
 
@@ -152,6 +154,7 @@ private fun CourseCardPreview() {
             Modifier
                 .fillMaxWidth()
                 .background(color = MaterialTheme.colorScheme.background)
+                .padding(vertical = 10.dp)
         ) {
             CourseCard(
                 modifier = Modifier,

@@ -39,7 +39,7 @@ internal fun DiscoveryPage(
         content = {
             val pagerState = rememberPagerState(pageCount = { viewModel.pageList.size })
             val coroutineScope = rememberCoroutineScope()
-            SecondaryTabRow (
+            SecondaryTabRow(
                 selectedTabIndex = pagerState.currentPage,
                 modifier = Modifier.fillMaxWidth(),
                 containerColor = MaterialTheme.colorScheme.background
@@ -55,38 +55,26 @@ internal fun DiscoveryPage(
             }
             HorizontalPager(state = pagerState) { index ->
                 val page = viewModel.pageList.getOrNull(index) ?: return@HorizontalPager
-                when (page) {
-                    DiscoveryPage.COURSE -> {
-                        val loadState by viewModel.loadCourseListState.collectAsStateWithLifecycle()
-                        CourseListPage(
-                            loadState = loadState,
-                            onCourseClick = {},
-                            modifier = Modifier.fillMaxSize()
-                        )
-                    }
-
-                    DiscoveryPage.ROUTE -> {
-                        val loadState by viewModel.loadRouteListState.collectAsStateWithLifecycle()
-                        RouteListPage(
-                            loadState = loadState,
-                            toggleExpand = viewModel::toggleRouteExpandState,
-                            onRouteClick = {  },
-                            modifier = Modifier.fillMaxSize()
-                        )
-                    }
-
-                    else -> {
-                        val pagingState = viewModel.getPagingFlow(page).collectAsLazyPagingItems()
-                        val collectedIds by viewModel.collectedIsSetFlow.collectAsStateWithLifecycle()
-                        FeedPullToRefreshBox(
-                            pagingItems = pagingState,
-                            modifier = Modifier.fillMaxSize(),
-                            collectedFeedIdSet = collectedIds,
-                            onItemClick = { onFeedClick(it.url) },
-                            toggleCollect = { feed, collect -> viewModel.toggleFeedCollect(feed, collect) },
-                            onMoreClick = {}
-                        )
-                    }
+                if (page == DiscoveryPage.COURSE) {
+                    val loadState by viewModel.loadCourseListState.collectAsStateWithLifecycle()
+                    CourseListPage(
+                        loadState = loadState,
+                        onCourseClick = {},
+                        modifier = Modifier.fillMaxSize()
+                    )
+                } else {
+                    val pagingState = viewModel.getPagingFlow(page).collectAsLazyPagingItems()
+                    val collectedIds by viewModel.collectedIsSetFlow.collectAsStateWithLifecycle()
+                    FeedPullToRefreshBox(
+                        pagingItems = pagingState,
+                        modifier = Modifier.fillMaxSize(),
+                        collectedFeedIdSet = collectedIds,
+                        onItemClick = { onFeedClick(it.url) },
+                        toggleCollect = { feed, collect ->
+                            viewModel.toggleFeedCollect(feed, collect)
+                        },
+                        onMoreClick = {}
+                    )
                 }
             }
         }

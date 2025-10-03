@@ -5,7 +5,6 @@ import com.maureen.wandevelop.entity.BannerInfo
 import com.maureen.wandevelop.entity.BasePage
 import com.maureen.wandevelop.entity.BaseResponse
 import com.maureen.wandevelop.entity.CollectionInfo
-import com.maureen.wandevelop.entity.CourseInfo
 import com.maureen.wandevelop.entity.HotkeyInfo
 import com.maureen.wandevelop.entity.MessageInfo
 import com.maureen.wandevelop.entity.SharerInfo
@@ -111,7 +110,7 @@ interface WanAndroidService {
      * 课程列表
      */
     @GET("chapter/547/sublist/json")
-    suspend fun courseList(): BaseResponse<List<CourseInfo>>
+    suspend fun courseList(): BaseResponse<List<SystemNodeInfo>>
 
     /**
      * 体系数据列表
