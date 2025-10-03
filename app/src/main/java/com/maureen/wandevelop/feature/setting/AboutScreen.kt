@@ -21,7 +21,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.maureen.wandevelop.R
 import com.maureen.wandevelop.ext.curVersionName
-import com.maureen.wandevelop.ui.composable.WanDevTpoAppBar
+import com.maureen.wandevelop.ui.composable.WanDevTopAppBar
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -32,7 +32,7 @@ internal fun AboutScreen(
     Scaffold(
         modifier = modifier.fillMaxSize(),
         topBar = {
-            WanDevTpoAppBar(
+            WanDevTopAppBar(
                 title = stringResource(R.string.nav_about_us),
                 onNavigationIconClick = onBackClick
             )

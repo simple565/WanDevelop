@@ -33,7 +33,7 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemKey
 import com.maureen.wandevelop.R
 import com.maureen.wandevelop.entity.MessageInfo
-import com.maureen.wandevelop.ui.composable.WanDevTpoAppBar
+import com.maureen.wandevelop.ui.composable.WanDevTopAppBar
 import com.maureen.wandevelop.ui.tooling.UiModePreviews
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -51,7 +51,7 @@ internal fun NotificationScreen(
     Scaffold(
         modifier = modifier.fillMaxSize(),
         topBar = {
-            WanDevTpoAppBar(
+            WanDevTopAppBar(
                 title = stringResource(R.string.nav_notification),
                 onNavigationIconClick = onBackClick
             )

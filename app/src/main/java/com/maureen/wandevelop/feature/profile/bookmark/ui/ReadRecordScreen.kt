@@ -12,7 +12,7 @@ import com.maureen.wandevelop.R
 import com.maureen.wandevelop.db.ReadRecord
 import com.maureen.wandevelop.feature.profile.bookmark.BookmarkViewModel
 import com.maureen.wandevelop.ui.composable.FeedPullToRefreshBox
-import com.maureen.wandevelop.ui.composable.WanDevTpoAppBar
+import com.maureen.wandevelop.ui.composable.WanDevTopAppBar
 
 /**
  * 浏览记录
@@ -29,7 +29,7 @@ internal fun ReadRecordScreen(
     Column(modifier = modifier.fillMaxSize()) {
         val dataFlow = viewModel.getReadRecordFlow(ReadRecord.TYPE_READ_HISTORY).collectAsLazyPagingItems()
 
-        WanDevTpoAppBar(
+        WanDevTopAppBar(
             title = stringResource(R.string.nav_read_record),
             onNavigationIconClick = onBackClick
         )

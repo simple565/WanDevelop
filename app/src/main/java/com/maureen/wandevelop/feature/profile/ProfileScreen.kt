@@ -36,7 +36,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.maureen.wandevelop.R
 import com.maureen.wandevelop.core.entity.WanDevNavDestination
 import com.maureen.wandevelop.entity.ProfileInfo
-import com.maureen.wandevelop.ui.composable.WanDevTpoAppBar
+import com.maureen.wandevelop.ui.composable.WanDevTopAppBar
 import com.maureen.wandevelop.ui.theme.WanDevelopTheme
 import com.maureen.wandevelop.ui.tooling.UiModePreviews
 
@@ -83,7 +83,7 @@ private fun ProfileScreen(
     Scaffold(
         modifier = modifier.fillMaxSize(),
         topBar = {
-            WanDevTpoAppBar(
+            WanDevTopAppBar(
                 title = {},
                 modifier = Modifier.fillMaxWidth(),
                 actions = {

@@ -8,8 +8,8 @@ import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SecondaryTabRow
 import androidx.compose.material3.Tab
-import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -18,7 +18,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.maureen.wandevelop.R
 import com.maureen.wandevelop.feature.profile.bookmark.BookmarkViewModel
-import com.maureen.wandevelop.ui.composable.WanDevTpoAppBar
+import com.maureen.wandevelop.ui.composable.WanDevTopAppBar
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -30,7 +30,7 @@ internal fun BookmarkScreen(
     Scaffold(
         modifier = modifier.fillMaxSize(),
         topBar = {
-            WanDevTpoAppBar(
+            WanDevTopAppBar(
                 title = stringResource(R.string.nav_my_bookmark),
                 onNavigationIconClick = onBackClick
             )
@@ -77,7 +77,7 @@ private fun BookmarkTypeRow(
     onBookmarkTypeSelect: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    TabRow(
+    SecondaryTabRow(
         selectedTabIndex = selectedIndex,
         modifier = modifier,
         containerColor = MaterialTheme.colorScheme.background,

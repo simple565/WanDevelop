@@ -33,7 +33,7 @@ import com.maureen.wandevelop.R
 import com.maureen.wandevelop.entity.SettingItem
 import com.maureen.wandevelop.entity.SettingType
 import com.maureen.wandevelop.ui.composable.ProgressDialog
-import com.maureen.wandevelop.ui.composable.WanDevTpoAppBar
+import com.maureen.wandevelop.ui.composable.WanDevTopAppBar
 import com.maureen.wandevelop.ui.theme.WanDevelopTypography
 
 
@@ -47,7 +47,7 @@ internal fun SettingsScreen(
     Scaffold(
         modifier = modifier.fillMaxSize(),
         topBar = {
-            WanDevTpoAppBar(
+            WanDevTopAppBar(
                 title = stringResource(R.string.nav_settings),
                 onNavigationIconClick = onBackClick
             )

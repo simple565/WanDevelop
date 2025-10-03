@@ -27,7 +27,7 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.maureen.wandevelop.ui.composable.FeedPullToRefreshBox
-import com.maureen.wandevelop.ui.composable.WanDevTpoAppBar
+import com.maureen.wandevelop.ui.composable.WanDevTopAppBar
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -42,7 +42,7 @@ internal fun HomeScreen(
         val bannerListState by viewModel.bannerListState.collectAsStateWithLifecycle()
         val feedPagingItems = viewModel.feedListFlow.collectAsLazyPagingItems()
         val collectedIds by viewModel.collectedIsSetFlow.collectAsStateWithLifecycle()
-        WanDevTpoAppBar(
+        WanDevTopAppBar(
             title = {},
             actions = {
                 IconButton(
@@ -94,7 +94,10 @@ internal fun HomeScreen(
             pagingItems = feedPagingItems,
             collectedFeedIdSet = collectedIds,
             onItemClick = { onFeedClick(it.url) },
-            toggleCollect = { feed, collect -> viewModel.toggleFeedCollect(feed, collect) }
+            toggleCollect = { feed, collect -> viewModel.toggleFeedCollect(feed, collect) },
+            onMoreClick = {
+
+            }
         )
     }
 }

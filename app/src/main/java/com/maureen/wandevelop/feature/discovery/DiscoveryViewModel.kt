@@ -83,8 +83,10 @@ class DiscoveryViewModel : FeedViewModel() {
         )
 
     val loadRouteListState: StateFlow<DataLoadState<SystemNodeInfo>> = combine(
-        _expandedRouteIdSetState, flow { emit(discoveryRepository.getRouteList()) }
+        _expandedRouteIdSetState,
+        flow { emit(discoveryRepository.getRouteList()) }
     ) { set, result ->
+        Log.d(TAG, "load route count: ${result.data?.size}")
         DataLoadState(
             isLoading = false,
             dataList = result.data ?: emptyList(),

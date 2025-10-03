@@ -44,7 +44,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.maureen.wandevelop.R
 import com.maureen.wandevelop.ui.composable.ProgressDialog
-import com.maureen.wandevelop.ui.composable.WanDevTpoAppBar
+import com.maureen.wandevelop.ui.composable.WanDevTopAppBar
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -109,7 +109,7 @@ internal fun SignInOrUpScreen(
     Scaffold(
         modifier = modifier.fillMaxSize(),
         topBar = {
-            WanDevTpoAppBar(
+            WanDevTopAppBar(
                 title = "",
                 onNavigationIconClick = onBackClick
             )

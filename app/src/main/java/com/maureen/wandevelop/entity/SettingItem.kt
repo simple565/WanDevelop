@@ -1,6 +1,5 @@
 package com.maureen.wandevelop.entity
 
-import androidx.annotation.DrawableRes
 import androidx.annotation.IntDef
 import androidx.annotation.StringRes
 
@@ -9,9 +8,9 @@ import androidx.annotation.StringRes
  * @date 2023/12/25
  */
 data class SettingItem(
-    @SettingType val type: Int = SettingType.SWITCH,
-    @StringRes val name: Int,
-    @DrawableRes val icon: Int? = null,
+    @param:SettingType val type: Int = SettingType.SWITCH,
+    @param:StringRes val name: Int,
+    val icon: Int? = null,
     val value: String? = null,
     val warn: Boolean = false,
     val action: (() -> Unit)? = null
