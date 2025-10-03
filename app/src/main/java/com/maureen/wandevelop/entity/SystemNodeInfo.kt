@@ -1,12 +1,14 @@
 package com.maureen.wandevelop.entity
 
 import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * 体系节点实体类
  * @author lianml
  * @date 2025/2/18
  */
+@Serializable
 data class SystemNodeInfo(
     val articleList: List<ArticleInfo>,
     val author: String,

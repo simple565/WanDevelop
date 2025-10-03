@@ -1,5 +1,6 @@
 package com.maureen.wandevelop.core
 
+import android.util.Log
 import com.maureen.wandevelop.entity.BaseResponse
 import com.maureen.wandevelop.network.parse
 
@@ -18,6 +19,7 @@ open class BaseRepository {
         return try {
             apiMethod.invoke()
         } catch (e: Exception) {
+            Log.e(TAG, "requestSafely: ", e)
             e.parse().run { BaseResponse(null, this.msg, this.code) }
         }
     }

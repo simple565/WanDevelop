@@ -1,10 +1,13 @@
 package com.maureen.wandevelop.entity
 
+import kotlinx.serialization.Serializable
+
 /**
  * 收藏的文章
  * @author lianml
  * @date 2024/2/17
  */
+@Serializable
 data class CollectionInfo(
     val author: String,
     val chapterId: Int,

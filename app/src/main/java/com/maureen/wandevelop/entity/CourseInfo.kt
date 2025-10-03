@@ -1,15 +1,17 @@
 package com.maureen.wandevelop.entity
 
 import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * @author lianml
  * @date 2025/2/9
  */
+@Serializable
 data class CourseInfo(
-    val articleList: List<Any>,
+    val articleList: List<CourseInfo>,
     val author: String,
-    val children: List<Any>,
+    val children: List<CourseInfo>,
     val courseId: Int,
     val cover: String,
     val desc: String,
