@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 plugins {
     alias(libs.plugins.com.android.application)
     alias(libs.plugins.com.google.devtools.ksp)
@@ -5,6 +7,7 @@ plugins {
     alias(libs.plugins.org.jetbrains.kotlin.serialization)
     alias(libs.plugins.org.jetbrains.kotlin.compose)
     alias(libs.plugins.androidx.navigation.safeargs)
+    alias(libs.plugins.androidx.room)
 }
 
 android {
@@ -14,13 +17,10 @@ android {
     defaultConfig {
         applicationId = "com.maureen.wandevelop"
         minSdk = libs.versions.minVersion.get().toInt()
+        //noinspection OldTargetApi
         targetSdk = libs.versions.targetVersion.get().toInt()
         versionCode = 1
         versionName = "1.0"
-        ksp {
-            arg("room.schemaLocation", "$projectDir/schemas")
-            arg("room.incremental", "true")
-        }
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -34,14 +34,19 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
-    kotlinOptions {
-        jvmTarget = "11"
+    room {
+        schemaDirectory("$projectDir/schemas")
+    }
+
+    kotlin {
+        compilerOptions {
+            jvmTarget = JvmTarget.fromTarget("17")
+        }
     }
     buildFeatures {
-        viewBinding = true
         compose = true
     }
 }
@@ -59,6 +64,7 @@ dependencies {
     val composeBom = platform(libs.androidx.compose.bom)
     implementation(composeBom)
     implementation(libs.androidx.compose.activity)
+    implementation(libs.androidx.compose.material.icons.core)
     implementation(libs.androidx.compose.material3)
     implementation(libs.androidx.compose.material3.adaptive)
     implementation(libs.androidx.compose.material3.adaptive.layout)
