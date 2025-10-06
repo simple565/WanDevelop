@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.defaultMinSize
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -46,7 +47,7 @@ import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.itemKey
 import com.maureen.wandevelop.R
 import com.maureen.wandevelop.core.entity.Feed
-import com.maureen.wandevelop.entity.TagInfo
+import com.maureen.wandevelop.network.entity.TagInfo
 import com.maureen.wandevelop.ui.theme.WanDevelopTheme
 import com.maureen.wandevelop.ui.theme.WanDevelopTypography
 import com.maureen.wandevelop.ui.tooling.UiModePreviews
@@ -59,7 +60,8 @@ import com.maureen.wandevelop.ui.tooling.UiModePreviews
 fun FeedPullToRefreshBox(
     pagingItems: LazyPagingItems<Feed>,
     modifier: Modifier = Modifier,
-    collectedFeedIdSet: Set<Long> = emptySet(),
+    header: @Composable (() -> Unit)? = null,
+    collectedFeedIdSet: Set<Int> = emptySet(),
     showCollectButton: Boolean = true,
     showMoreButton: Boolean = true,
     onItemClick: (Feed) -> Unit = {},
@@ -79,7 +81,8 @@ fun FeedPullToRefreshBox(
     ) {
         FeedPagingColumn(
             pagingItems = pagingItems,
-            modifier = modifier,
+            modifier = Modifier.fillMaxSize(),
+            header = header,
             state = scrollState,
             collectedFeedIdSet = collectedFeedIdSet,
             showCollectButton = showCollectButton,
@@ -101,8 +104,9 @@ fun FeedPullToRefreshBox(
 fun FeedPagingColumn(
     pagingItems: LazyPagingItems<Feed>,
     modifier: Modifier = Modifier,
+    header: @Composable (() -> Unit)? = null,
     state: LazyListState = rememberLazyListState(),
-    collectedFeedIdSet: Set<Long> = emptySet(),
+    collectedFeedIdSet: Set<Int> = emptySet(),
     showCollectButton: Boolean = false,
     showMoreButton: Boolean = false,
     onItemClick: (Feed) -> Unit = {},
@@ -113,11 +117,16 @@ fun FeedPagingColumn(
     onNoMoreDataHintClick: () -> Unit = {}
 ) {
     LazyColumn(
-        modifier = modifier.then(Modifier.fillMaxWidth()),
+        modifier = modifier,
         state = state,
         contentPadding = PaddingValues(10.dp),
         verticalArrangement = Arrangement.spacedBy(10.dp),
     ) {
+        if (null != header) {
+            item {
+                header()
+            }
+        }
         items(
             count = pagingItems.itemCount,
             key = pagingItems.itemKey { it.id }
