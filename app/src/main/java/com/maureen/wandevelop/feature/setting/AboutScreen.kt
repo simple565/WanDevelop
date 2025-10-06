@@ -20,7 +20,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.maureen.wandevelop.R
-import com.maureen.wandevelop.ext.curVersionName
+import com.maureen.wandevelop.core.ext.curVersionName
 import com.maureen.wandevelop.ui.composable.WanDevTopAppBar
 
 @OptIn(ExperimentalMaterial3Api::class)

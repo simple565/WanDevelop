@@ -1,4 +1,4 @@
-package com.maureen.wandevelop.entity
+package com.maureen.wandevelop.network.entity
 
 import android.content.Context
 import com.maureen.wandevelop.R

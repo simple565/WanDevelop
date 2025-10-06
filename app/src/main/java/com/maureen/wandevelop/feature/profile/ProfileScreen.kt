@@ -35,7 +35,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.maureen.wandevelop.R
 import com.maureen.wandevelop.core.entity.WanDevNavDestination
-import com.maureen.wandevelop.entity.ProfileInfo
+import com.maureen.wandevelop.network.entity.ProfileInfo
 import com.maureen.wandevelop.ui.composable.WanDevTopAppBar
 import com.maureen.wandevelop.ui.theme.WanDevelopTheme
 import com.maureen.wandevelop.ui.tooling.UiModePreviews

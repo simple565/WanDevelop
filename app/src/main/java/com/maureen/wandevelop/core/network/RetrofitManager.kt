@@ -1,6 +1,7 @@
-package com.maureen.wandevelop.network
+package com.maureen.wandevelop.core.network
 
 import com.maureen.wandevelop.MyApplication
+import com.maureen.wandevelop.network.CustomCookieJar
 import kotlinx.serialization.json.Json
 import okhttp3.Cache
 import okhttp3.MediaType.Companion.toMediaType

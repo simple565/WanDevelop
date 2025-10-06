@@ -1,20 +1,19 @@
 package com.maureen.wandevelop.feature.discovery
 
 import androidx.paging.PagingData
-import com.maureen.wandevelop.core.BaseRepository
-import com.maureen.wandevelop.entity.ArticleInfo
-import com.maureen.wandevelop.ext.newWanAndroidPager
+import com.maureen.wandevelop.core.ext.newWanAndroidPager
+import com.maureen.wandevelop.core.network.NetworkRequest
 import com.maureen.wandevelop.network.WanAndroidService
+import com.maureen.wandevelop.network.entity.ArticleInfo
 import kotlinx.coroutines.flow.Flow
 
 /**
  * @author lianml
  * @date 2025/2/9
  */
-class DiscoveryRepository : BaseRepository() {
+class DiscoveryRepository {
     companion object {
         private const val TAG = "DiscoveryRepository"
-        private val routeNameRegex = Regex(".* - 学习路径|Android 性能优化-长期分享-BaguTree组织")
     }
 
     fun getSquareArticleFlow(): Flow<PagingData<ArticleInfo>> {
@@ -37,17 +36,15 @@ class DiscoveryRepository : BaseRepository() {
     /**
      * 课程列表
      */
-    suspend fun getCourseList() = requestSafely { WanAndroidService.instance.courseList() }
+    suspend fun getCourseList() = NetworkRequest.requestSafely { WanAndroidService.instance.courseList() }
 
     /**
-     * 体系一级分类列表过滤出学习路线
+     * 体系列表
      */
-    suspend fun getRouteList() = requestSafely { WanAndroidService.instance.treeList() }.let {
-        if (it.isSuccessWithData) {
-            return@let it.copy(data = it.data?.filter { nodeInfo ->
-                nodeInfo.name.matches(routeNameRegex)
-            })
-        }
-        return@let it
-    }
+    suspend fun getSystemNodeList() = NetworkRequest.requestSafely { WanAndroidService.instance.systemNodeList() }
+
+    /**
+     * 体系节点下文章列表
+     */
+    suspend fun getSystemNodeArticleList(cid: Int) = NetworkRequest.requestSafely { WanAndroidService.instance.systemNodeArticleList(0, cid) }
 }

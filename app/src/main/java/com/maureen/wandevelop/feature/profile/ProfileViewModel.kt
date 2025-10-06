@@ -2,9 +2,9 @@ package com.maureen.wandevelop.feature.profile
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.maureen.wandevelop.core.BaseRepository
-import com.maureen.wandevelop.entity.ProfileInfo
-import com.maureen.wandevelop.entity.toProfileInfo
+import com.maureen.wandevelop.core.network.NetworkRequest
+import com.maureen.wandevelop.network.entity.ProfileInfo
+import com.maureen.wandevelop.network.entity.toProfileInfo
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -37,7 +37,7 @@ class ProfileViewModel : ViewModel() {
     )
 
     fun loadProfile() = viewModelScope.launch(Dispatchers.IO) {
-        val requestAlready = System.currentTimeMillis() - requestTime.value <= BaseRepository.NETWORK_REQUEST_INTERVAL
+        val requestAlready = System.currentTimeMillis() - requestTime.value <= NetworkRequest.NETWORK_REQUEST_INTERVAL
         if (repository.hasProfileCache().not() || requestAlready) {
             // 用户未登录不进行请求、5s时间内重复请求用户信息
             return@launch

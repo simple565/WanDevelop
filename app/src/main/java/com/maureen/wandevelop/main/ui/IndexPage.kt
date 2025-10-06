@@ -30,8 +30,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.maureen.wandevelop.ext.isCurrentBottomNavDestination
-import com.maureen.wandevelop.ext.navigateToBottomNavDestination
+import com.maureen.wandevelop.core.ext.isCurrentBottomNavDestination
+import com.maureen.wandevelop.core.ext.navigateToBottomNavDestination
+import com.maureen.wandevelop.feature.discovery.course.navigateToCourseDetail
 import com.maureen.wandevelop.feature.discovery.discoveryScreen
 import com.maureen.wandevelop.feature.home.HomeRoute
 import com.maureen.wandevelop.feature.home.homeScreen
@@ -129,7 +130,8 @@ private fun IndexHost(
             onFeedClick = appState.navController::navigateToFeedDetail
         )
         discoveryScreen(
-            onFeedClick = appState.navController::navigateToFeedDetail
+            onFeedClick = appState.navController::navigateToFeedDetail,
+            onCourseClick = appState.navController::navigateToCourseDetail
         )
         profileScreen(
             otherEntranceList = WanDevAppState.otherEntranceList,

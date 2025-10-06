@@ -1,7 +1,6 @@
 package com.maureen.wandevelop.core.feed
 
 import android.util.Log
-import com.maureen.wandevelop.core.BaseRepository
 import com.maureen.wandevelop.core.entity.Feed
 import com.maureen.wandevelop.db.AppDatabase
 import com.maureen.wandevelop.db.ReadRecord
@@ -13,16 +12,16 @@ import kotlinx.coroutines.flow.map
  * @author lianml
  * @date 2025/1/13
  */
-open class FeedRepository : BaseRepository() {
+open class FeedRepository {
     companion object {
         private const val TAG = "FeedRepository"
     }
 
     fun loadCollectedIdSet() = UserPrefUtil.getPreferenceFlow(UserPrefUtil.KEY_USER_COLLECT_ID).map {
         return@map if (it.isNullOrBlank()) {
-            emptySet<Long>()
+            emptySet()
         } else {
-            it.split(",").map { it.toLong() }.toSet()
+            it.split(",").map { id -> id.toInt() }.toSet()
         }
     }
 
@@ -44,10 +43,10 @@ open class FeedRepository : BaseRepository() {
         AppDatabase.instance.readRecordDao().addOrUpdateRecord(record)
     }
 
-    suspend fun toggleCollect(feedId: Long, collect: Boolean): Pair<Boolean, String> {
+    suspend fun toggleCollect(feedId: Int, collect: Boolean): Pair<Boolean, String> {
         val curCollectIsSet = UserPrefUtil.getPreference(UserPrefUtil.KEY_USER_COLLECT_ID)?.let {
-            it.split(",").map { id -> id.toLong() }
-        }?.toMutableSet() ?: mutableSetOf<Long>()
+            it.split(",").map { id -> id.toInt() }
+        }?.toMutableSet() ?: mutableSetOf()
         Log.d(TAG, "toggleCollect: collect id set count before ${curCollectIsSet.size}")
         val result = if (collect) {
             WanAndroidService.instance.collect(feedId)

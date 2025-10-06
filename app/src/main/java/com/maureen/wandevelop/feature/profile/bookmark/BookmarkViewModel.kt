@@ -9,8 +9,8 @@ import androidx.paging.map
 import com.maureen.wandevelop.R
 import com.maureen.wandevelop.core.entity.Feed
 import com.maureen.wandevelop.db.ReadRecord
-import com.maureen.wandevelop.entity.CollectionInfo
-import com.maureen.wandevelop.entity.TagInfo
+import com.maureen.wandevelop.network.entity.CollectionInfo
+import com.maureen.wandevelop.network.entity.TagInfo
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
@@ -43,7 +43,7 @@ class BookmarkViewModel() : ViewModel() {
             }.cachedIn(viewModelScope).also { bookmarkFlowMap[recordType] = it }
     }
 
-    fun cancelCollect(id: Long) = viewModelScope.launch(Dispatchers.Default) {
+    fun cancelCollect(id: Int) = viewModelScope.launch(Dispatchers.Default) {
         repository.toggleCollect(id, false)
     }
 

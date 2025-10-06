@@ -1,4 +1,4 @@
-package com.maureen.wandevelop.ext
+package com.maureen.wandevelop.core.ext
 
 import android.util.Log
 import androidx.fragment.app.DialogFragment

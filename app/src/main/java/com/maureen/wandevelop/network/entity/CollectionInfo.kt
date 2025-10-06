@@ -1,4 +1,4 @@
-package com.maureen.wandevelop.entity
+package com.maureen.wandevelop.network.entity
 
 import kotlinx.serialization.Serializable
 
@@ -15,11 +15,11 @@ data class CollectionInfo(
     val courseId: Int,
     val desc: String,
     val envelopePic: String,
-    val id: Long,
+    val id: Int,
     val link: String,
     val niceDate: String,
     val origin: String,
-    val originId: Long,
+    val originId: Int,
     val publishTime: Long,
     val title: String,
     val userId: Int,

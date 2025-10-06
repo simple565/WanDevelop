@@ -1,4 +1,4 @@
-package com.maureen.wandevelop.network
+package com.maureen.wandevelop.core.network
 
 import okhttp3.CacheControl
 import okhttp3.Interceptor

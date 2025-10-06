@@ -2,10 +2,10 @@ package com.maureen.wandevelop.feature.profile.bookmark
 
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
+import com.maureen.wandevelop.core.ext.newWanAndroidPager
 import com.maureen.wandevelop.core.feed.FeedRepository
 import com.maureen.wandevelop.db.AppDatabase
 import com.maureen.wandevelop.db.ReadRecord
-import com.maureen.wandevelop.ext.newWanAndroidPager
 import com.maureen.wandevelop.network.WanAndroidService
 
 /**

@@ -24,9 +24,9 @@ import com.maureen.wandevelop.R
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun DelBookmarkBottomSheet(
-    bookmarkId: Long,
+    bookmarkId: Int,
     onCancel: () -> Unit,
-    onConfirm: (Long) -> Unit,
+    onConfirm: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
     ModalBottomSheet(

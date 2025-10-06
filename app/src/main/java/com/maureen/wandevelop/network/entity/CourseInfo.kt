@@ -1,4 +1,4 @@
-package com.maureen.wandevelop.entity
+package com.maureen.wandevelop.network.entity
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

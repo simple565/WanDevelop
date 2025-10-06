@@ -4,8 +4,8 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.maureen.wandevelop.R
-import com.maureen.wandevelop.entity.toProfileInfo
 import com.maureen.wandevelop.feature.profile.ProfileRepository
+import com.maureen.wandevelop.network.entity.toProfileInfo
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow

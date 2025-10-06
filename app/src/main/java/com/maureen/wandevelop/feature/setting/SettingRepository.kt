@@ -4,10 +4,10 @@ import android.content.Context
 import androidx.appcompat.app.AppCompatDelegate
 import com.maureen.wandevelop.MyApplication
 import com.maureen.wandevelop.R
-import com.maureen.wandevelop.core.BaseRepository
-import com.maureen.wandevelop.entity.SettingItem
-import com.maureen.wandevelop.entity.SettingType
+import com.maureen.wandevelop.core.network.NetworkRequest
 import com.maureen.wandevelop.network.WanAndroidService
+import com.maureen.wandevelop.network.entity.SettingItem
+import com.maureen.wandevelop.network.entity.SettingType
 import com.maureen.wandevelop.util.DarkModeUtil
 import com.maureen.wandevelop.util.UserPrefUtil
 import kotlinx.coroutines.flow.Flow
@@ -17,8 +17,8 @@ import kotlinx.coroutines.flow.combine
  * @author lianml
  * @date 2025/3/13
  */
-class SettingRepository : BaseRepository() {
-    val defaultSettingList = mutableListOf<SettingItem>(
+class SettingRepository {
+    val defaultSettingList = mutableListOf(
         SettingItem(
             name = R.string.prompt_clear_cache,
             icon = R.drawable.ic_arrow_right,
@@ -116,7 +116,7 @@ class SettingRepository : BaseRepository() {
         }
     }
 
-    suspend fun signOut() = requestSafely { WanAndroidService.instance.logout() }
+    suspend fun signOut() = NetworkRequest.requestSafely { WanAndroidService.instance.logout() }
 
     suspend fun clearProfileCache() {
         UserPrefUtil.setPreference(UserPrefUtil.KEY_USER_INFO, "")

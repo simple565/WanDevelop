@@ -1,6 +1,6 @@
 package com.maureen.wandevelop.core.entity
 
-import com.maureen.wandevelop.entity.TagInfo
+import com.maureen.wandevelop.network.entity.TagInfo
 import kotlinx.serialization.Serializable
 
 /**
@@ -9,7 +9,7 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class Feed (
-    val id: Long,
+    val id: Int,
     val title: String,
     val url: String = "",
     val coverUrl: String = "",

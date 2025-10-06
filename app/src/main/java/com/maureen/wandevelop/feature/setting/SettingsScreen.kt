@@ -30,8 +30,8 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.maureen.wandevelop.R
-import com.maureen.wandevelop.entity.SettingItem
-import com.maureen.wandevelop.entity.SettingType
+import com.maureen.wandevelop.network.entity.SettingItem
+import com.maureen.wandevelop.network.entity.SettingType
 import com.maureen.wandevelop.ui.composable.ProgressDialog
 import com.maureen.wandevelop.ui.composable.WanDevTopAppBar
 import com.maureen.wandevelop.ui.theme.WanDevelopTypography

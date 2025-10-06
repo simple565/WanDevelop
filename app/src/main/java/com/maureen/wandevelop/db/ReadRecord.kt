@@ -9,7 +9,7 @@ import androidx.room.Entity
  */
 @Entity(tableName = "read_record", primaryKeys = ["id", "type"])
 data class ReadRecord(
-    val id: Long,
+    val id: Int,
     val url: String,
     val title: String,
     val author: String,

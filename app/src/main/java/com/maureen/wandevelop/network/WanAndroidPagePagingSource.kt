@@ -1,12 +1,11 @@
-package com.maureen.wandevelop.core
+package com.maureen.wandevelop.network
 
 import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.maureen.wandevelop.entity.BasePage
-import com.maureen.wandevelop.entity.BaseResponse
-import com.maureen.wandevelop.network.WanAndroidService
-import com.maureen.wandevelop.network.parse
+import com.maureen.wandevelop.core.network.parse
+import com.maureen.wandevelop.network.entity.BasePage
+import com.maureen.wandevelop.network.entity.BaseResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -37,12 +36,17 @@ class WanAndroidPagePagingSource<T : Any>(
                 val preKey = if (pageNum > startPage) pageNum.minus(1) else null
                 val maxPageNum = if (startPage == 0) totalPageCount.minus(1) else totalPageCount
                 if (pageNum == maxPageNum) {
-                    return@withContext LoadResult.Page(data = emptyList(), prevKey = preKey, nextKey = null)
+                    return@withContext LoadResult.Page(
+                        data = emptyList(),
+                        prevKey = preKey,
+                        nextKey = null
+                    )
                 }
                 if (!result.isSuccess || result.data == null) {
-                    return@withContext  LoadResult.Error(Throwable(message = result.errorMsg))
+                    return@withContext LoadResult.Error(Throwable(message = result.errorMsg))
                 }
-                val data = preLoadDataBlock?.invoke(pageNum)?.let { it + result.data.dataList } ?: result.data.dataList
+                val data = preLoadDataBlock?.invoke(pageNum)?.let { it + result.data.dataList }
+                    ?: result.data.dataList
                 LoadResult.Page(data, prevKey = preKey, nextKey = pageNum.plus(1))
             } catch (e: Exception) {
                 Log.e(TAG, "load: ", e)

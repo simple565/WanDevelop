@@ -3,7 +3,7 @@ package com.maureen.wandevelop.util
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import com.maureen.wandevelop.MyApplication
-import com.maureen.wandevelop.ext.preferenceStore
+import com.maureen.wandevelop.core.ext.preferenceStore
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.map

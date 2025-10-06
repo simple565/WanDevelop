@@ -1,13 +1,13 @@
 package com.maureen.wandevelop.feature.search
 
 import androidx.paging.PagingData
-import com.maureen.wandevelop.core.BaseRepository
+import com.maureen.wandevelop.core.ext.newWanAndroidPager
+import com.maureen.wandevelop.core.network.NetworkRequest
 import com.maureen.wandevelop.db.AppDatabase
 import com.maureen.wandevelop.db.SearchKey
-import com.maureen.wandevelop.entity.ArticleInfo
-import com.maureen.wandevelop.entity.HotkeyInfo
-import com.maureen.wandevelop.ext.newWanAndroidPager
 import com.maureen.wandevelop.network.WanAndroidService
+import com.maureen.wandevelop.network.entity.ArticleInfo
+import com.maureen.wandevelop.network.entity.HotkeyInfo
 import com.maureen.wandevelop.util.UserPrefUtil
 import com.maureen.wandevelop.util.UserPrefUtil.KEY_SHOW_HOTKEY
 import kotlinx.coroutines.Dispatchers
@@ -21,7 +21,7 @@ import kotlinx.coroutines.withContext
  * @author lianml
  * @date 2025/2/3
  */
-class SearchRepository : BaseRepository() {
+class SearchRepository {
     companion object {
         const val KEY_SEARCH_KEYWORD = "KEY_SEARCH_KEYWORD"
         const val KEY_IS_DELETING_HISTORY = "KEY_IS_DELETING_HISTORY"
@@ -69,10 +69,10 @@ class SearchRepository : BaseRepository() {
                 emit(fromDb.toHotkeyList())
             }
             val timestamp = System.currentTimeMillis()
-            if (timestamp - (fromDb.firstOrNull()?.timestamp ?: 0) < NETWORK_REQUEST_INTERVAL) {
+            if (timestamp - (fromDb.firstOrNull()?.timestamp ?: 0) < NetworkRequest.NETWORK_REQUEST_INTERVAL) {
                 return@flow
             }
-            val response = requestSafely { WanAndroidService.instance.hotKey() }
+            val response = NetworkRequest.requestSafely { WanAndroidService.instance.hotKey() }
             if (response.isSuccessWithData) {
                 keyDao.clearHotkey()
                 response.data!!.map { SearchKey(it.name, SearchKey.HOTKEY, timestamp) }

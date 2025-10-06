@@ -1,4 +1,4 @@
-package com.maureen.wandevelop.adapter
+package com.maureen.wandevelop.core.adapter
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager

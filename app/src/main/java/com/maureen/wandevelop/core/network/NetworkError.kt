@@ -1,4 +1,4 @@
-package com.maureen.wandevelop.network
+package com.maureen.wandevelop.core.network
 
 import kotlinx.serialization.SerializationException
 import org.json.JSONException

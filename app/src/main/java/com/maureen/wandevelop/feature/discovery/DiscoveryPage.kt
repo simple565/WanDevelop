@@ -1,4 +1,4 @@
-package com.maureen.wandevelop.feature.discovery.composable
+package com.maureen.wandevelop.feature.discovery
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -18,8 +18,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.paging.compose.collectAsLazyPagingItems
-import com.maureen.wandevelop.feature.discovery.DiscoveryPage
-import com.maureen.wandevelop.feature.discovery.DiscoveryViewModel
+import com.maureen.wandevelop.feature.discovery.course.CourseListPage
 import com.maureen.wandevelop.ui.composable.FeedPullToRefreshBox
 import kotlinx.coroutines.launch
 
@@ -31,6 +30,7 @@ import kotlinx.coroutines.launch
 @Composable
 internal fun DiscoveryPage(
     onFeedClick: (String) -> Unit,
+    onCourseClick: (Int, Int) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: DiscoveryViewModel = viewModel()
 ) {
@@ -59,7 +59,7 @@ internal fun DiscoveryPage(
                     val loadState by viewModel.loadCourseListState.collectAsStateWithLifecycle()
                     CourseListPage(
                         loadState = loadState,
-                        onCourseClick = {},
+                        onCourseClick = onCourseClick,
                         modifier = Modifier.fillMaxSize()
                     )
                 } else {

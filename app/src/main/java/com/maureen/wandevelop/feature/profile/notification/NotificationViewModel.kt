@@ -4,10 +4,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import com.maureen.wandevelop.entity.MessageInfo
-import com.maureen.wandevelop.ext.newWanAndroidPager
+import com.maureen.wandevelop.core.ext.newWanAndroidPager
 import com.maureen.wandevelop.feature.profile.ProfileRepository
 import com.maureen.wandevelop.network.WanAndroidService
+import com.maureen.wandevelop.network.entity.MessageInfo
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow

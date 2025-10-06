@@ -1,4 +1,4 @@
-package com.maureen.wandevelop.ext
+package com.maureen.wandevelop.core.ext
 
 import android.content.Context
 import androidx.recyclerview.widget.RecyclerView.ViewHolder

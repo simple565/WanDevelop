@@ -1,4 +1,4 @@
-package com.maureen.wandevelop.ext
+package com.maureen.wandevelop.core.ext
 
 import android.text.Spanned
 import androidx.core.text.HtmlCompat

@@ -1,4 +1,4 @@
-package com.maureen.wandevelop.entity
+package com.maureen.wandevelop.network.entity
 
 import kotlinx.serialization.Serializable
 
@@ -18,7 +18,7 @@ data class ArticleInfo(
     val envelopePic: String,
     val fresh: Boolean,
     val host: String,
-    val id: Long,
+    val id: Int,
     val isAdminAdd: Boolean,
     val link: String,
     val niceDate: String?,
@@ -33,7 +33,7 @@ data class ArticleInfo(
     val shareUser: String?,
     val superChapterId: Int,
     val superChapterName: String,
-    val tags: List<TagInfo>,
+    val tags: List<TagInfo> = emptyList(),
     val title: String,
     val type: Int,
     val userId: Int,

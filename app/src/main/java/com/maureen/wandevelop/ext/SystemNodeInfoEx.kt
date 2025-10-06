@@ -1,7 +1,7 @@
 package com.maureen.wandevelop.ext
 
 import com.maureen.wandevelop.core.entity.Feed
-import com.maureen.wandevelop.entity.SystemNodeInfo
+import com.maureen.wandevelop.network.entity.SystemNodeInfo
 
 /**
  * @author lianml

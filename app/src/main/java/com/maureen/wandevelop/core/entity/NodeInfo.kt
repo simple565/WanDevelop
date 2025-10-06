@@ -5,8 +5,8 @@ package com.maureen.wandevelop.core.entity
  * @date 2025/3/12
  */
 data class NodeInfo(
-    val id: Long,
+    val id: Int,
     val name: String,
     val expanded: Boolean = false,
-    val expandable: Boolean = false
+    val feedList: List<Feed> = emptyList()
 )

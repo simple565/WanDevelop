@@ -1,22 +1,22 @@
 package com.maureen.wandevelop.feature.home
 
 import androidx.paging.Pager
-import com.maureen.wandevelop.core.BaseRepository
-import com.maureen.wandevelop.entity.ArticleInfo
-import com.maureen.wandevelop.ext.newWanAndroidPager
+import com.maureen.wandevelop.core.ext.newWanAndroidPager
+import com.maureen.wandevelop.core.network.NetworkRequest
 import com.maureen.wandevelop.network.WanAndroidService
+import com.maureen.wandevelop.network.entity.ArticleInfo
 
 /**
  * Function: 首页相关
  * @author lianml
  * Create 2021-02-17
  */
-class HomePageRepository : BaseRepository() {
+class HomePageRepository {
 
     /**
      * 加载banner
      */
-    suspend fun loadBannerData() = requestSafely { WanAndroidService.instance.banner() }
+    suspend fun loadBannerData() = NetworkRequest.requestSafely { WanAndroidService.instance.banner() }
 
     private suspend fun loadStickyArticleList(): List<ArticleInfo> {
         return WanAndroidService.instance.stickyArticleList()

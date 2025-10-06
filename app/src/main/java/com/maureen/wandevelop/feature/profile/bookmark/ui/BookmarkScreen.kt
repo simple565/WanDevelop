@@ -36,8 +36,7 @@ internal fun BookmarkScreen(
             )
         },
         content = { paddingValue ->
-            val pagerState =
-                rememberPagerState(pageCount = { BookmarkViewModel.bookmarkNames.size })
+            val pagerState = rememberPagerState(pageCount = { BookmarkViewModel.bookmarkNames.size })
             Column(
                 modifier = Modifier
                     .fillMaxSize()

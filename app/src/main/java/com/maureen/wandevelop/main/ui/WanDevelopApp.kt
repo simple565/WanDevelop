@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
+import com.maureen.wandevelop.feature.discovery.course.courseDetailScreen
 import com.maureen.wandevelop.feature.profile.profilerScreens
 import com.maureen.wandevelop.feature.search.searchScreen
 import com.maureen.wandevelop.feature.setting.settingScreens
@@ -35,6 +36,9 @@ fun WanDevelopApp(
     ) { padding ->
         NavHost(modifier = modifier, navController = navController, startDestination = IndexRoute) {
             feedDetailScreen(
+                onBackClick = navController::popBackStack
+            )
+            courseDetailScreen(
                 onBackClick = navController::popBackStack
             )
             indexScreen(

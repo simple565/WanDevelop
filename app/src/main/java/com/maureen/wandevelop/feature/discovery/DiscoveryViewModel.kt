@@ -10,6 +10,7 @@ import com.maureen.wandevelop.core.entity.DataLoadState
 import com.maureen.wandevelop.core.entity.Feed
 import com.maureen.wandevelop.core.feed.FeedViewModel
 import com.maureen.wandevelop.ext.toFeed
+import com.maureen.wandevelop.network.entity.SystemNodeInfo
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.SharingStarted
@@ -25,6 +26,11 @@ import kotlinx.coroutines.launch
 class DiscoveryViewModel : FeedViewModel() {
     companion object {
         private const val TAG = "DiscoveryViewModel"
+
+        /**
+         * 体系数据中根据名称过滤出展示学习路径
+         */
+        private val routeNameRegex = Regex(".* - 学习路径|Android 性能优化-长期分享-BaguTree组织")
     }
 
     val pageList = DiscoveryPage.entries
@@ -62,14 +68,18 @@ class DiscoveryViewModel : FeedViewModel() {
         return flow
     }
 
-    val loadCourseListState: StateFlow<DataLoadState<Feed>> = combine(
-        flow { emit(discoveryRepository.getCourseList()) },
-        flow { emit(discoveryRepository.getRouteList()) }
+    val loadCourseListState: StateFlow<DataLoadState<SystemNodeInfo>> = combine(
+        flow { emit(discoveryRepository.getCourseList()) }.map { DataLoadState(dataList = it.data ?: emptyList(), errorMsg = it.errorMsg) },
+        flow { emit(discoveryRepository.getSystemNodeList()) }.map {
+            DataLoadState(
+                dataList = it.data?.filter { systemNode -> systemNode.name.matches(routeNameRegex) } ?: emptyList(),
+                errorMsg = it.errorMsg
+            )
+        }
     ) { courseResult, systemResult ->
-        val resultList = (courseResult.data ?: emptyList()) + (systemResult.data ?: emptyList())
         DataLoadState(
             isLoading = false,
-            dataList = resultList.map { it.toFeed() },
+            dataList = courseResult.dataList + systemResult.dataList,
             errorMsg = courseResult.errorMsg.ifBlank { systemResult.errorMsg }
         )
     }.flowOn(Dispatchers.IO)

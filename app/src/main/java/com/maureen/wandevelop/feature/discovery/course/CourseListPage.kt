@@ -1,4 +1,4 @@
-package com.maureen.wandevelop.feature.discovery.composable
+package com.maureen.wandevelop.feature.discovery.course
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -28,8 +28,7 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.maureen.wandevelop.core.entity.DataLoadState
-import com.maureen.wandevelop.core.entity.Feed
-import com.maureen.wandevelop.entity.TagInfo
+import com.maureen.wandevelop.network.entity.SystemNodeInfo
 import com.maureen.wandevelop.ui.theme.WanDevelopTheme
 import com.maureen.wandevelop.ui.theme.WanDevelopTypography
 import com.maureen.wandevelop.ui.tooling.UiModePreviews
@@ -41,8 +40,8 @@ import com.maureen.wandevelop.ui.tooling.UiModePreviews
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun CourseListPage(
-    loadState: DataLoadState<Feed>,
-    onCourseClick: (Long) -> Unit,
+    loadState: DataLoadState<SystemNodeInfo>,
+    onCourseClick: (Int, Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
     val state = rememberPullToRefreshState()
@@ -55,12 +54,12 @@ internal fun CourseListPage(
         LazyColumn(modifier = Modifier.fillMaxSize()) {
             items(items = loadState.dataList, key = { it.id }) {
                 CourseCard(
-                    feed = it,
+                    course = it,
                     modifier = Modifier
                         .fillMaxWidth()
                         .clickable {
-                            onCourseClick(it.id)
-                        }
+                            onCourseClick(it.parentChapterId, it.id)
+                        }.padding(horizontal = 12.dp)
                 )
             }
         }
@@ -69,24 +68,18 @@ internal fun CourseListPage(
 
 @Composable
 private fun CourseCard(
-    feed: Feed,
+    course: SystemNodeInfo,
     modifier: Modifier = Modifier
 ) {
-    Column(
-        modifier = modifier.then(
-            Modifier
-                .background(color = MaterialTheme.colorScheme.surfaceBright)
-                .padding(horizontal = 10.dp)
-        )
-    ) {
-        Row(modifier = Modifier.padding(vertical = 10.dp)) {
+    Column(modifier = modifier) {
+        Row(modifier = Modifier.padding(vertical = 16.dp)) {
             AsyncImage(
                 model = ImageRequest.Builder(LocalContext.current)
-                    .data(feed.coverUrl)
+                    .data(course.cover)
                     .crossfade(500)
                     .build(),
                 modifier = Modifier
-                    .height(110.dp)
+                    .height(120.dp)
                     .width(80.dp),
                 contentDescription = "Cover",
                 contentScale = ContentScale.Crop,
@@ -97,28 +90,28 @@ private fun CourseCard(
                     .fillMaxWidth()
             ) {
                 Text(
-                    text = AnnotatedString.fromHtml(feed.title),
-                    style = WanDevelopTypography.titleSmall,
+                    text = AnnotatedString.fromHtml(course.name),
+                    style = WanDevelopTypography.titleMedium,
                     color = MaterialTheme.colorScheme.onSurface,
                     modifier = Modifier.fillMaxWidth()
                 )
                 Text(
-                    text = feed.author,
+                    text = course.author,
                     style = WanDevelopTypography.labelMedium,
                     color = MaterialTheme.colorScheme.onSurface,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(top = 4.dp)
+                        .padding(top = 8.dp)
                 )
                 Text(
-                    text = AnnotatedString.fromHtml(feed.description),
+                    text = AnnotatedString.fromHtml(course.desc),
                     maxLines = 3,
                     overflow = TextOverflow.Ellipsis,
-                    style = WanDevelopTypography.labelMedium,
-                    color = MaterialTheme.colorScheme.onSurface,
+                    style = WanDevelopTypography.labelSmall,
+                    color = MaterialTheme.colorScheme.outline,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(top = 4.dp)
+                        .padding(top = 8.dp)
                 )
             }
         }
@@ -134,20 +127,22 @@ private fun CourseCard(
 @UiModePreviews
 @Composable
 private fun CourseCardPreview() {
-    val feed = Feed(
-        id = 29464,
-        title = "C语言入门教程_阮一峰",
-        description = "C语言入门教程",
-        url = "https=//www.wanandroid.com/blog/show/3732",
-        coverUrl = "https://www.wanandroid.com/blogimgs/f1cb8d34-82c1-46f7-80fe-b899f56b69c1.png",
-        isCollect = false,
+    val course = SystemNodeInfo(
+        id = 548,
+        courseId = 13,
+        name = "C语言入门教程_阮一峰",
+        desc = "C语言入门教程",
+        cover = "https://www.wanandroid.com/blogimgs/f1cb8d34-82c1-46f7-80fe-b899f56b69c1.png",
         author = "阮一峰",
-        publishData = "2025-01-28",
-        tags = listOf(
-            TagInfo(name = "广场", ""),
-            TagInfo(name = "广场2", ""),
-            TagInfo(name = "广场3", "")
-        )
+        articleList = emptyList(),
+        children = emptyList(),
+        license = "知识共享 署名-相同方式共享 3.0协议",
+        licenseLink = "https://creativecommons.org/licenses/by-sa/3.0/deed.zh",
+        order = 270000,
+        parentChapterId = 547,
+        type = 0,
+        userControlSetTop = false,
+        visible = 1
     )
     WanDevelopTheme {
         Column(
@@ -157,8 +152,8 @@ private fun CourseCardPreview() {
                 .padding(vertical = 10.dp)
         ) {
             CourseCard(
-                modifier = Modifier,
-                feed = feed,
+                modifier = Modifier.padding(12.dp),
+                course = course,
             )
         }
     }

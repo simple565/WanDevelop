@@ -1,4 +1,4 @@
-package com.maureen.wandevelop.ext
+package com.maureen.wandevelop.core.ext
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavBackStackEntry
@@ -25,5 +25,5 @@ fun <T: Any> NavHostController.navigateToBottomNavDestination(destination: WanDe
 
 @Composable
 fun <T : Any> NavBackStackEntry.isCurrentBottomNavDestination(destination: WanDevNavDestination<T>): Boolean {
-    return this.destination.hierarchy.any { it.hasRoute(route = destination.route::class) } == true
+    return this.destination.hierarchy.any { it.hasRoute(route = destination.route::class) }
 }

@@ -1,16 +1,17 @@
 package com.maureen.wandevelop.network
 
-import com.maureen.wandevelop.entity.ArticleInfo
-import com.maureen.wandevelop.entity.BannerInfo
-import com.maureen.wandevelop.entity.BasePage
-import com.maureen.wandevelop.entity.BaseResponse
-import com.maureen.wandevelop.entity.CollectionInfo
-import com.maureen.wandevelop.entity.HotkeyInfo
-import com.maureen.wandevelop.entity.MessageInfo
-import com.maureen.wandevelop.entity.SharerInfo
-import com.maureen.wandevelop.entity.SystemNodeInfo
-import com.maureen.wandevelop.entity.UserDetailInfo
-import com.maureen.wandevelop.entity.UserInfo
+import com.maureen.wandevelop.core.network.RetrofitManager
+import com.maureen.wandevelop.network.entity.ArticleInfo
+import com.maureen.wandevelop.network.entity.BannerInfo
+import com.maureen.wandevelop.network.entity.BasePage
+import com.maureen.wandevelop.network.entity.BaseResponse
+import com.maureen.wandevelop.network.entity.CollectionInfo
+import com.maureen.wandevelop.network.entity.HotkeyInfo
+import com.maureen.wandevelop.network.entity.MessageInfo
+import com.maureen.wandevelop.network.entity.SharerInfo
+import com.maureen.wandevelop.network.entity.SystemNodeInfo
+import com.maureen.wandevelop.network.entity.UserDetailInfo
+import com.maureen.wandevelop.network.entity.UserInfo
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
@@ -116,7 +117,13 @@ interface WanAndroidService {
      * 体系数据列表
      */
     @GET("tree/json")
-    suspend fun treeList(): BaseResponse<List<SystemNodeInfo>>
+    suspend fun systemNodeList(): BaseResponse<List<SystemNodeInfo>>
+
+    /**
+     * 体系下文章列表
+     */
+    @GET("article/list/{page}/json")
+    suspend fun systemNodeArticleList(@Path("page") page: Int, @Query("cid") cid: Int): BaseResponse<BasePage<ArticleInfo>>
 
     /**
      * 收藏文章列表
@@ -129,7 +136,7 @@ interface WanAndroidService {
      * 收藏文章
      */
     @POST("lg/collect/{id}/json")
-    suspend fun collect(@Path("id") id: Long): BaseResponse<String?>
+    suspend fun collect(@Path("id") id: Int): BaseResponse<String?>
 
     /**
      * 已收藏列表取消收藏
@@ -145,7 +152,7 @@ interface WanAndroidService {
      * 文章列表取消收藏
      */
     @POST("lg/uncollect_originId/{id}/json")
-    suspend fun cancelCollect(@Path("id") id: Long): BaseResponse<String?>
+    suspend fun cancelCollect(@Path("id") id: Int): BaseResponse<String?>
 
     /**
      * 自己分享的文章

@@ -3,8 +3,8 @@ package com.maureen.wandevelop.ext
 import android.content.Context
 import com.maureen.wandevelop.R
 import com.maureen.wandevelop.core.entity.Feed
-import com.maureen.wandevelop.entity.ArticleInfo
-import com.maureen.wandevelop.entity.TagInfo
+import com.maureen.wandevelop.network.entity.ArticleInfo
+import com.maureen.wandevelop.network.entity.TagInfo
 
 fun ArticleInfo.getDisplayTags(context: Context): List<TagInfo> {
     val newTags = mutableListOf<TagInfo>()

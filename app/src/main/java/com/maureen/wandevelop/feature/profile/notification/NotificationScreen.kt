@@ -32,7 +32,7 @@ import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemKey
 import com.maureen.wandevelop.R
-import com.maureen.wandevelop.entity.MessageInfo
+import com.maureen.wandevelop.network.entity.MessageInfo
 import com.maureen.wandevelop.ui.composable.WanDevTopAppBar
 import com.maureen.wandevelop.ui.tooling.UiModePreviews
 
@@ -62,10 +62,7 @@ internal fun NotificationScreen(
 
             PullToRefreshBox(
                 isRefreshing = pagingItems.loadState.refresh == LoadState.Loading,
-                onRefresh = {
-                    // TODO: 会崩溃暂时注释
-                    /*pagingItems.refresh()*/
-                },
+                onRefresh = { pagingItems.refresh() },
                 modifier = Modifier.padding(top = padding.calculateTopPadding()),
                 state = state
             ) {

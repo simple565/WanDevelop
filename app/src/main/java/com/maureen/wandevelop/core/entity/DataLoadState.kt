@@ -8,5 +8,5 @@ data class DataLoadState<T>(
     val isLoading: Boolean = false,
     val errorMsg: String = "",
     val dataList: List<T> = emptyList(),
-    val operatedIdSet: Set<Long> = emptySet()
+    val operatedIdSet: Set<Int> = emptySet()
 )
