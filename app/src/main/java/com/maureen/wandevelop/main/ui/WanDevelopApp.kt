@@ -39,7 +39,8 @@ fun WanDevelopApp(
                 onBackClick = navController::popBackStack
             )
             courseDetailScreen(
-                onBackClick = navController::popBackStack
+                onBackClick = navController::popBackStack,
+                onFeedClick = navController::navigateToFeedDetail
             )
             indexScreen(
                 appState = appState
