@@ -12,6 +12,7 @@ import com.maureen.wandevelop.MyApplication
 @Database(entities = [ReadRecord::class, SearchKey::class], version = 1)
 abstract class AppDatabase : RoomDatabase() {
     companion object {
+        @JvmStatic
         val instance by lazy {
             Room.databaseBuilder(
                 MyApplication.instance.applicationContext,
