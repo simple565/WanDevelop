@@ -3,7 +3,6 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 plugins {
     alias(libs.plugins.com.android.application)
     alias(libs.plugins.com.google.devtools.ksp)
-    alias(libs.plugins.org.jetbrains.kotlin.android)
     alias(libs.plugins.org.jetbrains.kotlin.serialization)
     alias(libs.plugins.org.jetbrains.kotlin.compose)
     alias(libs.plugins.androidx.navigation.safeargs)
@@ -17,7 +16,6 @@ android {
     defaultConfig {
         applicationId = "com.maureen.wandevelop"
         minSdk = libs.versions.minVersion.get().toInt()
-        //noinspection OldTargetApi
         targetSdk = libs.versions.targetVersion.get().toInt()
         versionCode = 1
         versionName = "1.0"
@@ -37,18 +35,20 @@ android {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
-    room {
-        schemaDirectory("$projectDir/schemas")
-    }
 
-    kotlin {
-        compilerOptions {
-            jvmTarget = JvmTarget.fromTarget("17")
-        }
-    }
     buildFeatures {
         compose = true
     }
+}
+
+kotlin {
+    compilerOptions {
+        jvmTarget = JvmTarget.fromTarget("17")
+    }
+}
+
+room {
+    schemaDirectory("$projectDir/schemas")
 }
 
 dependencies {
@@ -66,7 +66,6 @@ dependencies {
     implementation(libs.androidx.room.ktx)
     ksp(libs.androidx.room.compiler)
 
-    // Compose
     val composeBom = platform(libs.androidx.compose.bom)
     implementation(composeBom)
     implementation(libs.androidx.compose.material.icons.core)
