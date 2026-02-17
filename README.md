@@ -1,7 +1,6 @@
 # WanDevelop
 
-使用Kotlin语言，UI使用Jetpack
-Compose编写，数据源于[玩Android网站提供的API](https://www.wanandroid.com/)
+使用Kotlin语言，UI使用Jetpack Compose编写，数据源于[玩Android网站提供的API](https://www.wanandroid.com/)
 
 ## 功能模块
 
@@ -15,7 +14,7 @@ Compose编写，数据源于[玩Android网站提供的API](https://www.wanandroi
 - 搜索
     - [x] 搜索历史
     - [x] 热搜关键词
-    - [ ] 最受欢迎模块
+    - [x] 最受欢迎板块
 - 我的
     - [x] 用户信息
     - [x] 站内消息

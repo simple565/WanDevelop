@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
@@ -15,6 +16,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.ArrowBack
 import androidx.compose.material.icons.filled.Clear
@@ -29,6 +31,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
@@ -56,9 +59,10 @@ internal fun SearchScreen(
     val hotkeyState by viewModel.hotkeyInfoUiState.collectAsStateWithLifecycle()
     val searchHistoryState by viewModel.historyKeyUiState.collectAsStateWithLifecycle()
     val searchResultList = viewModel.searchResultFlow.collectAsLazyPagingItems()
+    val popularSectionList by viewModel.popularSectionListState.collectAsStateWithLifecycle()
 
     Column(
-        modifier = modifier.fillMaxSize()
+        modifier = modifier.fillMaxSize().background(color = MaterialTheme.colorScheme.background)
     ) {
         SearchToolbar(
             onBackIconClick = onBackClick,
@@ -77,20 +81,43 @@ internal fun SearchScreen(
                 onItemClick = { onFeedClick(it.url) }
             )
         } else {
-            if (hotkeyState.first) {
-                HotKeyFlowRow(
-                    hotkeyInfoList = hotkeyState.second,
-                    onHotkeyClick = { viewModel.onSearchKeywordChanged(it.name, true) }
-                )
-            }
-            if (searchHistoryState.second.isNotEmpty()) {
-                SearchHistoryFlowRow(
-                    historyList = searchHistoryState.second,
-                    isDeleteModeOn = searchHistoryState.first,
-                    onDeleteModeChange = { viewModel.deleteSearchHistory(if (it) emptyList() else null) },
-                    onDeleteClick = { viewModel.deleteSearchHistory(it) },
-                    onHistoryClick = { viewModel.onSearchKeywordChanged(it, true) }
-                )
+            LazyColumn(
+                modifier = Modifier.fillMaxSize(),
+                contentPadding = PaddingValues(10.dp),
+                verticalArrangement = Arrangement.spacedBy(10.dp)
+            ) {
+                if (searchHistoryState.second.isNotEmpty()) {
+                    item {
+                        SearchHistoryFlowRow(
+                            historyList = searchHistoryState.second,
+                            isDeleteModeOn = searchHistoryState.first,
+                            onDeleteModeChange = { viewModel.deleteSearchHistory(if (it) emptyList() else null) },
+                            onDeleteClick = { viewModel.deleteSearchHistory(it) },
+                            onHistoryClick = { viewModel.onSearchKeywordChanged(it, true) }
+                        )
+                    }
+                }
+                if (hotkeyState.first) {
+                    item {
+                        HotKeyFlowRow(
+                            hotkeyInfoList = hotkeyState.second,
+                            onHotkeyClick = { viewModel.onSearchKeywordChanged(it.name, true) }
+                        )
+                    }
+                }
+                item {
+                    Text(
+                        text = stringResource(R.string.prompt_most_popular_section),
+                        style = MaterialTheme.typography.titleSmall,
+                        modifier = Modifier
+                    )
+                }
+                item {
+                    MostPopularSectionRow(
+                        sections = popularSectionList,
+                        modifier = Modifier.fillMaxWidth().height(180.dp)
+                    )
+                }
             }
         }
     }
@@ -155,11 +182,7 @@ internal fun SearchHistoryFlowRow(
     onDeleteClick: (List<String>) -> Unit = {},
     onHistoryClick: (String) -> Unit = {}
 ) {
-    Column(
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(10.dp)
-    ) {
+    Column(modifier = modifier) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -219,6 +242,11 @@ internal fun SearchHistoryFlowRow(
             historyList.forEach {
                 Row(
                     modifier = Modifier
+                        .background(
+                            color = MaterialTheme.colorScheme.surfaceBright,
+                            shape = MaterialTheme.shapes.medium
+                        )
+                        .clip(shape = MaterialTheme.shapes.medium)
                         .clickable {
                             if (isDeleteModeOn) {
                                 onDeleteClick.invoke(listOf(it))
@@ -226,10 +254,6 @@ internal fun SearchHistoryFlowRow(
                                 onHistoryClick.invoke(it)
                             }
                         }
-                        .background(
-                            color = MaterialTheme.colorScheme.surfaceBright,
-                            shape = MaterialTheme.shapes.medium
-                        )
                         .padding(10.dp),
                     horizontalArrangement = Arrangement.Center,
                     verticalAlignment = Alignment.CenterVertically
@@ -261,11 +285,7 @@ internal fun HotKeyFlowRow(
     modifier: Modifier = Modifier,
     onHotkeyClick: (HotkeyInfo) -> Unit = {}
 ) {
-    Column(
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(10.dp)
-    ) {
+    Column(modifier = modifier) {
         Text(
             text = stringResource(R.string.prompt_hotkey),
             style = MaterialTheme.typography.titleSmall
@@ -281,15 +301,16 @@ internal fun HotKeyFlowRow(
                 Text(
                     text = it.name,
                     modifier = Modifier
-                        .clickable {
-                            onHotkeyClick.invoke(it)
-                        }
                         .background(
                             color = MaterialTheme.colorScheme.surfaceBright,
                             shape = MaterialTheme.shapes.medium
                         )
+                        .clip(shape = MaterialTheme.shapes.medium)
+                        .clickable {
+                            onHotkeyClick.invoke(it)
+                        }
                         .padding(10.dp),
-                    style = WanDevelopTypography.labelLarge,
+                    style = WanDevelopTypography.labelLarge
                 )
             }
         }

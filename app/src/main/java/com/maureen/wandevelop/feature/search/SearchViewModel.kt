@@ -10,11 +10,13 @@ import com.maureen.wandevelop.MyApplication
 import com.maureen.wandevelop.core.entity.Feed
 import com.maureen.wandevelop.ext.toFeed
 import com.maureen.wandevelop.network.entity.HotkeyInfo
+import com.maureen.wandevelop.network.entity.PopularSectionItem
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.mapLatest
@@ -48,7 +50,7 @@ class SearchViewModel(private val savedStateHandle: SavedStateHandle) : ViewMode
     }.cachedIn(viewModelScope)
         .stateIn(
             scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(5_000),
+            started = SharingStarted.WhileSubscribed(),
             initialValue = PagingData.empty()
         )
 
@@ -62,7 +64,7 @@ class SearchViewModel(private val savedStateHandle: SavedStateHandle) : ViewMode
             }
         }.stateIn(
             scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(5_000),
+            started = SharingStarted.WhileSubscribed(),
             initialValue = Pair(false, emptyList())
         )
 
@@ -71,9 +73,17 @@ class SearchViewModel(private val savedStateHandle: SavedStateHandle) : ViewMode
             Pair(deleteState, hotkeyList.map { key -> key.key })
         }.stateIn(
             scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(5_000),
+            started = SharingStarted.WhileSubscribed(),
             initialValue = Pair(false, emptyList())
         )
+
+    val popularSectionListState: StateFlow<List<Pair<String, List<PopularSectionItem>>>> = flow {
+        emit(repository.getPopularSectionList())
+    }.stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(),
+        initialValue = emptyList()
+    )
 
     fun onSearchKeywordChanged(keyword: String, confirm: Boolean = false) = viewModelScope.launch {
         savedStateHandle[SearchRepository.KEY_SEARCH_KEYWORD] = keyword to confirm

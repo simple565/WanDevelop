@@ -31,6 +31,7 @@
     <string name="search">搜索</string>
     <string name="prompt_hotkey">热门搜索</string>
     <string name="prompt_search_history">历史搜索</string>
+    <string name="prompt_most_popular_section">最受欢迎板块</string>
 
     <string name="nav_profile">我的</string>
     <string name="nav_sign_in_or_up">注册/登录</string>

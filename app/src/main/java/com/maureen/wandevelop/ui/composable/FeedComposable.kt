@@ -24,7 +24,6 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.MoreVert
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.LinearProgressIndicator
@@ -55,7 +54,6 @@ import com.maureen.wandevelop.ui.tooling.UiModePreviews
 /**
  * Feed流页面（下拉刷新，上拉加载更多）
  */
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FeedPullToRefreshBox(
     pagingItems: LazyPagingItems<Feed>,
@@ -67,7 +65,7 @@ fun FeedPullToRefreshBox(
     onItemClick: (Feed) -> Unit = {},
     onItemLongClick: (Feed) -> Unit = {},
     onMoreClick: (Feed) -> Unit = {},
-    toggleCollect: (Feed, Boolean) -> Unit = {_, _ -> },
+    toggleCollect: (Feed, Boolean) -> Unit = { _, _ -> },
     noMoreDataHint: String = stringResource(R.string.load_no_more_data),
     onNoMoreDataHintClick: () -> Unit = {}
 ) {
@@ -111,7 +109,7 @@ fun FeedPagingColumn(
     showMoreButton: Boolean = false,
     onItemClick: (Feed) -> Unit = {},
     onItemLongClick: (Feed) -> Unit = {},
-    toggleCollect: (Feed, Boolean) -> Unit = {_, _ -> },
+    toggleCollect: (Feed, Boolean) -> Unit = { _, _ -> },
     onMoreClick: (Feed) -> Unit = {},
     noMoreDataHint: String = stringResource(R.string.load_no_more_data),
     onNoMoreDataHintClick: () -> Unit = {}
@@ -189,7 +187,7 @@ fun FeedCard(
     modifier: Modifier = Modifier,
     showCollectButton: Boolean = false,
     isCollect: Boolean = false,
-    toggleCollect: (Feed, Boolean) -> Unit = {_, _ -> },
+    toggleCollect: (Feed, Boolean) -> Unit = { _, _ -> },
     showMoreButton: Boolean = false,
     onMoreClick: (Feed) -> Unit = {},
     onCardClick: (Feed) -> Unit = {},
@@ -199,13 +197,14 @@ fun FeedCard(
         modifier = modifier
             .fillMaxWidth()
             .defaultMinSize(minHeight = 100.dp)
-            .combinedClickable(
-                onLongClick = { onCardLongClick(feed) },
-                onClick = { onCardClick(feed) },
-            )
             .background(
                 color = MaterialTheme.colorScheme.surfaceBright,
                 shape = MaterialTheme.shapes.medium
+            )
+            .clip(shape = MaterialTheme.shapes.medium)
+            .combinedClickable(
+                onLongClick = { onCardLongClick(feed) },
+                onClick = { onCardClick(feed) },
             )
             .padding(10.dp),
         verticalArrangement = Arrangement.SpaceBetween
@@ -357,7 +356,7 @@ fun FeedCardPreview() {
                 feed = feed,
                 isCollect = false,
                 showCollectButton = true,
-                toggleCollect = {_, _ -> },
+                toggleCollect = { _, _ -> },
                 showMoreButton = true,
                 onMoreClick = {}
             )

@@ -4,6 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 /**
+ * 教程实习类
  * @author lianml
  * @date 2025/2/9
  */

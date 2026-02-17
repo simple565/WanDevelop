@@ -8,9 +8,11 @@ import com.maureen.wandevelop.db.SearchKey
 import com.maureen.wandevelop.network.WanAndroidService
 import com.maureen.wandevelop.network.entity.ArticleInfo
 import com.maureen.wandevelop.network.entity.HotkeyInfo
+import com.maureen.wandevelop.network.entity.PopularSectionItem
 import com.maureen.wandevelop.util.UserPrefUtil
 import com.maureen.wandevelop.util.UserPrefUtil.KEY_SHOW_HOTKEY
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
@@ -92,5 +94,14 @@ class SearchRepository {
         }
     }
 
-
+    suspend fun getPopularSectionList(): List<Pair<String, List<PopularSectionItem>>> = withContext(Dispatchers.IO) {
+        val qa = async { NetworkRequest.requestSafely { WanAndroidService.instance.popularQa() } }
+        val route = async { NetworkRequest.requestSafely { WanAndroidService.instance.popularRoute() } }
+        val column = async { NetworkRequest.requestSafely { WanAndroidService.instance.popularColumn() } }
+        return@withContext listOf(
+            "最新学习路线" to (route.await().data?.map { PopularSectionItem(title = it.name, url = "https://www.wanandroid.com/route/show/${it.id}") } ?: emptyList()),
+            "最受欢迎问答" to (qa.await().data?.map { PopularSectionItem(title = it.title, url = it.link) }  ?: emptyList()),
+            "最受欢迎专栏" to (column.await().data?.map { PopularSectionItem(title = it.name, url = it.url) }  ?: emptyList())
+        )
+    }
 }

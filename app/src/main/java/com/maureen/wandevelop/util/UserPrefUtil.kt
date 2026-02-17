@@ -50,7 +50,7 @@ object UserPrefUtil {
 
     suspend fun setPreference(key: String, value: String) {
         dataStore.edit {
-            it[stringPreferencesKey(key)] = value.toString()
+            it[stringPreferencesKey(key)] = value
         }
     }
 

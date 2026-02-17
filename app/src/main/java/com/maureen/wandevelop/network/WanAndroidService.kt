@@ -1,11 +1,14 @@
 package com.maureen.wandevelop.network
 
+import androidx.annotation.IntRange
 import com.maureen.wandevelop.core.network.RetrofitManager
 import com.maureen.wandevelop.network.entity.ArticleInfo
 import com.maureen.wandevelop.network.entity.BannerInfo
 import com.maureen.wandevelop.network.entity.BasePage
 import com.maureen.wandevelop.network.entity.BaseResponse
 import com.maureen.wandevelop.network.entity.CollectionInfo
+import com.maureen.wandevelop.network.entity.ColumnInfo
+import com.maureen.wandevelop.network.entity.CourseInfo
 import com.maureen.wandevelop.network.entity.HotkeyInfo
 import com.maureen.wandevelop.network.entity.MessageInfo
 import com.maureen.wandevelop.network.entity.SharerInfo
@@ -68,14 +71,14 @@ interface WanAndroidService {
      * @param page 从1开始
      */
     @GET("message/lg/unread_list/{page}/json")
-    suspend fun unreadMessageList(@Path("page") page: Int): BaseResponse<BasePage<MessageInfo>>
+    suspend fun unreadMessageList(@IntRange(from = 1) @Path("page") page: Int): BaseResponse<BasePage<MessageInfo>>
 
     /**
      * 已读消息列表
      * @param page 从1开始
      */
     @GET("message/lg/readed_list/{page}/json")
-    suspend fun readMessageList(@Path("page") page: Int): BaseResponse<BasePage<MessageInfo>>
+    suspend fun readMessageList(@IntRange(from = 1) @Path("page") page: Int): BaseResponse<BasePage<MessageInfo>>
 
     @GET("banner/json")
     suspend fun banner(): BaseResponse<List<BannerInfo>>
@@ -105,7 +108,25 @@ interface WanAndroidService {
      * @param page 从1开始
      */
     @GET("wenda/list/{page}/json")
-    suspend fun qaList(@Path("page") page: Int): BaseResponse<BasePage<ArticleInfo>>
+    suspend fun qaList(@IntRange(from = 1) @Path("page") page: Int): BaseResponse<BasePage<ArticleInfo>>
+
+    /**
+     * 最受欢迎-问答
+     */
+    @GET("popular/wenda/json")
+    suspend fun popularQa(): BaseResponse<List<ArticleInfo>>
+
+    /**
+     * 最受欢迎-路线
+     */
+    @GET("popular/route/json")
+    suspend fun popularRoute(): BaseResponse<List<CourseInfo>>
+
+    /**
+     * 最受欢迎-专栏
+     */
+    @GET("popular/column/json")
+    suspend fun popularColumn(): BaseResponse<List<ColumnInfo>>
 
     /**
      * 课程列表
@@ -159,7 +180,7 @@ interface WanAndroidService {
      * @param page 从1开始
      */
     @GET("user/lg/private_articles/{page}/json")
-    suspend fun myShareList(@Path("page") page: Int): BaseResponse<BasePage<ArticleInfo>>
+    suspend fun myShareList(@IntRange(from = 1) @Path("page") page: Int): BaseResponse<BasePage<ArticleInfo>>
 
     /**
      * 热门搜索关键词
@@ -195,6 +216,6 @@ interface WanAndroidService {
     @GET("user/{id}/share_articles/{page}/json")
     suspend fun sharerInfo(
         @Path("id") userId: Int,
-        @Path("page") page: Int
+        @IntRange(from = 1) @Path("page") page: Int
     ): BaseResponse<SharerInfo>
 }
