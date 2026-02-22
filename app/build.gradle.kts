@@ -21,6 +21,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
     signingConfigs {
         getByName("debug") {
@@ -47,7 +48,7 @@ android {
 kotlin {
     jvmToolchain {
         languageVersion.set(JavaLanguageVersion.of(17))
-    }
+    } 
 }
 
 room {

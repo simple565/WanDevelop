@@ -2,10 +2,8 @@ package com.maureen.wandevelop.main.ui
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.material3.Icon
@@ -98,7 +96,7 @@ internal fun IndexPage(
                 modifier = Modifier.windowInsetsPadding(WindowInsets.safeDrawing)
             )
         },
-    ) { padding ->
+    ) { _ ->
         IndexHost(
             appState = appState,
             navController = navController,
@@ -110,8 +108,6 @@ internal fun IndexPage(
                 ) == ActionPerformed
             },
             modifier = Modifier
-                .padding(padding)
-                .consumeWindowInsets(padding)
         )
     }
 }

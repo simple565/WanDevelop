@@ -56,7 +56,7 @@ internal fun HomeScreen(
             pagingItems = feedPagingItems,
             modifier = Modifier
                 .fillMaxSize()
-                .padding(top = innerPadding.calculateTopPadding()),
+                .padding(innerPadding),
             header = {
                 if (bannerListState.first) {
                     BannerContainer(

@@ -3,6 +3,7 @@ package com.maureen.wandevelop.feature.discovery
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.safeContentPadding
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -35,7 +36,7 @@ internal fun DiscoveryPage(
     viewModel: DiscoveryViewModel = viewModel()
 ) {
     Column(
-        modifier = modifier.fillMaxSize(),
+        modifier = modifier.safeContentPadding().fillMaxSize(),
         content = {
             val pagerState = rememberPagerState(pageCount = { viewModel.pageList.size })
             val coroutineScope = rememberCoroutineScope()

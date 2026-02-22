@@ -33,7 +33,7 @@ fun WanDevelopApp(
                 modifier = Modifier.windowInsetsPadding(WindowInsets.safeDrawing)
             )
         },
-    ) { padding ->
+    ) { _ ->
         NavHost(modifier = modifier, navController = navController, startDestination = IndexRoute) {
             feedDetailScreen(
                 onBackClick = navController::popBackStack
