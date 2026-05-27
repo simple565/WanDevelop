@@ -23,20 +23,20 @@ android {
         compose = true
         buildConfig = true
     }
-    signingConfigs {
+    /*signingConfigs {
         getByName("debug") {
             storeFile = file("./wd.jks")
             storePassword = "androiddebug"
             keyAlias = "wdkeystore"
             keyPassword = "androiddebug"
         }
-    }
+    }*/
     buildTypes {
         release {
             isMinifyEnabled = true
             isShrinkResources = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
-            signingConfig = signingConfigs.getByName("debug")
+//            signingConfig = signingConfigs.getByName("debug")
         }
     }
     compileOptions {
