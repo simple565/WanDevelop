@@ -26,6 +26,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -130,11 +131,7 @@ private fun ProfileScreen(
                 )
 
                 UserDataCard(
-                    dataList = mapOf(
-                        R.string.prompt_level to profileInfo.level,
-                        R.string.prompt_coin to profileInfo.coin,
-                        R.string.prompt_rank to profileInfo.rank
-                    ),
+                    profileInfo = profileInfo,
                     onItemClick = entranceItemClick,
                     modifier = Modifier
                         .padding(top = 16.dp)
@@ -197,6 +194,27 @@ private fun UserBriefInfoColumn(
  */
 @Composable
 private fun UserDataCard(
+    profileInfo: ProfileInfo,
+    onItemClick: (Int) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    val dataList = remember(profileInfo.level, profileInfo.coin, profileInfo.rank) {
+        mapOf(
+            R.string.prompt_level to profileInfo.level,
+            R.string.prompt_coin to profileInfo.coin,
+            R.string.prompt_rank to profileInfo.rank
+        )
+    }
+
+    UserDataCard(
+        dataList = dataList,
+        onItemClick = onItemClick,
+        modifier = modifier
+    )
+}
+
+@Composable
+private fun UserDataCard(
     dataList: Map<Int, String>,
     onItemClick: (Int) -> Unit,
     modifier: Modifier = Modifier
@@ -210,7 +228,7 @@ private fun UserDataCard(
         horizontalArrangement = Arrangement.SpaceAround,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        dataList.onEachIndexed { index, value ->
+        dataList.forEach { value ->
             Column(
                 modifier = Modifier
                     .clickable { onItemClick(value.key) }

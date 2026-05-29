@@ -25,7 +25,7 @@ class SettingsViewModel(application: Application) : AndroidViewModel(application
 
     val settingItemsFlow = repository.getSettingItems(application.applicationContext).stateIn(
         scope = viewModelScope,
-        started = SharingStarted.Eagerly,
+        started = SharingStarted.WhileSubscribed(5000),
         initialValue = repository.defaultSettingList
     )
 

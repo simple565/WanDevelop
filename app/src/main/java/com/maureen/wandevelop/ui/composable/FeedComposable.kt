@@ -32,6 +32,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -121,13 +122,14 @@ fun FeedPagingColumn(
         verticalArrangement = Arrangement.spacedBy(10.dp),
     ) {
         if (null != header) {
-            item {
+            item(contentType = "header") {
                 header()
             }
         }
         items(
             count = pagingItems.itemCount,
-            key = pagingItems.itemKey { it.id }
+            key = pagingItems.itemKey { it.id },
+            contentType = { "feed" }
         ) { index ->
             val feed = pagingItems[index] ?: return@items
             FeedCard(
@@ -144,7 +146,7 @@ fun FeedPagingColumn(
         }
         pagingItems.loadState.append.also {
             if (it is LoadState.NotLoading && it.endOfPaginationReached) {
-                item {
+                item(contentType = "footer") {
                     Text(
                         text = noMoreDataHint,
                         style = MaterialTheme.typography.bodyMedium,
@@ -157,14 +159,14 @@ fun FeedPagingColumn(
                     )
                 }
             } else if (it is LoadState.Loading) {
-                item {
+                item(contentType = "loading") {
                     LinearProgressIndicator(modifier = Modifier.fillMaxWidth())
                 }
             } else {
                 val errorMsg =
                     (pagingItems.loadState.append as? LoadState.Error)?.error?.message ?: ""
                 if (errorMsg.isNotBlank()) {
-                    item {
+                    item(contentType = "error") {
                         Text(
                             text = errorMsg,
                             style = MaterialTheme.typography.bodyMedium,
@@ -210,8 +212,9 @@ fun FeedCard(
         verticalArrangement = Arrangement.SpaceBetween
     ) {
         Box(modifier = Modifier.fillMaxWidth()) {
+            val titleAnnotated = remember(feed.title) { AnnotatedString.fromHtml(feed.title) }
             Text(
-                text = AnnotatedString.fromHtml(feed.title),
+                text = titleAnnotated,
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(end = if (showCollectButton) 28.dp else 0.dp),

@@ -1,6 +1,5 @@
 package com.maureen.wandevelop.feature.profile.sign
 
-import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
@@ -67,7 +66,6 @@ internal fun SignInOrUpScreen(
     val inputs by viewModel.inputState.collectAsStateWithLifecycle()
     val buttonEnable by remember { derivedStateOf { inputs.isNotEmpty() && inputs.none { state -> state.value.input.isBlank() or state.value.isError } } }
     val signState by viewModel.signState.collectAsStateWithLifecycle()
-    Log.d("TAG", "SignInOrUpScreen: $signState")
     if (signState.isLoading) {
         ProgressDialog(
             message = stringResource(if (isSignInMode) R.string.prompt_sign_in_loading else R.string.prompt_sign_up_loading)

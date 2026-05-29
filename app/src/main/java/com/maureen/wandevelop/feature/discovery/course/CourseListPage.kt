@@ -18,6 +18,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
@@ -89,8 +90,9 @@ private fun CourseCard(
                     .padding(start = 10.dp)
                     .fillMaxWidth()
             ) {
+                val nameAnnotated = remember(course.name) { AnnotatedString.fromHtml(course.name) }
                 Text(
-                    text = AnnotatedString.fromHtml(course.name),
+                    text = nameAnnotated,
                     style = WanDevelopTypography.titleMedium,
                     color = MaterialTheme.colorScheme.onSurface,
                     modifier = Modifier.fillMaxWidth()
@@ -103,8 +105,9 @@ private fun CourseCard(
                         .fillMaxWidth()
                         .padding(top = 8.dp)
                 )
+                val descAnnotated = remember(course.desc) { AnnotatedString.fromHtml(course.desc) }
                 Text(
-                    text = AnnotatedString.fromHtml(course.desc),
+                    text = descAnnotated,
                     maxLines = 3,
                     overflow = TextOverflow.Ellipsis,
                     style = WanDevelopTypography.labelSmall,

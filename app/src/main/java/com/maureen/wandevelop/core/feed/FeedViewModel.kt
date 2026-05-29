@@ -22,7 +22,7 @@ open class FeedViewModel : ViewModel() {
     val collectedIsSetFlow = feedRepository.loadCollectedIdSet()
         .stateIn(
             scope = viewModelScope,
-            started = SharingStarted.Eagerly,
+            started = SharingStarted.WhileSubscribed(5000),
             initialValue = emptySet()
         )
 

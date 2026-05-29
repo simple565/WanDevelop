@@ -3,6 +3,7 @@ package com.maureen.wandevelop.main.ui
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -97,7 +98,7 @@ internal fun IndexPage(
                 modifier = Modifier.windowInsetsPadding(WindowInsets.safeDrawing)
             )
         },
-    ) { _ ->
+    ) { innerPadding ->
         IndexHost(
             appState = appState,
             navController = navController,
@@ -108,7 +109,7 @@ internal fun IndexPage(
                     duration = SnackbarDuration.Short,
                 ) == ActionPerformed
             },
-            modifier = Modifier
+            modifier = Modifier.padding(top = innerPadding.calculateTopPadding())
         )
     }
 }

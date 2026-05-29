@@ -1,6 +1,7 @@
 package com.maureen.wandevelop.feature.discovery.course
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -26,6 +27,7 @@ import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
@@ -40,7 +42,6 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.maureen.wandevelop.R
-import com.maureen.wandevelop.core.ext.clickable
 import com.maureen.wandevelop.network.entity.ArticleInfo
 import com.maureen.wandevelop.network.entity.SystemNodeInfo
 import com.maureen.wandevelop.ui.composable.WanDevTopAppBar
@@ -158,8 +159,9 @@ private fun CourseInfoRow(course: SystemNodeInfo, modifier: Modifier = Modifier)
                 .padding(start = 12.dp)
                 .fillMaxWidth()
         ) {
+            val nameAnnotated = remember(course.name) { AnnotatedString.fromHtml(course.name) }
             Text(
-                text = AnnotatedString.fromHtml(course.name),
+                text = nameAnnotated,
                 style = WanDevelopTypography.titleMedium,
                 color = MaterialTheme.colorScheme.onSurface,
                 modifier = Modifier.fillMaxWidth()
@@ -172,8 +174,9 @@ private fun CourseInfoRow(course: SystemNodeInfo, modifier: Modifier = Modifier)
                     .fillMaxWidth()
                     .padding(top = 8.dp)
             )
+            val descAnnotated = remember(course.desc) { AnnotatedString.fromHtml(course.desc) }
             Text(
-                text = AnnotatedString.fromHtml(course.desc),
+                text = descAnnotated,
                 maxLines = 3,
                 overflow = TextOverflow.Ellipsis,
                 style = WanDevelopTypography.labelSmall,
@@ -233,8 +236,11 @@ private fun ChapterRow(
     modifier: Modifier = Modifier,
     index: Int = 0
 ) {
+    val titleAnnotated = remember(articleInfo.title, index) {
+        AnnotatedString.fromHtml("${index.plus(1)}.${articleInfo.title}")
+    }
     Text(
-        text = AnnotatedString.fromHtml("${index.plus(1)}.${articleInfo.title}"),
+        text = titleAnnotated,
         modifier = modifier
             .clickable { itemClick(articleInfo) }
             .padding(vertical = 10.dp),
