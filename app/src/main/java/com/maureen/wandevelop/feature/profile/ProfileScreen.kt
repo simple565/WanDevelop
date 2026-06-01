@@ -82,7 +82,7 @@ private fun ProfileScreen(
     modifier: Modifier = Modifier
 ) {
     Scaffold(
-        modifier = modifier.fillMaxSize(),
+        modifier = modifier.then(Modifier.fillMaxSize()),
         topBar = {
             WanDevTopAppBar(
                 title = {},

@@ -1,26 +1,17 @@
 package com.maureen.wandevelop.main.ui
 
-import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.safeDrawing
-import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.FlexibleBottomAppBar
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBarItem
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.SnackbarDuration
-import androidx.compose.material3.SnackbarHost
-import androidx.compose.material3.SnackbarHostState
-import androidx.compose.material3.SnackbarResult.ActionPerformed
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -67,50 +58,32 @@ internal fun IndexPage(
 ) {
     val navController = rememberNavController()
     val navBackStackEntry by navController.currentBackStackEntryAsState()
-    val snackBarHostState = remember { SnackbarHostState() }
-    Scaffold(
-        modifier = modifier.fillMaxSize(),
-        bottomBar = {
-            FlexibleBottomAppBar(
-                modifier = Modifier.fillMaxWidth(),
-                containerColor = MaterialTheme.colorScheme.surfaceBright
-            ) {
-                WanDevAppState.bottomNavDestinations.forEach { destination ->
-                    NavigationBarItem(
-                        selected = navBackStackEntry?.isCurrentBottomNavDestination(destination) == true,
-                        onClick = { navController.navigateToBottomNavDestination(destination) },
-                        icon = {
-                            Icon(
-                                painter = painterResource(destination.iconId),
-                                contentDescription = stringResource(id = destination.labelId)
-                            )
-                        },
-                        label = {
-                            Text(text = stringResource(id = destination.labelId))
-                        }
-                    )
-                }
-            }
-        },
-        snackbarHost = {
-            SnackbarHost(
-                hostState = snackBarHostState,
-                modifier = Modifier.windowInsetsPadding(WindowInsets.safeDrawing)
-            )
-        },
-    ) { innerPadding ->
+    Column(modifier = modifier.then(Modifier.fillMaxSize())) {
         IndexHost(
             appState = appState,
             navController = navController,
-            onShowSnackBar = { message, action ->
-                snackBarHostState.showSnackbar(
-                    message = message,
-                    actionLabel = action,
-                    duration = SnackbarDuration.Short,
-                ) == ActionPerformed
-            },
-            modifier = Modifier.padding(top = innerPadding.calculateTopPadding())
+            modifier = Modifier.fillMaxWidth().weight(1F)
         )
+        FlexibleBottomAppBar(
+            modifier = Modifier.fillMaxWidth(),
+            containerColor = MaterialTheme.colorScheme.surfaceBright
+        ) {
+            WanDevAppState.bottomNavDestinations.forEach { destination ->
+                NavigationBarItem(
+                    selected = navBackStackEntry?.isCurrentBottomNavDestination(destination) == true,
+                    onClick = { navController.navigateToBottomNavDestination(destination) },
+                    icon = {
+                        Icon(
+                            painter = painterResource(destination.iconId),
+                            contentDescription = stringResource(id = destination.labelId)
+                        )
+                    },
+                    label = {
+                        Text(text = stringResource(id = destination.labelId))
+                    }
+                )
+            }
+        }
     }
 }
 
@@ -118,7 +91,6 @@ internal fun IndexPage(
 private fun IndexHost(
     appState: WanDevAppState,
     navController: NavHostController,
-    onShowSnackBar: suspend (String, String?) -> Boolean,
     modifier: Modifier = Modifier
 ) {
 

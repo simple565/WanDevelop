@@ -30,7 +30,7 @@ internal fun HomeScreen(
     viewModel: HomeViewModel = viewModel()
 ) {
     Scaffold(
-        modifier = modifier.fillMaxSize(),
+        modifier = modifier.then(Modifier.fillMaxSize()),
         topBar = {
             WanDevTopAppBar(
                 title = {},
