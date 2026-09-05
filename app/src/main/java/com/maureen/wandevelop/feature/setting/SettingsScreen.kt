@@ -75,7 +75,7 @@ internal fun SettingsScreen(
                     modifier = Modifier
                         .fillMaxWidth()
                         .background(
-                            color = MaterialTheme.colorScheme.surfaceBright,
+                            color = MaterialTheme.colorScheme.surfaceContainerLowest,
                             shape = MaterialTheme.shapes.large
                         )
                 ) {
@@ -100,7 +100,7 @@ internal fun SettingsScreen(
                         )
                     },
                     shape = MaterialTheme.shapes.large,
-                    colors = ButtonDefaults.textButtonColors(containerColor = MaterialTheme.colorScheme.surfaceBright),
+                    colors = ButtonDefaults.textButtonColors(containerColor = MaterialTheme.colorScheme.surfaceContainerLowest),
                     contentPadding = PaddingValues(vertical = 16.dp),
                     modifier = Modifier
                         .fillMaxWidth()
@@ -121,6 +121,7 @@ private fun SettingItem(
 ) {
     Row(
         modifier = modifier
+            .background(color = MaterialTheme.colorScheme.surfaceContainerLowest)
             .clickable {
                 if (item.type == SettingType.ACTION) {
                     onAction(item.type)
@@ -132,7 +133,8 @@ private fun SettingItem(
     ) {
         Text(
             text = stringResource(item.name),
-            style = MaterialTheme.typography.titleMedium
+            style = MaterialTheme.typography.titleMedium,
+            color = MaterialTheme.colorScheme.onSurface
         )
         if (item.type == SettingType.ACTION) {
             Icon(

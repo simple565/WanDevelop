@@ -200,7 +200,7 @@ fun FeedCard(
             .fillMaxWidth()
             .defaultMinSize(minHeight = 100.dp)
             .background(
-                color = MaterialTheme.colorScheme.surfaceBright,
+                color = MaterialTheme.colorScheme.surfaceContainerLowest,
                 shape = MaterialTheme.shapes.medium
             )
             .clip(shape = MaterialTheme.shapes.medium)
@@ -219,6 +219,7 @@ fun FeedCard(
                     .fillMaxWidth()
                     .padding(end = if (showCollectButton) 28.dp else 0.dp),
                 style = MaterialTheme.typography.titleSmall,
+                color = MaterialTheme.colorScheme.onSurface,
                 maxLines = 2,
                 overflow = TextOverflow.Ellipsis
             )
@@ -259,7 +260,8 @@ fun FeedCard(
                     )
                     Text(
                         text = feed.author,
-                        style = MaterialTheme.typography.labelSmall
+                        style = MaterialTheme.typography.labelSmall,
+                        color = MaterialTheme.colorScheme.onSurface
                     )
                 }
 
@@ -272,7 +274,8 @@ fun FeedCard(
                     )
                     Text(
                         text = feed.publishData,
-                        style = MaterialTheme.typography.labelSmall
+                        style = MaterialTheme.typography.labelSmall,
+                        color = MaterialTheme.colorScheme.onSurface
                     )
                 }
             }
@@ -352,7 +355,7 @@ fun FeedCardPreview() {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(color = MaterialTheme.colorScheme.background)
+                .background(color = MaterialTheme.colorScheme.surface)
         ) {
             FeedCard(
                 modifier = Modifier,

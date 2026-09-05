@@ -7,7 +7,6 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.FlexibleBottomAppBar
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -62,12 +61,11 @@ internal fun IndexPage(
         IndexHost(
             appState = appState,
             navController = navController,
-            modifier = Modifier.fillMaxWidth().weight(1F)
+            modifier = Modifier
+                .fillMaxWidth()
+                .weight(1F)
         )
-        FlexibleBottomAppBar(
-            modifier = Modifier.fillMaxWidth(),
-            containerColor = MaterialTheme.colorScheme.surfaceBright
-        ) {
+        FlexibleBottomAppBar(modifier = Modifier.fillMaxWidth()) {
             WanDevAppState.bottomNavDestinations.forEach { destination ->
                 NavigationBarItem(
                     selected = navBackStackEntry?.isCurrentBottomNavDestination(destination) == true,

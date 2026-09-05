@@ -172,12 +172,14 @@ private fun UserBriefInfoColumn(
             Text(
                 text = stringResource(R.string.nav_sign_in_or_up),
                 modifier = Modifier,
-                style = MaterialTheme.typography.titleMedium
+                style = MaterialTheme.typography.titleMedium,
+                color = MaterialTheme.colorScheme.onSurface
             )
         } else {
             Text(
                 text = profileInfo.name,
-                style = MaterialTheme.typography.titleMedium
+                style = MaterialTheme.typography.titleMedium,
+                color = MaterialTheme.colorScheme.onSurface
             )
             Spacer(modifier = Modifier.size(4.dp))
             Text(
@@ -222,7 +224,7 @@ private fun UserDataCard(
     Row(
         modifier = modifier
             .background(
-                color = MaterialTheme.colorScheme.surfaceBright,
+                color = MaterialTheme.colorScheme.surfaceContainerLowest,
                 shape = MaterialTheme.shapes.large
             ),
         horizontalArrangement = Arrangement.SpaceAround,
@@ -236,7 +238,7 @@ private fun UserDataCard(
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Text(text = stringResource(value.key))
+                Text(text = stringResource(value.key), color = MaterialTheme.colorScheme.onSurface)
                 Spacer(modifier = Modifier.size(6.dp))
                 Text(
                     text = value.value,
@@ -258,7 +260,7 @@ private fun EntranceColumn(
 
     Column(
         modifier = modifier.background(
-            color = MaterialTheme.colorScheme.surfaceBright,
+            color = MaterialTheme.colorScheme.surfaceContainerLowest,
             shape = MaterialTheme.shapes.large
         )
     ) {
